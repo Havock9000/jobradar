@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jobradar</title>
+<!-- Bewusst keine Web-Fonts. Ein <link> auf fonts.googleapis.com meldet bei
+     jedem Oeffnen IP, Browser und aufgerufene Seite an Google — bei einer
+     Seite, die die eigene Stellensuche abbildet, ist das die eine Information,
+     die niemand mitlesen soll. Die CSS-Stacks unten greifen auf Schriften
+     zurueck, die auf Windows, macOS und Linux ohnehin vorhanden sind. -->
+<style>
+:root{
+  --stein:#e9e7e0; --stein-tief:#dbd8cf; --papier:#f5f4f0;
+  --tinte:#1b2018; --tinte-weich:#5c6355;
+  --moos:#40603c; --moos-hell:#6f8f63;
+  --bernstein:#a86a10; --ton:#9c4a2f;
+  --linie:#c9c6bb;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--stein); color:var(--tinte);
+  font-family:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  font-size:16px; line-height:1.55;
+}
+a{color:var(--moos)}
+.wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+
+/* Kopf */
+header{border-bottom:3px solid var(--tinte);padding-bottom:18px;margin-bottom:8px}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--tinte-weich);margin:0 0 6px
+}
+h1{
+  font-family:"Archivo","Arial Narrow",sans-serif;
+  font-weight:700;font-size:clamp(30px,6vw,46px);
+  letter-spacing:-.02em;line-height:1.02;margin:0
+}
+.lauf{
+  font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;font-size:12px;
+  color:var(--tinte-weich);margin-top:10px
+}
+.lauf b{color:var(--tinte);font-weight:600}
+
+/* Legende der Statusspalte – das ist der Kern des Boards */
+.legende{
+  display:flex;flex-wrap:wrap;gap:18px;
+  padding:14px 0 18px;border-bottom:1px solid var(--linie);
+  font-size:13px;color:var(--tinte-weich)
+}
+.legende span{display:flex;align-items:center;gap:7px}
+
+/* Filter */
+.filter{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 26px}
+.filter button{
+  font:inherit;font-size:13px;padding:6px 13px;cursor:pointer;
+  background:transparent;border:1px solid var(--linie);border-radius:999px;
+  color:var(--tinte-weich);transition:none
+}
+.filter button:hover{border-color:var(--tinte-weich)}
+.filter button[aria-pressed="true"]{
+  background:var(--tinte);border-color:var(--tinte);color:var(--papier)
+}
+.filter button:focus-visible{outline:2px solid var(--moos);outline-offset:2px}
+
+/* Gruppen */
+.gruppe{margin-bottom:44px}
+.gruppe h2{
+  font-family:"Archivo",sans-serif;font-weight:600;font-size:19px;
+  letter-spacing:-.01em;margin:0 0 2px;
+  display:flex;align-items:baseline;gap:10px
+}
+.zaehler{
+  font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;font-size:12px;
+  color:var(--tinte-weich);font-weight:400
+}
+.notiz{font-size:14px;color:var(--tinte-weich);margin:0 0 14px;max-width:62ch}
+
+/* Zeile */
+.stelle{
+  display:grid;grid-template-columns:64px 1fr auto;gap:16px;align-items:start;
+  padding:15px 0;border-top:1px solid var(--linie)
+}
+.stelle:last-child{border-bottom:1px solid var(--linie)}
+.stelle.entfernt{opacity:.42}
+
+/* Signaturelement: drei Statusfelder, links, immer gleich positioniert */
+.ampel{display:flex;gap:4px;padding-top:4px}
+.slot{
+  width:18px;height:18px;border-radius:3px;
+  border:1px solid var(--linie);background:var(--papier);
+  font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;font-size:10px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;color:var(--tinte-weich)
+}
+.slot.warn{background:#f0dfae;border-color:var(--bernstein);color:#6b4308}
+.slot.stop{background:#e8cdc2;border-color:var(--ton);color:#7a3320}
+.slot.gut{background:#d5e2cd;border-color:var(--moos);color:#2c4429}
+
+.titel{font-weight:600;font-size:16.5px;line-height:1.3;margin:0 0 3px}
+.titel a{text-decoration:none;color:var(--tinte);border-bottom:1.5px solid var(--moos-hell)}
+.titel a:hover{border-bottom-color:var(--tinte)}
+.meta{
+  font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;font-size:12px;
+  color:var(--tinte-weich);display:flex;flex-wrap:wrap;gap:4px 12px
+}
+.belege{margin:8px 0 0;padding:0;list-style:none}
+.belege li{
+  font-size:12.5px;color:var(--tinte-weich);line-height:1.45;
+  padding-left:14px;position:relative;margin-top:3px
+}
+.belege li::before{
+  content:"";position:absolute;left:0;top:8px;
+  width:6px;height:1px;background:var(--tinte-weich)
+}
+.rechts{text-align:right;white-space:nowrap;padding-top:3px}
+.frist{
+  font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;font-size:11.5px;
+  color:var(--ton);font-weight:600;display:block;margin-top:4px
+}
+.frist.ruhig{color:var(--tinte-weich);font-weight:400}
+.stelle.abgelaufen{opacity:.38}
+.nurtitel{
+  font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;font-size:10.5px;
+  color:var(--tinte-weich);border:1px dashed var(--linie);
+  padding:1px 5px;border-radius:2px;margin-left:6px;white-space:nowrap
+}
+.neu{
+  display:inline-block;font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--bernstein);color:var(--papier);
+  padding:2px 7px;border-radius:2px
+}
+.datum{font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;font-size:12px;color:var(--tinte-weich);display:block;margin-top:5px}
+
+.leer{
+  padding:40px 0;color:var(--tinte-weich);font-size:15px;
+  border-top:1px solid var(--linie)
+}
+footer{
+  margin-top:56px;padding-top:18px;border-top:1px solid var(--linie);
+  font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;font-size:11.5px;
+  color:var(--tinte-weich);line-height:1.7
+}
+
+@media (max-width:620px){
+  .stelle{grid-template-columns:44px 1fr;gap:12px}
+  .rechts{grid-column:2;text-align:left;padding-top:0}
+  .datum{display:inline;margin-left:10px}
+  .ampel{flex-direction:column;gap:3px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="eyebrow">Stellenradar · 57577 · 60 km</p>
+  <h1>Was gerade offen ist</h1>
+  <p class="lauf">Stand 09.08.2026, 12:00 UTC · <b>12</b> Anzeigen im Bestand · <b></b> seit dem letzten Lauf neu</p>
+</header>
+
+<div class="legende">
+  <span><span class="slot gut">S</span> Studium: kein / mit Alternative / zwingend</span>
+  <span><span class="slot stop">E</span> Ehrenamtslogik erkannt</span>
+  <span><span class="slot warn">B</span> Befristet</span>
+  <span><span class="nurtitel">nur Titel</span> Volltext fehlte — Status nicht belastbar</span>
+</div>
+
+<div class="filter"><button data-filter="archetyp" data-wert="alle" aria-pressed="true">Alle Felder</button><button data-filter="archetyp" data-wert="wisskomm" aria-pressed="false">Wissenschafts- &amp; Hochschulkommunikation</button><button data-filter="archetyp" data-wert="medienproduktion" aria-pressed="false">Medienproduktion &amp; Bewegtbild</button><button data-filter="archetyp" data-wert="pressestelle" aria-pressed="false">Presse- &amp; Öffentlichkeitsarbeit (Behörde/Kommune)</button><button data-filter="archetyp" data-wert="verwaltung" aria-pressed="false">Kommunale Verwaltung – Quereinstieg</button><button data-filter="archetyp" data-wert="medienbildung" aria-pressed="false">Medienpädagogik &amp; Medienzentrum</button><button data-filter="archetyp" data-wert="naturschutz" aria-pressed="false">Naturschutz-Kommunikation</button><button data-filter="nurNeu" aria-pressed="false">Nur neue</button><button data-filter="ohneStudium" aria-pressed="false">Studiumspflicht ausblenden</button><button data-filter="ohneEhrenamt" aria-pressed="false">Ehrenamtslogik ausblenden</button><button data-filter="ohneAbgelaufen" aria-pressed="true">Abgelaufene ausblenden</button></div>
+
+<section class="gruppe" data-archetyp="medienproduktion">
+  <h2>Medienproduktion &amp; Bewegtbild <span class="zaehler">3 sichtbar</span></h2>
+  <p class="notiz">Dein gelerntes Handwerk. Inhouse-Redaktionen, Produktionsfirmen, Sender, Museen.</p>
+  <article class="stelle" data-archetyp="medienproduktion"
+  data-neu="0" data-studium="weich" data-ehrenamt="0"
+  data-abgelaufen="0">
+  <div class="ampel"><span class="slot warn" title="Studium oder vergleichbare Qualifikation">S</span><span class="slot gut" title="Keine Ehrenamtslogik erkennbar">E</span><span class="slot gut" title="Keine Befristung erkennbar">B</span></div>
+  <div>
+    <p class="titel"><a href="https://www.arbeitsagentur.de/jobsuche/jobdetail/10000-1207318280-S" target="_blank" rel="noopener">Content-Creator – Video Content (m/w/d)</a></p>
+    <div class="meta"><span>leguano GmbH</span><span>Buchholz (Westerwald) · 20 km</span><span>Bundesagentur für Arbeit</span></div>
+    <ul class="belege"><li>Studium mit Alternative: …s Studium (z.B. Medienproduktion, Marketing, Kommunikation) oder eine vergleichbare Ausbildung sowie relevante Berufserfahrung (mind. 2–3 Jahre…</li><li>Befristung: strukturierte Angabe der BA: UNBEFRISTET</li></ul>
+  </div>
+  <div class="rechts"><span class="datum">2026-07-27</span></div>
+</article><article class="stelle" data-archetyp="medienproduktion"
+  data-neu="0" data-studium="offen" data-ehrenamt="0"
+  data-abgelaufen="0">
+  <div class="ampel"><span class="slot gut" title="Kein Studium gefordert">S</span><span class="slot gut" title="Keine Ehrenamtslogik erkennbar">E</span><span class="slot warn" title="Befristet">B</span></div>
+  <div>
+    <p class="titel"><a href="https://www.arbeitsagentur.de/jobsuche/jobdetail/14126-1603439-1-S" target="_blank" rel="noopener">Mediengestalter:in Bild &amp; Ton</a></p>
+    <div class="meta"><span>Westdeutscher Rundfunk</span><span>Siegen · 26 km</span><span>Bundesagentur für Arbeit</span></div>
+    <ul class="belege"><li>Befristung: strukturierte Angabe der BA: BEFRISTET</li></ul>
+  </div>
+  <div class="rechts"><span class="datum">2026-07-24</span></div>
+</article><article class="stelle" data-archetyp="medienproduktion"
+  data-neu="0" data-studium="offen" data-ehrenamt="0"
+  data-abgelaufen="0">
+  <div class="ampel"><span class="slot gut" title="Kein Studium gefordert">S</span><span class="slot gut" title="Keine Ehrenamtslogik erkennbar">E</span><span class="slot gut" title="Keine Befristung erkennbar">B</span></div>
+  <div>
+    <p class="titel"><a href="https://www.arbeitsagentur.de/jobsuche/jobdetail/10001-1003420804-S" target="_blank" rel="noopener">Videograf / Content Creator (m/w/d) auf Minijob-Basis</a></p>
+    <div class="meta"><span>Noiron Autov. &amp; Schrotth., Inh.M. Kappenstein e.K.</span><span>Waldbröl · 14 km</span><span>Bundesagentur für Arbeit</span></div>
+    
+  </div>
+  <div class="rechts"><span class="datum">2026-07-21</span></div>
+</article>
+</section><section class="gruppe" data-archetyp="pressestelle">
+  <h2>Presse- &amp; Öffentlichkeitsarbeit (Behörde/Kommune) <span class="zaehler">1 sichtbar</span></h2>
+  <p class="notiz">Nahbereich stark, aber oft auf Laufbahn oder Studium gegated.</p>
+  <article class="stelle" data-archetyp="pressestelle"
+  data-neu="0" data-studium="offen" data-ehrenamt="0"
+  data-abgelaufen="0">
+  <div class="ampel"><span class="slot gut" title="Kein Studium gefordert">S</span><span class="slot gut" title="Keine Ehrenamtslogik erkennbar">E</span><span class="slot gut" title="Keine Befristung erkennbar">B</span></div>
+  <div>
+    <p class="titel"><a href="https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1477730.html#track=feed-jobs" target="_blank" rel="noopener">Kfm. Sachbearbeiter/-in in der Hochschulambulanz</a><span class="nurtitel" title="Nur der Titel wurde geprueft — gruene Statusfelder sind hier nicht aussagekraeftig">nur Titel</span></p>
+    <div class="meta"><span>Universität Siegen</span><span>57076 Siegen</span><span>Bund/Länder – Öffentlichkeitsarbeit</span></div>
+    
+  </div>
+  <div class="rechts"><span class="datum">2026-08-05</span><span class="frist ruhig">Frist 2026-09-06</span></div>
+</article>
+</section><section class="gruppe" data-archetyp="verwaltung">
+  <h2>Kommunale Verwaltung – Quereinstieg <span class="zaehler">3 sichtbar</span></h2>
+  <p class="notiz">Kommunen stellen ohne Verwaltungsausbildung ein und qualifizieren über den Beschäftigtenlehrgang I nach. Kommunikationsnahe Ämter (Wirtschaftsförderung, Tourismus, Kultur, Digitalisierung) sind der realistische Einstieg.</p>
+  <article class="stelle" data-archetyp="verwaltung"
+  data-neu="0" data-studium="offen" data-ehrenamt="0"
+  data-abgelaufen="0">
+  <div class="ampel"><span class="slot gut" title="Kein Studium gefordert">S</span><span class="slot gut" title="Keine Ehrenamtslogik erkennbar">E</span><span class="slot gut" title="Keine Befristung erkennbar">B</span></div>
+  <div>
+    <p class="titel"><a href="https://www.arbeitsagentur.de/jobsuche/jobdetail/19701-k15udl77pj-S" target="_blank" rel="noopener">Sachbearbeiterin / Sachbearbeiter in der Urkundenstelle (m/w/d)</a></p>
+    <div class="meta"><span>Stadtverwaltung Siegen</span><span>Siegen · 27 km</span><span>Bundesagentur für Arbeit</span></div>
+    <ul class="belege"><li>Befristung: strukturierte Angabe der BA: UNBEFRISTET</li></ul>
+  </div>
+  <div class="rechts"><span class="datum">2026-08-04</span></div>
+</article><article class="stelle" data-archetyp="verwaltung"
+  data-neu="0" data-studium="offen" data-ehrenamt="0"
+  data-abgelaufen="0">
+  <div class="ampel"><span class="slot gut" title="Kein Studium gefordert">S</span><span class="slot gut" title="Keine Ehrenamtslogik erkennbar">E</span><span class="slot gut" title="Keine Befristung erkennbar">B</span></div>
+  <div>
+    <p class="titel"><a href="https://www.arbeitsagentur.de/jobsuche/jobdetail/10001-1003386234-S" target="_blank" rel="noopener">Verkehrskontrollpersonal (m/w/d)</a></p>
+    <div class="meta"><span>BAV Dienstsitz Aurich</span><span>Alsbach, Westerwald · 33 km</span><span>Bundesagentur für Arbeit</span></div>
+    <ul class="belege"><li>Befristung: strukturierte Angabe der BA: UNBEFRISTET</li></ul>
+  </div>
+  <div class="rechts"><span class="datum">2026-07-15</span></div>
+</article><article class="stelle" data-archetyp="verwaltung"
+  data-neu="0" data-studium="offen" data-ehrenamt="0"
+  data-abgelaufen="0">
+  <div class="ampel"><span class="slot gut" title="Kein Studium gefordert">S</span><span class="slot gut" title="Keine Ehrenamtslogik erkennbar">E</span><span class="slot gut" title="Keine Befristung erkennbar">B</span></div>
+  <div>
+    <p class="titel"><a href="https://www.arbeitsagentur.de/jobsuche/jobdetail/10001-1003381936-S" target="_blank" rel="noopener">Verkehrskontrollpersonal (m/w/d)</a></p>
+    <div class="meta"><span>BAV Dienstsitz Aurich</span><span>Ehringshausen, Dill · 50 km</span><span>Bundesagentur für Arbeit</span></div>
+    <ul class="belege"><li>Befristung: strukturierte Angabe der BA: UNBEFRISTET</li></ul>
+  </div>
+  <div class="rechts"><span class="datum">2026-07-15</span></div>
+</article>
+</section><section class="gruppe" data-archetyp="naturschutz">
+  <h2>Naturschutz-Kommunikation <span class="zaehler">5 sichtbar</span></h2>
+  <p class="notiz">Höchste Sinnbindung, schwächste Strukturpassung (Ehrenamtslogik).</p>
+  <article class="stelle" data-archetyp="naturschutz"
+  data-neu="0" data-studium="offen" data-ehrenamt="0"
+  data-abgelaufen="0">
+  <div class="ampel"><span class="slot gut" title="Kein Studium gefordert">S</span><span class="slot gut" title="Keine Ehrenamtslogik erkennbar">E</span><span class="slot gut" title="Keine Befristung erkennbar">B</span></div>
+  <div>
+    <p class="titel"><a href="https://www.arbeitsagentur.de/jobsuche/jobdetail/10001-1003487744-S" target="_blank" rel="noopener">Arbeitslehrerin/ Arbeitslehrer</a></p>
+    <div class="meta"><span>HessenForst Landesbetriebsleitung</span><span>Weilburg · 50 km</span><span>Bundesagentur für Arbeit</span></div>
+    <ul class="belege"><li>Befristung: strukturierte Angabe der BA: UNBEFRISTET</li></ul>
+  </div>
+  <div class="rechts"><span class="datum">2026-08-04</span></div>
+</article><article class="stelle" data-archetyp="naturschutz"
+  data-neu="0" data-studium="offen" data-ehrenamt="0"
+  data-abgelaufen="0">
+  <div class="ampel"><span class="slot gut" title="Kein Studium gefordert">S</span><span class="slot gut" title="Keine Ehrenamtslogik erkennbar">E</span><span class="slot gut" title="Keine Befristung erkennbar">B</span></div>
+  <div>
+    <p class="titel"><a href="https://www.arbeitsagentur.de/jobsuche/jobdetail/10000-1206792920-S" target="_blank" rel="noopener">Forstwirt/in (m/w/d) gesucht</a></p>
+    <div class="meta"><span>Verbandsgemeindeverwaltung Selters</span><span>Selters (Westerwald) · 26 km</span><span>Bundesagentur für Arbeit</span></div>
+    <ul class="belege"><li>Befristung: strukturierte Angabe der BA: UNBEFRISTET</li></ul>
+  </div>
+  <div class="rechts"><span class="datum">2026-06-10</span></div>
+</article><article class="stelle" data-archetyp="naturschutz"
+  data-neu="0" data-studium="hart" data-ehrenamt="0"
+  data-abgelaufen="0">
+  <div class="ampel"><span class="slot stop" title="Studium zwingend gefordert">S</span><span class="slot gut" title="Keine Ehrenamtslogik erkennbar">E</span><span class="slot gut" title="Keine Befristung erkennbar">B</span></div>
+  <div>
+    <p class="titel"><a href="https://www.arbeitsagentur.de/jobsuche/jobdetail/10001-1002424292-S" target="_blank" rel="noopener">Stellenausschreibung – Fachkraft Naturschutz &amp; Umweltplanung (m/w/d)</a></p>
+    <div class="meta"><span>BSR Immobilien GmbH</span><span>Bad Honnef · 35 km</span><span>Bundesagentur für Arbeit</span></div>
+    <ul class="belege"><li>Studium zwingend: …ojektpartnern **Ihr Profil** **Fachliche Qualifikation:** - Abgeschlossenes Studium in Landschaftsplanung, Umweltplanung, Biologie, Geoökologie…</li></ul>
+  </div>
+  <div class="rechts"><span class="datum">2026-01-15</span></div>
+</article><article class="stelle" data-archetyp="naturschutz"
+  data-neu="0" data-studium="offen" data-ehrenamt="0"
+  data-abgelaufen="0">
+  <div class="ampel"><span class="slot gut" title="Kein Studium gefordert">S</span><span class="slot gut" title="Keine Ehrenamtslogik erkennbar">E</span><span class="slot gut" title="Keine Befristung erkennbar">B</span></div>
+  <div>
+    <p class="titel"><a href="https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf" target="_blank" rel="noopener">- Mitarbeiter*in (m/w/d) für die NABU-Regionalsstelle Eifel-Ahr-Hunsrück - Kennung RGS EAH</a><span class="nurtitel" title="Nur der Titel wurde geprueft — gruene Statusfelder sind hier nicht aussagekraeftig">nur Titel</span></p>
+    <div class="meta"><span>NABU Rheinland-Pfalz</span><span>Mainz / Regionalstellen</span><span>NABU Rheinland-Pfalz</span></div>
+    
+  </div>
+  <div class="rechts"><span class="datum"></span></div>
+</article><article class="stelle" data-archetyp="naturschutz"
+  data-neu="0" data-studium="offen" data-ehrenamt="0"
+  data-abgelaufen="0">
+  <div class="ampel"><span class="slot gut" title="Kein Studium gefordert">S</span><span class="slot gut" title="Keine Ehrenamtslogik erkennbar">E</span><span class="slot gut" title="Keine Befristung erkennbar">B</span></div>
+  <div>
+    <p class="titel"><a href="https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf" target="_blank" rel="noopener">- Mitarbeiter*in (m/w/d) für die NABU-Regionalsstelle Rhein-Westerwald - Kennung: RGS WW</a><span class="nurtitel" title="Nur der Titel wurde geprueft — gruene Statusfelder sind hier nicht aussagekraeftig">nur Titel</span></p>
+    <div class="meta"><span>NABU Rheinland-Pfalz</span><span>Mainz / Regionalstellen</span><span>NABU Rheinland-Pfalz</span></div>
+    
+  </div>
+  <div class="rechts"><span class="datum"></span></div>
+</article>
+</section>
+<p class="leer" id="leer" >Keine Anzeigen passen zu den gewählten Filtern.</p>
+
+<footer>
+Quellen: Bundesagentur für Arbeit (inoffizielle Jobsuche-API), service.bund.de (RSS) und einzelne Karriereseiten. Letztere werden nur ohne Login und nur nach robots.txt-Prüfung abgerufen, einmal je Lauf.<br>
+Beim letzten Lauf 2 Anzeigen per Titelfilter ausgeschlossen (Performance Marketing, reine Social-Media- und Vertriebsrollen). Steht die Zahl auffällig hoch, ist ein Muster in <code>ausschluss_titel</code> zu breit.<br>
+Die Statusfelder sind Mustererkennung im Anzeigentext, keine Rechtsauskunft — Belegstellen stehen unter jeder Zeile, Einzelfälle bitte selbst nachlesen. Bei Treffern von Karriereseiten wird nur der Titel gescreent.<br>
+Bewerbungsfristen stammen aus JobPosting-Markup (schema.org) auf den Arbeitgeberseiten — derselben Quelle, aus der Google for Jobs liest. Fehlt das Markup, fehlt die Frist.<br>
+Interamt hat keinen offenen Feed: dort den eigenen Jobticker abonnieren.
+</footer>
+</div>
+<script>
+(function(){
+  var filter = {archetyp:'alle', nurNeu:false, ohneStudium:false,
+                ohneEhrenamt:false, ohneAbgelaufen:true};
+
+  function anwenden(){
+    document.querySelectorAll('.stelle').forEach(function(el){
+      var zeig = true;
+      if (filter.archetyp !== 'alle' && el.dataset.archetyp !== filter.archetyp) zeig = false;
+      if (filter.nurNeu && el.dataset.neu !== '1') zeig = false;
+      if (filter.ohneStudium && el.dataset.studium === 'hart') zeig = false;
+      if (filter.ohneEhrenamt && el.dataset.ehrenamt === '1') zeig = false;
+      if (filter.ohneAbgelaufen && el.dataset.abgelaufen === '1') zeig = false;
+      el.hidden = !zeig;
+    });
+    document.querySelectorAll('.gruppe').forEach(function(g){
+      var sichtbar = g.querySelectorAll('.stelle:not([hidden])').length;
+      g.hidden = sichtbar === 0;
+      var z = g.querySelector('.zaehler');
+      if (z) z.textContent = sichtbar + ' sichtbar';
+    });
+    var alle = document.querySelectorAll('.stelle:not([hidden])').length;
+    var leer = document.getElementById('leer');
+    if (leer) leer.hidden = alle > 0;
+  }
+
+  document.querySelectorAll('[data-filter]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var art = btn.dataset.filter, wert = btn.dataset.wert;
+      if (art === 'archetyp'){
+        filter.archetyp = wert;
+        document.querySelectorAll('[data-filter="archetyp"]').forEach(function(b){
+          b.setAttribute('aria-pressed', String(b.dataset.wert === wert));
+        });
+      } else {
+        filter[art] = !filter[art];
+        btn.setAttribute('aria-pressed', String(filter[art]));
+      }
+      anwenden();
+    });
+  });
+  anwenden();
+})();
+</script>
+</body>
+</html>

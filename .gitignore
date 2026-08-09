@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+
+# Auslieferungsarchiv — der Inhalt liegt entpackt daneben, im Repository waere
+# es eine zweite, veraltende Kopie des gesamten Projekts.
+jobradar.zip
+
+# Dublette von jobradar/seiten.py aus dem Auspacken. Liegt noch auf der Platte,
+# gehoert aber nicht ins Repository — sonst wird irgendwann die falsche
+# bearbeitet. Kann lokal geloescht werden.
+/seiten.py

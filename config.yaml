@@ -1,0 +1,295 @@
+# Jobradar – Konfiguration
+# Alles, was du regelmäßig anfassen wirst, steht hier. scan.py bleibt unberührt.
+
+standort:
+  # Ankerpunkt für den Umkreis. Wird an die BA-API als "wo" übergeben.
+  wo: "57577"
+  umkreis_km: 60
+
+  # Ortsfilter für Quellen OHNE eigenen Umkreisparameter — also die RSS-Feeds
+  # von service.bund.de, die bundesweit liefern. Die BA-Suche filtert selbst
+  # über wo/umkreis und ist hiervon nicht betroffen.
+  #
+  # Gefiltert wird über die ersten drei PLZ-Ziffern, weil die Feeds nur
+  # "Ort: 15848 Beeskow" liefern und keine Koordinaten. Das ist eine Näherung
+  # an Luftlinie, NICHT an Fahrtzeit — Autobahnanschluss schlägt Entfernung.
+  # Die Liste unten ist mein Vorschlag für „höchstens ~50 min ab 57577“ und
+  # gehört überprüft: Streichen macht das Radar enger, Ergänzen weiter.
+  #
+  # Leere Liste = kein Ortsfilter (bundesweiter Bestand wie vorher).
+  plz_praefixe:
+    - "570"   # Siegen
+    - "572"   # Kreuztal, Netphen, Freudenberg, Neunkirchen, Burbach
+    - "575"   # Betzdorf, Wissen, Kirchen, Daaden, Herdorf, Hamm/Sieg
+    - "576"   # Altenkirchen, Hachenburg, Weyerbusch
+    - "515"   # Waldbröl, Windeck, Nümbrecht, Morsbach, Reichshof
+    - "535"   # Linz, Neustadt/Wied
+    - "536"   # Bad Honnef, Rheinbreitbach
+    - "537"   # Siegburg, Hennef, Eitorf, Lohmar
+    - "562"   # Höhr-Grenzhausen, Ransbach-Baumbach, Dierdorf
+    - "563"   # Puderbach
+    - "564"   # Montabaur, Westerburg
+    - "565"   # Neuwied
+    # Randlage — grenzwertig bei 50 min, im Zweifel streichen:
+    - "574"   # Olpe, Attendorn, Wenden, Drolshagen
+    - "516"   # Gummersbach, Wiehl
+    - "356"   # Dillenburg
+    - "357"   # Herborn, Driedorf
+  # Bewusst NICHT drin: 531 (Bonn), 560 (Koblenz), 500/506 (Köln),
+  # 573 (Bad Berleburg) — alle jenseits 50 min.
+
+lauf:
+  # Nur Anzeigen, die in den letzten N Tagen veröffentlicht wurden.
+  veroeffentlicht_seit_tagen: 30
+  # Ergebnisse pro Suchbegriff (BA-API, max. 100).
+  treffer_pro_begriff: 100
+  # Sekunden Pause zwischen Requests. Nicht unter 0.3 setzen.
+  pause_sekunden: 0.6
+  # Anzeigen ohne Sichtung nach N Tagen aus dem Dashboard entfernen.
+  verfall_tage: 60
+
+# ---------------------------------------------------------------------------
+# Archetypen: bestimmen Suchbegriffe UND Sortierung im Dashboard.
+# rang 1 = ganz oben. Begriffe werden einzeln an die BA-API geschickt.
+#
+# Messung vom 2026-08-09 (v6-API, Umkreis 60 km, 30 Tage). 18 der damals 34
+# Begriffe lieferten null Treffer. Zwei Hypothesen wurden geprüft und beide
+# widerlegt — bitte nicht erneut durchspielen:
+#
+#   1. "Die API verundet die Wörter, kürzere Begriffe greifen besser."
+#      Falsch in der Wirkung: Kürzen tauscht null Treffer gegen Rauschen.
+#      "Quereinstieg" → 57 Treffer im Radius, u.a. Kunstharzbodenbeschichtung.
+#      "Tourismus" → 19 Hotelkaufleute. "Medientechnik" → Monteure.
+#      "Veranstaltungstechnik" → Lagerlogistik. Bei ~8 echten Stellen im
+#      Dashboard schüttet ein einziger solcher Begriff alles zu.
+#
+#   2. "Das Zeitfenster ist zu eng."
+#      Falsch: veroeffentlichtseit=30 und =100 liefern beide exakt
+#      5 eindeutige BA-Treffer im Radius.
+#
+# Fazit: Die Nullen sind größtenteils korrekt. Der Suchraum ist real dünn —
+# ländlicher Raum, enge Nische, 50-Minuten-Grenze. Wer mehr Treffer will,
+# muss am Radius drehen, nicht an den Begriffen.
+# ---------------------------------------------------------------------------
+archetypen:
+  - id: wisskomm
+    label: "Wissenschafts- & Hochschulkommunikation"
+    rang: 1
+    notiz: "Produkt statt Überzeugungsarbeit. Häufigste Ausnahme vom Studiumszwang."
+    begriffe:
+      - Wissenschaftskommunikation
+      - Hochschulkommunikation
+      - Referent Kommunikation Hochschule
+      - Öffentlichkeitsarbeit Universität
+
+  - id: medienproduktion
+    label: "Medienproduktion & Bewegtbild"
+    rang: 2
+    notiz: "Dein gelerntes Handwerk. Inhouse-Redaktionen, Produktionsfirmen, Sender, Museen."
+    begriffe:
+      - Mediengestalter Bild und Ton
+      - Videoredakteur
+      # Nachgetragen 2026-08-09: "Videoredakteur" liefert 0, "Videoproduktion"
+      # findet dieselbe Sorte Stelle (Content-Creator Video). Beide bleiben —
+      # die BA matcht unscharf, was heute leer ist, kann nächsten Monat greifen.
+      - Videoproduktion
+      - Videojournalist
+      - Kameramann Kamerafrau
+      - Videograf
+      - Cutter Videoschnitt
+      - Bewegtbild Redaktion
+      - Formatentwicklung Video
+      - Dokumentarfilm Redaktion
+      - Multimediaproduktion
+      - Tontechniker Postproduktion
+
+  - id: pressestelle
+    label: "Presse- & Öffentlichkeitsarbeit (Behörde/Kommune)"
+    rang: 3
+    notiz: "Nahbereich stark, aber oft auf Laufbahn oder Studium gegated."
+    begriffe:
+      - Presse- und Öffentlichkeitsarbeit
+      - Pressesprecher
+      - Referent Unternehmenskommunikation
+      - Redakteur Öffentlichkeitsarbeit
+
+  - id: verwaltung
+    label: "Kommunale Verwaltung – Quereinstieg"
+    rang: 4
+    notiz: >-
+      Kommunen stellen ohne Verwaltungsausbildung ein und qualifizieren über den
+      Beschäftigtenlehrgang I nach. Kommunikationsnahe Ämter (Wirtschaftsförderung,
+      Tourismus, Kultur, Digitalisierung) sind der realistische Einstieg.
+    begriffe:
+      - Sachbearbeitung Verwaltung Quereinstieg
+      - Wirtschaftsförderung Verbandsgemeinde
+      - Stadtmarketing Tourismus
+      - Kulturamt Veranstaltungsmanagement
+      - Digitalisierung Kommunalverwaltung
+      - Verwaltungsfachangestellte Quereinsteiger
+
+  - id: medienbildung
+    label: "Medienpädagogik & Medienzentrum"
+    rang: 5
+    notiz: "Realistische Lehrtätigkeit ohne Abschlusshürde."
+    begriffe:
+      - Medienpädagoge
+      - Medienzentrum
+      - Dozent Medientechnik
+      - Referent digitale Bildung
+      - Offener Kanal Bürgermedien
+
+  - id: naturschutz
+    label: "Naturschutz-Kommunikation"
+    rang: 6
+    notiz: "Höchste Sinnbindung, schwächste Strukturpassung (Ehrenamtslogik)."
+    begriffe:
+      - Öffentlichkeitsarbeit Naturschutz
+      - Umweltbildung Referent
+      - Naturpark Geschäftsstelle
+      - Biologische Station
+      # Nachgetragen 2026-08-09: findet "Fachkraft Naturschutz & Umweltplanung",
+      # die kein anderer Begriff erwischt. Kostet aber Rauschen — von 3 Treffern
+      # ist einer brauchbar, dazu kommen Forstwirt und Arbeitslehrer. Vertretbar,
+      # weil dieser Archetyp Rang 6 hat und unten im Dashboard steht. Wenn er
+      # dich nervt: diese Zeile streichen, der Rest bleibt davon unberührt.
+      - Naturschutz
+
+# ---------------------------------------------------------------------------
+# Karriereseiten einzelner Arbeitgeber, die keinen Feed anbieten.
+#
+# Nur öffentlich zugängliche Seiten ohne Login. robots.txt wird vor jedem
+# Abruf geprüft; untersagte Seiten werden übersprungen und im Fuß des
+# Dashboards genannt.
+#
+# Neue Quelle hinzufügen: erst prüfen, ob die Seite serverseitig rendert —
+#     python -m jobradar.seiten "https://beispiel.de/stellen"
+# Findet der Test keine Links, lädt die Seite ihre Liste per JavaScript nach
+# und ist mit diesem Modul nicht auslesbar.
+#
+# details_folgen: true lädt jede gefundene Einzelanzeige nach und liest dort
+# JobPosting-Markup (schema.org/JSON-LD) aus — dieselbe Struktur, aus der
+# Google for Jobs seine Einträge zieht. Liefert Volltext und Bewerbungsfrist.
+# Kostet eine Anfrage je Anzeige, darum max_details als Deckel. Vorher am
+# Einzellink prüfen, ob überhaupt Markup vorhanden ist:
+#     python -m jobradar.seiten "https://beispiel.de/stellen/referent-presse"
+#
+# NICHT eintragen: LinkedIn, Indeed, StepStone und alles hinter einem Login.
+# Deren Nutzungsbedingungen untersagen automatisierten Zugriff.
+# ---------------------------------------------------------------------------
+seiten_quellen:
+  - label: "Biologische Station Rhein-Sieg"
+    arbeitgeber: "Biologische Station im Rhein-Sieg-Kreis e.V."
+    ort: "Eitorf"
+    entfernung_km: 25
+    archetyp: naturschutz
+    url: "https://www.biostation-rhein-sieg.de/%C3%BCber-uns/stellen/"
+    # Verschärft: das alte Muster fing den Selbstlink "Stellen" und "zuklappen".
+    link_muster: "stellenausschreibung|stellenangebot|ausschreibung|bewerb"
+    link_ausschluss: "datenschutz|impressum|sitemap|zuklappen|^stellen$"
+    # Geprüft 2026-08-09: Seite rendert serverseitig, hat aber kein
+    # JobPosting-Markup und derzeit keine offene Stelle. details_folgen
+    # kostet dann nur Anfragen. Wieder auf true, sobald dort etwas steht.
+    details_folgen: false
+    max_details: 10
+
+  # ENTFERNT 2026-08-09: Kreisverwaltung Altenkirchen.
+  # Die Seite führt keine Stellen mehr, sondern verweist auf Interamt
+  # (interamt.de/koop/app/trefferliste?partner=3664) — und Interamt ist genau
+  # die Quelle, aus der service.bund.de importiert. Die Stellen kommen also
+  # bereits über den RSS-Weg herein. Die Quelle lieferte im Testlauf
+  # ausschließlich Navigationsrauschen ("direkt zum Inhalt", "Vorlesen"),
+  # ihre Detailseiten sind zusätzlich per robots.txt gesperrt.
+
+  - label: "NABU Rheinland-Pfalz"
+    arbeitgeber: "NABU Rheinland-Pfalz"
+    ort: "Mainz / Regionalstellen"
+    archetyp: naturschutz
+    url: "https://rlp.nabu.de/wir-ueber-uns/stellenangebote/"
+    # Verschärft: fing vorher "Landesgeschäftsstelle", "Regionalstellen",
+    # "Vorlesen". Die echten Anzeigen heißen "…stellenausschreibung….pdf".
+    link_muster: "stellenausschreibung|\\.pdf$"
+    link_ausschluss: "datenschutz|impressum|spenden|vorlesen"
+    # Die zwei echten Anzeigen sind PDFs — dort ist kein JSON-LD zu holen,
+    # und die Detailseiten sind ohnehin per robots.txt gesperrt.
+    # Screening läuft hier zwangsläufig nur über den Linktext.
+    details_folgen: false
+    max_details: 10
+
+
+# Absicht: "Social Media" als eine Aufgabe unter vielen soll eine Anzeige nicht
+# killen — nur wenn die Rolle SELBST danach benannt ist. Ausgeschlossene
+# Anzeigen werden nicht angezeigt, aber im Fuß des Dashboards gezählt.
+# ---------------------------------------------------------------------------
+ausschluss_titel:
+  - "Performance[- ]?Marketing"
+  - "\\bSEA\\b"
+  - "\\bSEO\\b"
+  - "Google Ads"
+  - "Meta Ads"
+  - "Paid (Media|Social|Advertising)"
+  - "Kampagnenmanager"
+  - "Media[- ]?Buyer"
+  - "E-?Commerce"
+  - "Growth"
+  - "^(Junior |Senior )?Social[- ]Media[- ](Manager|Redakteur|Specialist)"
+  - "Community[- ]?Manager"
+  - "Influencer"
+  - "Affiliate"
+  # "Außendienst" allein traf auch kommunale Ordnungsamt-Stellen
+  # ("Sachbearbeitung Ordnungswidrigkeiten/Außendienst") — im öffentlichen
+  # Dienst heißt das nur "draußen statt am Schreibtisch". Vertriebsstellen
+  # fliegen weiterhin über "Vertrieb" bzw. "Außendienstmitarbeiter" raus.
+  - "Vertrieb|Außendienstmitarbeiter|Verkäufer|Sales"
+
+# ---------------------------------------------------------------------------
+# Screening: erzeugt die drei Statusfelder pro Anzeige.
+# Getroffene Muster werden im Dashboard als Belegstelle angezeigt.
+# ---------------------------------------------------------------------------
+screening:
+  studium:
+    # "hart" schlägt "weich" nur, wenn kein weich-Muster im selben Text greift.
+    hart:
+      - "abgeschlossenes\\s+(wissenschaftliches\\s+)?(Hochschul|Fachhochschul|Universitäts)?studium"
+      - "abgeschlossenes\\s+Studium"
+      - "Hochschulabschluss"
+      - "Diplom-?\\s?(Ingenieur|Biologe|Geograph)"
+      - "Master\\b"
+      - "Bachelor\\b"
+    weich:
+      - "oder\\s+(eine\\s+)?vergleichbare"
+      - "bzw\\.\\s+eine\\s+abgeschlossene\\s+Berufsausbildung"
+      - "abgeschlossene\\s+Berufsausbildung\\s+(oder|bzw)"
+      - "vergleichbare\\s+(Ausbildung|Qualifikation|Erfahrung)"
+      - "Quereinsteiger"
+
+  # Dein Knockout-Kriterium: Durchsatz hängt an nicht-weisungsgebundenen Dritten.
+  ehrenamtslogik:
+    - "[Ee]hrenamtlich"
+    - "Ehrenamt"
+    - "Vereinsorganisation"
+    - "Mitgliederwerbung"
+    - "Verbandsarbeit"
+    - "Betreuung\\s+der\\s+(Orts|Kreis|Regional)?gruppen"
+
+  befristung:
+    # Negativer Lookbehind, sonst schlaegt "unbefristet" als Treffer an.
+    - "(?<!un)befristet"
+    - "Projektlaufzeit"
+    - "Elternzeitvertretung"
+    - "Krankheitsvertretung"
+
+# ---------------------------------------------------------------------------
+# service.bund.de: beliebige Suchabfrage als RSS.
+# So baust du eigene Feeds: Suche auf service.bund.de ausführen, dann links
+# über der Trefferliste "Suchergebnis als RSS-Feed" anklicken und URL hier
+# einsetzen. Der Parameter &jobsrss=true macht die Suche zum Feed.
+# ---------------------------------------------------------------------------
+rss_quellen:
+  - label: "Bund/Länder – Öffentlichkeitsarbeit"
+    archetyp: pressestelle
+    url: "https://www.service.bund.de/Content/DE/Stellen/Suche/Formular.html?nn=4641514&type=0&templateQueryString=%C3%96ffentlichkeitsarbeit&sortOrder=dateOfIssue_dt+desc&resultsPerPage=100&jobsrss=true"
+
+  - label: "Bund/Länder – Kommunikation"
+    archetyp: pressestelle
+    url: "https://www.service.bund.de/Content/DE/Stellen/Suche/Formular.html?nn=4641514&type=0&templateQueryString=Kommunikation&sortOrder=dateOfIssue_dt+desc&resultsPerPage=100&jobsrss=true"

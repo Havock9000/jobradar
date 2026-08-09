@@ -1,0 +1,4 @@
+# Zeilenenden vereinheitlichen. Ohne das schreibt der Linux-Runner LF, der
+# Windows-Rechner CRLF, und jeder Lauf erzeugt Scheinaenderungen an Dateien,
+# die sich inhaltlich nicht geaendert haben.
+* text=auto eol=lf

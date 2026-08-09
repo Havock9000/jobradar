@@ -1,0 +1,62 @@
+name: Jobradar
+
+on:
+  schedule:
+    # Täglich 05:40 UTC. Krumme Minute, weil Actions zur vollen Stunde
+    # regelmäßig verzögert starten.
+    - cron: "40 5 * * *"
+  workflow_dispatch:        # Handstart über den Actions-Tab
+
+permissions:
+  contents: write           # für den Commit von data/jobs.json
+  pages: write
+  id-token: write
+
+concurrency:
+  group: jobradar
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Abhängigkeiten
+        run: pip install -r requirements.txt
+
+      - name: Lauf
+        run: python -m jobradar.scan
+
+      - name: Ergebnisse sichern
+        run: |
+          git config user.name "jobradar"
+          git config user.email "jobradar@users.noreply.github.com"
+          git add data/jobs.json site/index.html
+          git diff --staged --quiet || git commit -m "Lauf $(date -u +%Y-%m-%d)"
+          # Falls du zwischendurch selbst gepusht hast, sonst scheitert der Push.
+          git pull --rebase --autostash
+          git push
+
+      # NUR site/ hochladen, niemals das Repositorywurzelverzeichnis.
+      # Mit "path: ." lagen CLAUDE.md (persoenliches Profil, Wohnort,
+      # Knockout-Kriterien) und config.yaml (komplette Suchstrategie) unter
+      # der oeffentlichen Pages-URL. site/ enthaelt nur das Dashboard.
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+
+  veroeffentlichen:
+    needs: scan
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

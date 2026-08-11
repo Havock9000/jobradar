@@ -138,6 +138,14 @@ class Umkreis:
         self.verworfen = 0
         self.ohne_plz: list[str] = []
 
+    def im_umkreis(self, eintrag: dict[str, Any]) -> bool:
+        """Reine Pruefung ohne Zaehlung — fuer Zweitpruefungen wie die
+        Remote-Suche, die die Ausfallstatistik nicht verfaelschen sollen."""
+        if not self.praefixe:
+            return True
+        plz = str(eintrag.get("plz") or "")
+        return bool(plz) and plz.startswith(self.praefixe)
+
     def drin(self, eintrag: dict[str, Any]) -> bool:
         """Eine Regel fuer alle Quellen — auch fuer die BA.
 
@@ -162,6 +170,77 @@ class Umkreis:
             return True
         self.verworfen += 1
         return False
+
+
+class Passung:
+    """Schaetzt am Titel, ob eine Stelle ueberhaupt erreichbar ist.
+
+    Noetig, weil das Studiumsfeld das nicht leistet: "offen" heisst nur, dass
+    im Text kein Abschluss gefordert wird — ein Forstwirt oder ein SAP-Consultant
+    steht damit genauso auf gruen wie eine Videostelle. Ohne ein positives
+    Passungssignal bleibt alles im Dashboard, was ein Suchbegriff hereinzieht.
+
+    Nur gegen den Titel, wie der Ausschlussfilter auch (Grenze 4): Eine Anzeige,
+    die Video als eine Aufgabe unter vielen nennt, soll dadurch nicht zur
+    Kernstelle werden.
+    """
+
+    STUFEN = {"kern": 0, "angrenzend": 1, "fremd": 2}
+
+    def __init__(self, cfg: dict[str, Any]):
+        e = cfg.get("erreichbarkeit") or {}
+        self.kern = [re.compile(p, re.IGNORECASE) for p in e.get("kern") or []]
+        self.angrenzend = [re.compile(p, re.IGNORECASE)
+                           for p in e.get("angrenzend") or []]
+
+    def bewerte(self, titel: str) -> dict[str, Any]:
+        titel = titel or ""
+        for stufe, muster in (("kern", self.kern), ("angrenzend", self.angrenzend)):
+            for pat in muster:
+                m = pat.search(titel)
+                if m:
+                    return {"stufe": stufe, "beleg": m.group(0)}
+        return {"stufe": "fremd", "beleg": None}
+
+
+class RemotePruefer:
+    """Entscheidet, ob eine Anzeige weit genug remote ist, um die Entfernung
+    unerheblich zu machen.
+
+    Das strukturierte BA-Feld `homeofficemoeglich` reicht dafuer nicht: Es sagt
+    nur "irgendetwas geht", nicht wie viel. Gemessen am 09.08.2026 traegt ein
+    Arbeitgeber in Neusaess das Flag und schreibt im Text "Grundsaetzlich
+    arbeiten wir vor Ort im Studio". Das Flag dient hier nur als Vorfilter,
+    welche Anzeigen einen Detailabruf wert sind — geurteilt wird am Volltext.
+    """
+
+    def __init__(self, cfg: dict[str, Any]):
+        r = cfg.get("remote") or {}
+        self.aktiv = bool(r.get("aktiv"))
+        self.max_details = int(r.get("max_details", 60))
+        self.muster = [re.compile(p, re.IGNORECASE) for p in r.get("muster") or []]
+        self.geprueft = 0
+        self.erkannt = 0
+
+    # Gemessen am 09.08.2026: Eine Anzeige aus Hiddenhausen schreibt
+    # "(KEIN 100 % Homeoffice/Remote)". Ohne diese Pruefung liest das Muster
+    # daraus das genaue Gegenteil heraus. Nach der Verneinung darf bis zum
+    # Fundort kein Satzende liegen, sonst greift sie zu weit.
+    VERNEINUNG = re.compile(r"\b(kein\w*|nicht|ohne|statt)\b[^.;!?]{0,40}$",
+                            re.IGNORECASE)
+
+    def beleg(self, text: str) -> str | None:
+        """Gibt die Textstelle zurueck, die den Remote-Anteil belegt (Grenze 5)."""
+        text = text or ""
+        for pat in self.muster:
+            for m in pat.finditer(text):
+                davor = text[max(0, m.start() - 60):m.start()]
+                if self.VERNEINUNG.search(davor):
+                    continue
+                start = max(0, m.start() - 60)
+                end = min(len(text), m.end() + 60)
+                return f"…{text[start:end].strip()}…"
+        return None
 
 
 class Screener:
@@ -249,17 +328,23 @@ class BundesagenturQuelle:
         self.veroeffentlicht_seit = int(lauf.get("veroeffentlicht_seit_tagen", 30))
         self.pause = float(lauf.get("pause_sekunden", 0.6))
 
-    def suche(self, begriff: str) -> list[dict[str, Any]]:
+    def suche(self, begriff: str, bundesweit: bool = False) -> list[dict[str, Any]]:
+        """`bundesweit=True` laesst `wo`/`umkreis` weg. Die API sucht dann in
+        ganz Deutschland — der Weg, um Remote-Stellen ausserhalb des
+        Pendelradius ueberhaupt zu sehen. Geprueft: 'Videograf' liefert mit
+        Ortsangabe 1 Treffer, ohne 17.
+        """
         params = {
             "was": begriff,
-            "wo": self.wo,
-            "umkreis": self.umkreis,
             "angebotsart": 1,          # 1 = Arbeit (nicht Ausbildung/Praktikum)
             "veroeffentlichtseit": min(self.veroeffentlicht_seit, 100),
             "page": 1,
             "size": self.size,
             "pav": "false",            # keine Personalvermittler
         }
+        if not bundesweit:
+            params["wo"] = self.wo
+            params["umkreis"] = self.umkreis
         self.versuche += 1
         try:
             r = self.session.get(BA_SEARCH, headers=BA_HEADERS,
@@ -459,6 +544,8 @@ def scanne(cfg: dict[str, Any], zustand: dict[str, Any],
     screener = Screener(cfg.get("screening", {}))
     ausschluss = Ausschluss(cfg.get("ausschluss_titel"))
     umkreis = Umkreis(cfg)
+    remote = RemotePruefer(cfg)
+    passung = Passung(cfg)
     bekannt: dict[str, Any] = zustand.get("stellen", {})
     lauf_zeit = today().strftime("%Y-%m-%dT%H:%M:%SZ")
     gefunden: dict[str, dict[str, Any]] = {}
@@ -490,6 +577,45 @@ def scanne(cfg: dict[str, Any], zustand: dict[str, Any],
                     if not umkreis.drin(eintrag):
                         continue
                     gefunden[eintrag["id"]] = eintrag
+
+        # Zweiter Durchgang: bundesweit, aber nur was praktisch vollstaendig
+        # remote ist. Innerhalb des Pendelradius braucht es das nicht — dort
+        # zaehlt jede Stelle, und der erste Durchgang hat sie schon.
+        if remote.aktiv:
+            log("» Remote-Suche (bundesweit)")
+            kandidaten: dict[str, dict[str, Any]] = {}
+            for archetyp in cfg.get("archetypen", []):
+                for begriff in archetyp.get("begriffe", []):
+                    for roh in ba.suche(begriff, bundesweit=True):
+                        if not roh.get("homeofficemoeglich"):
+                            continue
+                        eintrag = BundesagenturQuelle.normalisiere(
+                            roh, archetyp["id"], begriff)
+                        if not eintrag:
+                            continue
+                        if eintrag["id"] in gefunden or eintrag["id"] in kandidaten:
+                            continue
+                        if ausschluss.greift(eintrag["titel"]):
+                            continue
+                        if umkreis.im_umkreis(eintrag):
+                            continue  # nah genug, laeuft ueber den ersten Durchgang
+                        kandidaten[eintrag["id"]] = eintrag
+
+            log(f"  · {len(kandidaten)} Kandidaten mit Homeoffice-Kennzeichen "
+                f"ausserhalb des Umkreises")
+            for eintrag in list(kandidaten.values())[:remote.max_details]:
+                volltext = ba.details(eintrag["refnr"])
+                remote.geprueft += 1
+                beleg = remote.beleg(volltext)
+                if not beleg:
+                    continue
+                eintrag["_volltext"] = volltext
+                eintrag["_volltext_echt"] = True
+                eintrag["remote_beleg"] = beleg
+                remote.erkannt += 1
+                gefunden[eintrag["id"]] = eintrag
+            log(f"  · {remote.geprueft} Volltexte geprueft, "
+                f"{remote.erkannt} erfuellen die Remote-Schwelle")
 
         # Jede Abfrage gescheitert heisst: die Quelle ist weg, nicht der
         # Arbeitsmarkt. Abbrechen, bevor der Merge alles als entfernt markiert.
@@ -557,6 +683,10 @@ def scanne(cfg: dict[str, Any], zustand: dict[str, Any],
             alt = bekannt[eid]
             alt["zuletzt_gesehen"] = lauf_zeit
             alt["neu"] = False
+            # Bei jedem Lauf neu bewerten, nicht nur bei Neuzugaengen: sonst
+            # erreicht eine Korrektur an den erreichbarkeit-Listen den
+            # Bestand nie und wirkt erst fuer kuenftige Anzeigen.
+            alt["passung"] = passung.bewerte(alt.get("titel", ""))
             stellen[eid] = alt
             continue
         volltext = eintrag.pop("_volltext", "") or eintrag["titel"]
@@ -571,6 +701,7 @@ def scanne(cfg: dict[str, Any], zustand: dict[str, Any],
         if echt is None:
             echt = strukturiert is not False and len(volltext) >= 200
         eintrag["screening"]["nur_titel"] = not echt
+        eintrag["passung"] = passung.bewerte(eintrag["titel"])
         eintrag["erstmals_gesehen"] = lauf_zeit
         eintrag["zuletzt_gesehen"] = lauf_zeit
         eintrag["neu"] = True
@@ -598,6 +729,7 @@ def scanne(cfg: dict[str, Any], zustand: dict[str, Any],
         "ausgeschlossen": ausschluss.gezaehlt,
         "ausserhalb_umkreis": umkreis.verworfen,
         "ohne_plz": len(umkreis.ohne_plz),
+        "remote_gefunden": remote.erkannt,
         "uebersprungen": seiten.uebersprungen,
     })
 

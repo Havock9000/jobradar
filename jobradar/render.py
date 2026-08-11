@@ -133,6 +133,19 @@ h1{
   padding:2px 7px;border-radius:2px
 }
 .datum{font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;font-size:12px;color:var(--tinte-weich);display:block;margin-top:5px}
+.passung{
+  font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;
+  font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+  padding:1px 6px;border-radius:2px;margin-right:5px;white-space:nowrap
+}
+.passung.kern{background:var(--moos);color:var(--papier)}
+.passung.nah{background:var(--bernstein);color:var(--papier)}
+.passung.fern{border:1px dashed var(--linie);color:var(--tinte-weich)}
+.remote{
+  font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;
+  font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid currentColor;padding:1px 5px;border-radius:2px;margin-right:5px
+}
 
 .leer{
   padding:40px 0;color:var(--tinte-weich);font-size:15px;
@@ -155,8 +168,12 @@ footer{
 
 JS = """
 (function(){
+  // ohneFremd startet auf true: Stellen aus anderen Berufen (Forstwirt,
+  // SAP-Consultant, Buchhaltung) sollen nicht die erreichbaren zuschuetten.
+  // Sie sind nicht geloescht — ein Klick auf "Auch fachfremde" holt sie zurueck,
+  // und der Zaehler unten nennt jederzeit ihre Zahl.
   var filter = {archetyp:'alle', nurNeu:false, ohneStudium:false,
-                ohneEhrenamt:false, ohneAbgelaufen:true};
+                ohneEhrenamt:false, ohneAbgelaufen:true, ohneFremd:true};
 
   function anwenden(){
     document.querySelectorAll('.stelle').forEach(function(el){
@@ -166,8 +183,13 @@ JS = """
       if (filter.ohneStudium && el.dataset.studium === 'hart') zeig = false;
       if (filter.ohneEhrenamt && el.dataset.ehrenamt === '1') zeig = false;
       if (filter.ohneAbgelaufen && el.dataset.abgelaufen === '1') zeig = false;
+      if (filter.ohneFremd && el.dataset.passung === 'fremd') zeig = false;
       el.hidden = !zeig;
     });
+    var versteckt = document.querySelectorAll('.stelle[data-passung="fremd"]').length;
+    var hinweis = document.getElementById('fremdzahl');
+    if (hinweis) hinweis.textContent = filter.ohneFremd && versteckt
+      ? versteckt + ' fachfremde ausgeblendet' : '';
     document.querySelectorAll('.gruppe').forEach(function(g){
       var sichtbar = g.querySelectorAll('.stelle:not([hidden])').length;
       g.hidden = sichtbar === 0;
@@ -236,8 +258,11 @@ def _ampel(screening: dict[str, Any]) -> tuple[str, str, str]:
     return studium, ehrenamt, befristung
 
 
-def _belege(screening: dict[str, Any]) -> str:
+def _belege(screening: dict[str, Any], remote_beleg: str | None = None) -> str:
     zeilen = []
+    # Zuerst, weil es erklaert, warum eine Stelle trotz Entfernung dasteht.
+    if remote_beleg:
+        zeilen.append(f"Remote: {remote_beleg}")
     studium = screening.get("studium") or {}
     if studium.get("beleg"):
         praefix = "Studium zwingend" if studium.get("stufe") == "hart" else "Studium mit Alternative"
@@ -265,7 +290,11 @@ def _zeile(stelle: dict[str, Any]) -> str:
         meta.append(esc(stelle["arbeitgeber"]))
     ort = stelle.get("ort") or ""
     km = stelle.get("entfernung_km")
-    if ort and km is not None:
+    if stelle.get("remote_beleg"):
+        # Ausserhalb des Pendelradius, aber vollstaendig remote — die
+        # Entfernung ist hier die unwichtigste Angabe, nicht die wichtigste.
+        meta.append(f'<span class="remote">remote</span> {esc(ort) or "ortsunabhängig"}')
+    elif ort and km is not None:
         meta.append(f"{esc(ort)} · {int(km)} km")
     elif ort:
         meta.append(esc(ort))
@@ -299,14 +328,26 @@ def _zeile(stelle: dict[str, Any]) -> str:
                  'gruene Statusfelder sind hier nicht aussagekraeftig">nur Titel</span>'
                  if screening.get("nur_titel") else "")
 
+    passung = stelle.get("passung") or {}
+    passung_stufe = passung.get("stufe", "fremd")
+    if passung_stufe == "kern":
+        meta.insert(0, '<span class="passung kern" title="Dein Handwerk oder '
+                       'deine Berufserfahrung">direkt erreichbar</span>')
+    elif passung_stufe == "angrenzend":
+        meta.insert(0, '<span class="passung nah" title="Plausibel mit '
+                       'Einarbeitung oder Quereinstieg">mit Einarbeitung</span>')
+    else:
+        meta.insert(0, '<span class="passung fern" title="Anderer Beruf, andere '
+                       'Ausbildung — nach Titel eingeschaetzt">fachfremd</span>')
+
     return f"""<article class="{klassen}" data-archetyp="{esc(stelle.get('archetyp'))}"
   data-neu="{'1' if stelle.get('neu') else '0'}" data-studium="{esc(stufe)}" data-ehrenamt="{ehrenamt}"
-  data-abgelaufen="{'1' if abgelaufen else '0'}">
+  data-abgelaufen="{'1' if abgelaufen else '0'}" data-passung="{esc(passung_stufe)}">
   <div class="ampel">{s}{e}{b}</div>
   <div>
     <p class="titel"><a href="{esc(stelle.get('url'))}" target="_blank" rel="noopener">{esc(stelle.get('titel') or 'Ohne Titel')}</a>{nur_titel}</p>
     <div class="meta">{''.join(f'<span>{m}</span>' for m in meta if m)}</div>
-    {_belege(screening)}
+    {_belege(screening, stelle.get("remote_beleg"))}
   </div>
   <div class="rechts">{neu_badge}<span class="datum">{datum}</span>{frist_html}</div>
 </article>"""
@@ -317,8 +358,13 @@ def baue_dashboard(cfg: dict[str, Any], zustand: dict[str, Any], ziel: Path) -> 
     stellen = list(zustand.get("stellen", {}).values())
 
     # Erst die neuen, innerhalb dessen das jüngste Veröffentlichungsdatum oben.
+    # Reihenfolge der Sortierungen ist umgekehrt zur Wichtigkeit (stabile Sorts):
+    # zuletzt sortiert = staerkstes Kriterium. Erreichbarkeit schlaegt "neu" —
+    # eine neue Stelle in einem fremden Beruf nuetzt nichts.
     stellen.sort(key=lambda s: s.get("veroeffentlicht") or "0000-00-00", reverse=True)
     stellen.sort(key=lambda s: 0 if s.get("neu") else 1)
+    stellen.sort(key=lambda s: {"kern": 0, "angrenzend": 1}.get(
+        (s.get("passung") or {}).get("stufe"), 2))
 
     gruppen_html = []
     for a in archetypen:
@@ -352,6 +398,7 @@ def baue_dashboard(cfg: dict[str, Any], zustand: dict[str, Any], ziel: Path) -> 
         '<button data-filter="ohneStudium" aria-pressed="false">Studiumspflicht ausblenden</button>',
         '<button data-filter="ohneEhrenamt" aria-pressed="false">Ehrenamtslogik ausblenden</button>',
         '<button data-filter="ohneAbgelaufen" aria-pressed="true">Abgelaufene ausblenden</button>',
+        '<button data-filter="ohneFremd" aria-pressed="true">Fachfremde ausblenden</button>',
     ]
 
     doc = f"""<!DOCTYPE html>
@@ -386,6 +433,7 @@ def baue_dashboard(cfg: dict[str, Any], zustand: dict[str, Any], ziel: Path) -> 
 
 {''.join(gruppen_html) if gruppen_html else ''}
 <p class="leer" id="leer" {'' if gruppen_html else ''}>Keine Anzeigen passen zu den gewählten Filtern.</p>
+<p class="datum" id="fremdzahl"></p>
 
 <footer>
 Quellen: Bundesagentur für Arbeit (inoffizielle Jobsuche-API), service.bund.de (RSS) und einzelne Karriereseiten. Letztere werden nur ohne Login und nur nach robots.txt-Prüfung abgerufen, einmal je Lauf.<br>

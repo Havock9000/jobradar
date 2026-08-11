@@ -38,6 +38,92 @@ standort:
   # Bewusst NICHT drin: 531 (Bonn), 560 (Koblenz), 500/506 (Köln),
   # 573 (Bad Berleburg) — alle jenseits 50 min.
 
+# ---------------------------------------------------------------------------
+# Erreichbarkeit: sortiert das Dashboard danach, was du tatsächlich bekommen
+# kannst. Greift NUR gegen den Titel, wie der Ausschlussfilter auch.
+#
+# Warum das nötig wurde: Das Studiumsfeld taugt dafür nicht. Am 09.08.2026
+# standen 49 von 63 Stellen auf S="offen" (grün) — darunter Forstwirt,
+# Revierförster, Projektingenieur Wassertechnik, Gehaltsbuchhalter, Controller,
+# Teamlead SAP und Modeberater. "Offen" heißt nur "im Text steht nichts von
+# Studium"; über den geforderten Beruf sagt es nichts. Es fehlte ein POSITIVES
+# Passungssignal — bis dahin blieb alles drin, was ein Suchbegriff hereinzog.
+#
+# kern        → dein Handwerk oder deine Berufserfahrung. Könntest du sofort.
+# angrenzend  → plausibel mit Einarbeitung oder Quereinstieg.
+# alles übrige → "fremd": anderer Beruf, andere Ausbildung. Wird nicht
+#                gelöscht, sondern ans Ende sortiert und standardmäßig
+#                ausgeblendet; der Zähler im Dashboard nennt die Zahl.
+#
+# Das ist deine Selbsteinschätzung, nicht meine — die Listen gehören geprüft.
+# ---------------------------------------------------------------------------
+erreichbarkeit:
+  kern:
+    - "Video|Bewegtbild|Film(produktion|emacher)?\\b"
+    - "Kamera|Kameramann|Kamerafrau"
+    - "Schnitt|Cutter|Editor|Motion|Postproduktion"
+    - "Mediengestalter.*(Bild|Ton)|Bild und Ton"
+    - "Content.?Creator|Videograf|Producer"
+    - "Ton(technik|meister|ingenieur)"
+    # "Marketer" und "Advertising" nachgetragen 09.08.2026: "Marketing" matcht
+    # "Marketer" nicht, dadurch landeten "Marketer (m/w/d)" und "Online
+    # Advertising Manager" faelschlich unter fachfremd.
+    - "Marketing|Marketer|Advertising|Kampagne|Werbe"
+    - "Kommunikation|Öffentlichkeitsarbeit|Presse|PR-"
+    - "Redakteur|Redaktion|Journalist"
+    - "Social Media|Content\\b"
+  angrenzend:
+    - "Assistenz|Assistent"
+    - "Sachbearbeit"
+    - "Projektmanage|Projektkoordin|Projektmitarbeit"
+    - "Veranstaltung|Event|Kultur|Messe|Ausstellung"
+    # Gestalterisch benachbart, aber nicht dein Handwerk — bewusst nur
+    # "angrenzend". "Design" allein steht hier NICHT, sonst rutscht
+    # "Interior Design Manager" mit herein.
+    - "Grafik|Art Director|Gestaltung|Layout"
+    - "Tourismus|Stadtmarketing|Wirtschaftsförderung"
+    - "Medienpädagog|Medienzentrum|Bildung|Dozent"
+    - "Referent|Koordinator|Koordination"
+    - "Digitalisierung|Multimedia|Medien\\b"
+
+# ---------------------------------------------------------------------------
+# Remote: zweiter, bundesweiter Suchlauf.
+#
+# Regel: Innerhalb der plz_praefixe zählt jede Stelle. Außerhalb zählt sie nur,
+# wenn sie praktisch vollständig remote ist — dann ist die Entfernung egal.
+#
+# Warum nicht einfach das BA-Feld `homeofficemoeglich`? Weil es nichts über den
+# Anteil sagt. Gemessen am 09.08.2026: ein Arbeitgeber in Neusäß ist so
+# markiert, im Anzeigentext steht aber "Grundsätzlich arbeiten wir vor Ort im
+# Studio". Das Feld taugt nur als Vorfilter, welche Anzeigen sich zu lesen
+# lohnen — das Urteil fällt am Volltext.
+#
+# Ebenso wenig taugt ein nacktes "100 %"-Muster: das trifft bei einem
+# Hundefutterhersteller "100% Lebensmittelqualität". Die Muster unten koppeln
+# den Prozentsatz deshalb an ein Remote-Wort im selben Satz.
+#
+# Ertrag der strengen Muster: 1 von 40 geprüften Anzeigen. Das ist gewollt —
+# echte Vollzeit-Remote-Stellen sind selten, und ein weiches Muster füllt das
+# Dashboard mit "gelegentlich Homeoffice"-Stellen 400 km entfernt.
+# ---------------------------------------------------------------------------
+remote:
+  aktiv: true
+  # Deckel für Detailabrufe pro Lauf. Jeder Kandidat kostet eine Anfrage.
+  # 60 war zu wenig: es gibt ~256 Kandidaten, der Deckel prüfte also ein
+  # willkürliches Viertel. Eine Priorisierung nach Titel wurde geprüft und
+  # verworfen — nur 1 von 256 Anzeigen nennt Remote im Titel, das Signal
+  # steht ausschließlich im Volltext. Also alle prüfen; kostet rund
+  # 3 Minuten Laufzeit pro Tag, was für einen nächtlichen Lauf egal ist.
+  max_details: 400
+  muster:
+    - "(?:100|9\\d)\\s*%[^.;]{0,25}(?:remote|[Hh]ome\\s?-?office|mobil(?:es)?\\s+Arbeiten)"
+    - "(?:remote|[Hh]ome\\s?-?office)[^.;]{0,25}(?:100|9\\d)\\s*%"
+    - "voll(?:st(?:ä|ae)ndig|umf(?:ä|ae)nglich)?\\s*(?:remote|im\\s+[Hh]ome\\s?-?office)"
+    - "\\bremote[- ]?first\\b"
+    - "\\bvollremote\\b"
+    - "(?:deutschlandweit|bundesweit|ortsunabh(?:ä|ae)ngig)\\s+(?:remote|arbeiten)"
+    - "ausschlie(?:ß|ss)lich\\s+remote"
+
 lauf:
   # Nur Anzeigen, die in den letzten N Tagen veröffentlicht wurden.
   veroeffentlicht_seit_tagen: 30
@@ -88,12 +174,27 @@ archetypen:
     notiz: "Dein gelerntes Handwerk. Inhouse-Redaktionen, Produktionsfirmen, Sender, Museen."
     begriffe:
       - Mediengestalter Bild und Ton
+      # "Mediengestalter" ohne Zusatz wurde am 09.08.2026 getestet und wieder
+      # entfernt: Es trifft den Druckberuf "Mediengestalter Digital und Print"
+      # — ein anderer Ausbildungsberuf. Von 7 Treffern waren 0 aus Bild und Ton
+      # (Druckvorlagenhersteller, Grafiker, Bürokaufmann, Interior Designer).
       - Videoredakteur
       # Nachgetragen 2026-08-09: "Videoredakteur" liefert 0, "Videoproduktion"
       # findet dieselbe Sorte Stelle (Content-Creator Video). Beide bleiben —
       # die BA matcht unscharf, was heute leer ist, kann nächsten Monat greifen.
       - Videoproduktion
       - Videojournalist
+      # Handwerksbegriffe, nachgetragen auf Wunsch 2026-08-09. Hier ist die
+      # Rauschtoleranz höher als anderswo: das ist das gelernte Handwerk,
+      # ein Fehltreffer kostet einen Blick, ein Fehlen kostet eine Stelle.
+      - Cutter
+      - Video Editor
+      - Videoproducer
+      - Kameramann
+      - Tontechniker
+      - Motion Design
+      - Filmproduktion
+      - Postproduktion
       - Kameramann Kamerafrau
       - Videograf
       - Cutter Videoschnitt
@@ -103,9 +204,26 @@ archetypen:
       - Multimediaproduktion
       - Tontechniker Postproduktion
 
+  - id: marketing
+    label: "Marketing & Kampagnen"
+    rang: 3
+    notiz: >-
+      Deine zweite Berufserfahrung. War bis 09.08.2026 bewusst ausgeschlossen —
+      das Radar sollte davon wegführen. Auf ausdrücklichen Wunsch wieder drin.
+      Der zugehörige Ausschluss in ausschluss_titel wurde entsprechend gelockert.
+    begriffe:
+      - Marketing Manager
+      - Marketingassistenz
+      - Assistenz Marketing
+      - Performance Marketing
+      - Online Marketing
+      - Digital Marketing
+      - Content Marketing
+      - Referent Marketing
+
   - id: pressestelle
     label: "Presse- & Öffentlichkeitsarbeit (Behörde/Kommune)"
-    rang: 3
+    rang: 4
     notiz: "Nahbereich stark, aber oft auf Laufbahn oder Studium gegated."
     begriffe:
       - Presse- und Öffentlichkeitsarbeit
@@ -115,7 +233,7 @@ archetypen:
 
   - id: verwaltung
     label: "Kommunale Verwaltung – Quereinstieg"
-    rang: 4
+    rang: 5
     notiz: >-
       Kommunen stellen ohne Verwaltungsausbildung ein und qualifizieren über den
       Beschäftigtenlehrgang I nach. Kommunikationsnahe Ämter (Wirtschaftsförderung,
@@ -130,7 +248,7 @@ archetypen:
 
   - id: medienbildung
     label: "Medienpädagogik & Medienzentrum"
-    rang: 5
+    rang: 6
     notiz: "Realistische Lehrtätigkeit ohne Abschlusshürde."
     begriffe:
       - Medienpädagoge
@@ -141,7 +259,7 @@ archetypen:
 
   - id: naturschutz
     label: "Naturschutz-Kommunikation"
-    rang: 6
+    rang: 7
     notiz: "Höchste Sinnbindung, schwächste Strukturpassung (Ehrenamtslogik)."
     begriffe:
       - Öffentlichkeitsarbeit Naturschutz
@@ -222,16 +340,21 @@ seiten_quellen:
 # Anzeigen werden nicht angezeigt, aber im Fuß des Dashboards gezählt.
 # ---------------------------------------------------------------------------
 ausschluss_titel:
-  - "Performance[- ]?Marketing"
+  # GELOCKERT 09.08.2026. Bis dahin flogen Performance Marketing, Kampagnen-
+  # management, Paid Media und Growth raus — Absicht war, vom alten Feld
+  # wegzuführen. Auf ausdrücklichen Wunsch wieder zugelassen.
+  # Was es konkret gekostet hat: "Performance Marketing Manager (m/w/d)" in
+  # 57520 Niederdreisbach, 25 km entfernt, "bis zu 100 % Remote" — von diesem
+  # Filter weggeworfen, ohne dass es irgendwo sichtbar wurde.
+  #
+  # Noch ausgeschlossen bleiben die Spezialistenrollen, nach denen nicht
+  # gefragt wurde. Wenn die auch rein sollen, hier streichen:
   - "\\bSEA\\b"
   - "\\bSEO\\b"
   - "Google Ads"
   - "Meta Ads"
-  - "Paid (Media|Social|Advertising)"
-  - "Kampagnenmanager"
   - "Media[- ]?Buyer"
   - "E-?Commerce"
-  - "Growth"
   - "^(Junior |Senior )?Social[- ]Media[- ](Manager|Redakteur|Specialist)"
   - "Community[- ]?Manager"
   - "Influencer"

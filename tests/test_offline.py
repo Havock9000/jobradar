@@ -19,7 +19,8 @@ import yaml  # noqa: E402
 
 from jobradar.render import baue_dashboard  # noqa: E402
 from jobradar.scan import (  # noqa: E402
-    Ausschluss, BundesagenturQuelle, RssQuelle, Screener, Umkreis, parse_date,
+    Ausschluss, BundesagenturQuelle, RemotePruefer, RssQuelle, Screener,
+    Umkreis, parse_date,
 )
 
 cfg = yaml.safe_load((ROOT / "config.yaml").read_text(encoding="utf-8"))
@@ -28,7 +29,6 @@ cfg = yaml.safe_load((ROOT / "config.yaml").read_text(encoding="utf-8"))
 ausschluss = Ausschluss(cfg["ausschluss_titel"])
 
 raus = [
-    "Performance Marketing Manager (m/w/d)",
     "Social Media Manager (m/w/d)",
     "SEO-Redakteur (m/w/d)",
     "Junior Social-Media-Redakteur",
@@ -36,6 +36,9 @@ raus = [
     "Community Manager Gaming",
     "E-Commerce Content Specialist",
     "Außendienstmitarbeiter (m/w/d) für die Region Mitte",
+    # Spezialistenrollen, die bewusst draussen bleiben:
+    "SEA Manager (m/w/d)",
+    "Media-Buyer (m/w/d)",
 ]
 drin = [
     "Mediengestalter Bild und Ton (m/w/d)",
@@ -48,6 +51,13 @@ drin = [
     # Echter Feed-Titel vom 2026-08-09: kommunaler Außendienst ist kein
     # Vertrieb. Fiel vorher dem Muster /Außendienst/ zum Opfer.
     "Sachbearbeitung Ordnungswidrigkeiten/Außendienst innerhalb der Abteilung",
+    # Ab 09.08.2026 ausdrücklich gewünscht — vorher ausgeschlossen. Der echte
+    # Fall, der den Ausschluss gekostet hat: 57520 Niederdreisbach, 25 km,
+    # "bis zu 100 % Remote".
+    "Performance Marketing Manager (m/w/d)",
+    "Marketing Manager (m/w/d)",
+    "Assistenz Marketing (m/w/d)",
+    "Kampagnenmanager (m/w/d)",
 ]
 
 print("Titelfilter:")
@@ -192,6 +202,43 @@ for plz_test, erwartet, was in faelle_ort:
 # Ohne konfigurierte Praefixe darf nichts gefiltert werden.
 assert Umkreis({"standort": {}}).drin({"plz": "15848"}) is True
 print("  [ok ] leere Praefixliste filtert nicht")
+
+# --- 3bb. Remote-Erkennung ------------------------------------------------
+# Beide Negativfaelle stammen aus echten Anzeigen vom 09.08.2026 und sind der
+# Grund, warum das Muster den Prozentsatz an ein Remote-Wort koppeln muss.
+print("Remote-Erkennung:")
+remote = RemotePruefer(cfg)
+assert remote.aktiv, "remote.aktiv steht in config.yaml auf false"
+
+remote_faelle = [
+    ("an unserem Standort in 57520 Niederdreisbach oder bis zu 100 % Remote",
+     True, "100 % Remote"),
+    ("Wir arbeiten remote-first und treffen uns zweimal im Jahr.",
+     True, "remote-first"),
+    ("Die Stelle ist vollständig remote zu besetzen.", True, "vollständig remote"),
+    ("90 % Homeoffice, ein Präsenztag im Monat.", True, "90 % Homeoffice"),
+    # Negativ 1: Hundefutterhersteller. Ein nacktes "100 %"-Muster faellt darauf rein.
+    ("Qualität in den Napf deines Hundes, die 100% Lebensmittelqualität hat",
+     False, "100% ohne Remote-Bezug"),
+    # Negativ 2: traegt das BA-Flag homeofficemoeglich, meint aber Praesenz.
+    ("**Homeoffice** Grundsätzlich arbeiten wir vor Ort im Studio, da unsere "
+     "Videoprojekte das erfordern.", False, "Homeoffice ohne Anteilsangabe"),
+    ("Gelegentliches Homeoffice nach Absprache möglich.", False, "gelegentlich"),
+    # Negativ 3: echte Anzeige aus Hiddenhausen. Ohne Verneinungspruefung liest
+    # das Muster hier das exakte Gegenteil heraus.
+    ("Bewerbungen bitte nur aus dem Umkreis Bielefeld (KEIN 100 % "
+     "Homeoffice/Remote). Deine Aufgaben ...", False, "KEIN 100 % Homeoffice"),
+    ("Wir bieten kein vollständiges Homeoffice an.", False, "kein vollständiges"),
+    ("Die Stelle ist nicht 100 % remote zu besetzen.", False, "nicht 100 % remote"),
+    # Verneinung darf nicht ueber Satzgrenzen hinweg greifen:
+    ("Wir haben keine Kantine. Die Stelle ist vollständig remote.",
+     True, "Verneinung im Vorsatz zaehlt nicht"),
+]
+for text, erwartet, was in remote_faelle:
+    got = remote.beleg(text) is not None
+    print(f"  [{'ok ' if got == erwartet else 'FEHLER'}] "
+          f"{'remote' if got else 'nicht remote':13s} · {was}")
+    assert got == erwartet, f"{was}: {got} statt {erwartet}"
 
 # --- 3c. Quellenausfall darf den Bestand nicht leeren ---------------------
 # Ohne diese Sicherung ist ein Totalausfall nicht von "alle Anzeigen

@@ -34,7 +34,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-12T06:57:47Z",
+      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
       "neu": false,
       "gesichtet": false
     },
@@ -72,7 +72,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-12T06:57:47Z",
+      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
       "neu": false,
       "gesichtet": false
     },
@@ -110,7 +110,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-12T06:57:47Z",
+      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
       "neu": false,
       "gesichtet": false
     },
@@ -148,7 +148,229 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-12T06:57:47Z",
+      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
+      "neu": false,
+      "gesichtet": false
+    },
+    "ba:10001-1002424292-S": {
+      "id": "ba:10001-1002424292-S",
+      "refnr": "10001-1002424292-S",
+      "quelle": "Bundesagentur für Arbeit",
+      "titel": "Stellenausschreibung – Fachkraft Naturschutz & Umweltplanung (m/w/d)",
+      "arbeitgeber": "BSR Immobilien GmbH",
+      "ort": "Bad Honnef",
+      "plz": "53604",
+      "entfernung_km": 35,
+      "veroeffentlicht": "2026-01-15",
+      "frist": null,
+      "eintritt": "2026-07-22",
+      "url": "https://www.arbeitsagentur.de/jobsuche/jobdetail/10001-1002424292-S",
+      "archetyp": "naturschutz",
+      "treffer_begriff": "Naturschutz",
+      "vertragsdauer": "KEINE_ANGABE",
+      "quereinstieg": null,
+      "screening": {
+        "studium": {
+          "stufe": "hart",
+          "beleg": "…ojektpartnern **Ihr Profil** **Fachliche Qualifikation:** - Abgeschlossenes Studium in Landschaftsplanung, Umweltplanung, Biologie, Geoökologie…"
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 2460,
+        "nur_titel": false
+      },
+      "erstmals_gesehen": "2026-08-09T10:53:43Z",
+      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
+      "neu": false,
+      "gesichtet": false
+    },
+    "ba:10000-1206792920-S": {
+      "id": "ba:10000-1206792920-S",
+      "refnr": "10000-1206792920-S",
+      "quelle": "Bundesagentur für Arbeit",
+      "titel": "Forstwirt/in (m/w/d) gesucht",
+      "arbeitgeber": "Verbandsgemeindeverwaltung Selters",
+      "ort": "Selters (Westerwald)",
+      "plz": "56242",
+      "entfernung_km": 26,
+      "veroeffentlicht": "2026-06-10",
+      "frist": null,
+      "eintritt": "2026-08-04",
+      "url": "https://www.arbeitsagentur.de/jobsuche/jobdetail/10000-1206792920-S",
+      "archetyp": "naturschutz",
+      "treffer_begriff": "Naturschutz",
+      "vertragsdauer": "UNBEFRISTET",
+      "quereinstieg": false,
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": "strukturierte Angabe der BA: UNBEFRISTET"
+        },
+        "textlaenge": 2233,
+        "nur_titel": false
+      },
+      "erstmals_gesehen": "2026-08-09T10:53:43Z",
+      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
+      "neu": false,
+      "gesichtet": false
+    },
+    "ba:10001-1003487744-S": {
+      "id": "ba:10001-1003487744-S",
+      "refnr": "10001-1003487744-S",
+      "quelle": "Bundesagentur für Arbeit",
+      "titel": "Arbeitslehrerin/ Arbeitslehrer",
+      "arbeitgeber": "HessenForst Landesbetriebsleitung",
+      "ort": "Weilburg",
+      "plz": "35781",
+      "entfernung_km": 50,
+      "veroeffentlicht": "2026-08-04",
+      "frist": null,
+      "eintritt": "2026-08-04",
+      "url": "https://www.arbeitsagentur.de/jobsuche/jobdetail/10001-1003487744-S",
+      "archetyp": "naturschutz",
+      "treffer_begriff": "Naturschutz",
+      "vertragsdauer": "UNBEFRISTET",
+      "quereinstieg": null,
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": "strukturierte Angabe der BA: UNBEFRISTET"
+        },
+        "textlaenge": 6825,
+        "nur_titel": false
+      },
+      "erstmals_gesehen": "2026-08-09T10:53:43Z",
+      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
+      "neu": false,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1470968.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1470968.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Öffentlichkeitsarbeit",
+      "titel": "Revierförster (m/w/d)",
+      "arbeitgeber": "Stadtverwaltung Neuwied",
+      "ort": "56567 Neuwied",
+      "plz": "56567",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-10",
+      "frist": "2026-08-23",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1470968.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Öffentlichkeitsarbeit",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 151,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-11T06:33:41Z",
+      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
+      "neu": false,
+      "gesichtet": false
+    },
+    "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf": {
+      "id": "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf",
+      "refnr": null,
+      "quelle": "NABU Rheinland-Pfalz",
+      "titel": "- Mitarbeiter*in (m/w/d) für die NABU-Regionalsstelle Eifel-Ahr-Hunsrück - Kennung RGS EAH",
+      "arbeitgeber": "NABU Rheinland-Pfalz",
+      "ort": "Mainz / Regionalstellen",
+      "plz": "",
+      "entfernung_km": null,
+      "veroeffentlicht": null,
+      "frist": null,
+      "eintritt": null,
+      "url": "https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf",
+      "archetyp": "naturschutz",
+      "treffer_begriff": "NABU Rheinland-Pfalz",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 90,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-09T10:53:43Z",
+      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
+      "neu": false,
+      "gesichtet": false
+    },
+    "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf": {
+      "id": "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf",
+      "refnr": null,
+      "quelle": "NABU Rheinland-Pfalz",
+      "titel": "- Mitarbeiter*in (m/w/d) für die NABU-Regionalsstelle Rhein-Westerwald - Kennung: RGS WW",
+      "arbeitgeber": "NABU Rheinland-Pfalz",
+      "ort": "Mainz / Regionalstellen",
+      "plz": "",
+      "entfernung_km": null,
+      "veroeffentlicht": null,
+      "frist": null,
+      "eintritt": null,
+      "url": "https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf",
+      "archetyp": "naturschutz",
+      "treffer_begriff": "NABU Rheinland-Pfalz",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 88,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-09T10:53:43Z",
+      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
       "neu": false,
       "gesichtet": false
     },
@@ -188,7 +410,8 @@
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
       "zuletzt_gesehen": "2026-08-12T06:57:47Z",
       "neu": false,
-      "gesichtet": false
+      "gesichtet": false,
+      "entfernt": true
     },
     "ba:10001-1003381936-S": {
       "id": "ba:10001-1003381936-S",
@@ -226,157 +449,8 @@
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
       "zuletzt_gesehen": "2026-08-12T06:57:47Z",
       "neu": false,
-      "gesichtet": false
-    },
-    "ba:10001-1002424292-S": {
-      "id": "ba:10001-1002424292-S",
-      "refnr": "10001-1002424292-S",
-      "quelle": "Bundesagentur für Arbeit",
-      "titel": "Stellenausschreibung – Fachkraft Naturschutz & Umweltplanung (m/w/d)",
-      "arbeitgeber": "BSR Immobilien GmbH",
-      "ort": "Bad Honnef",
-      "plz": "53604",
-      "entfernung_km": 35,
-      "veroeffentlicht": "2026-01-15",
-      "frist": null,
-      "eintritt": "2026-07-22",
-      "url": "https://www.arbeitsagentur.de/jobsuche/jobdetail/10001-1002424292-S",
-      "archetyp": "naturschutz",
-      "treffer_begriff": "Naturschutz",
-      "vertragsdauer": "KEINE_ANGABE",
-      "quereinstieg": null,
-      "screening": {
-        "studium": {
-          "stufe": "hart",
-          "beleg": "…ojektpartnern **Ihr Profil** **Fachliche Qualifikation:** - Abgeschlossenes Studium in Landschaftsplanung, Umweltplanung, Biologie, Geoökologie…"
-        },
-        "ehrenamtslogik": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "befristung": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "textlaenge": 2460,
-        "nur_titel": false
-      },
-      "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-12T06:57:47Z",
-      "neu": false,
-      "gesichtet": false
-    },
-    "ba:10000-1206792920-S": {
-      "id": "ba:10000-1206792920-S",
-      "refnr": "10000-1206792920-S",
-      "quelle": "Bundesagentur für Arbeit",
-      "titel": "Forstwirt/in (m/w/d) gesucht",
-      "arbeitgeber": "Verbandsgemeindeverwaltung Selters",
-      "ort": "Selters (Westerwald)",
-      "plz": "56242",
-      "entfernung_km": 26,
-      "veroeffentlicht": "2026-06-10",
-      "frist": null,
-      "eintritt": "2026-08-04",
-      "url": "https://www.arbeitsagentur.de/jobsuche/jobdetail/10000-1206792920-S",
-      "archetyp": "naturschutz",
-      "treffer_begriff": "Naturschutz",
-      "vertragsdauer": "UNBEFRISTET",
-      "quereinstieg": false,
-      "screening": {
-        "studium": {
-          "stufe": "offen",
-          "beleg": null
-        },
-        "ehrenamtslogik": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "befristung": {
-          "getroffen": false,
-          "beleg": "strukturierte Angabe der BA: UNBEFRISTET"
-        },
-        "textlaenge": 2233,
-        "nur_titel": false
-      },
-      "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-12T06:57:47Z",
-      "neu": false,
-      "gesichtet": false
-    },
-    "ba:10001-1003487744-S": {
-      "id": "ba:10001-1003487744-S",
-      "refnr": "10001-1003487744-S",
-      "quelle": "Bundesagentur für Arbeit",
-      "titel": "Arbeitslehrerin/ Arbeitslehrer",
-      "arbeitgeber": "HessenForst Landesbetriebsleitung",
-      "ort": "Weilburg",
-      "plz": "35781",
-      "entfernung_km": 50,
-      "veroeffentlicht": "2026-08-04",
-      "frist": null,
-      "eintritt": "2026-08-04",
-      "url": "https://www.arbeitsagentur.de/jobsuche/jobdetail/10001-1003487744-S",
-      "archetyp": "naturschutz",
-      "treffer_begriff": "Naturschutz",
-      "vertragsdauer": "UNBEFRISTET",
-      "quereinstieg": null,
-      "screening": {
-        "studium": {
-          "stufe": "offen",
-          "beleg": null
-        },
-        "ehrenamtslogik": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "befristung": {
-          "getroffen": false,
-          "beleg": "strukturierte Angabe der BA: UNBEFRISTET"
-        },
-        "textlaenge": 6825,
-        "nur_titel": false
-      },
-      "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-12T06:57:47Z",
-      "neu": false,
-      "gesichtet": false
-    },
-    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1470968.html#track=feed-jobs": {
-      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1470968.html#track=feed-jobs",
-      "refnr": null,
-      "quelle": "Bund/Länder – Öffentlichkeitsarbeit",
-      "titel": "Revierförster (m/w/d)",
-      "arbeitgeber": "Stadtverwaltung Neuwied",
-      "ort": "56567 Neuwied",
-      "plz": "56567",
-      "entfernung_km": null,
-      "veroeffentlicht": "2026-08-10",
-      "frist": "2026-08-23",
-      "eintritt": null,
-      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1470968.html#track=feed-jobs",
-      "archetyp": "pressestelle",
-      "treffer_begriff": "Bund/Länder – Öffentlichkeitsarbeit",
-      "screening": {
-        "studium": {
-          "stufe": "offen",
-          "beleg": null
-        },
-        "ehrenamtslogik": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "befristung": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "textlaenge": 151,
-        "nur_titel": true
-      },
-      "erstmals_gesehen": "2026-08-11T06:33:41Z",
-      "zuletzt_gesehen": "2026-08-12T06:57:47Z",
-      "neu": false,
-      "gesichtet": false
+      "gesichtet": false,
+      "entfernt": true
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1477730.html#track=feed-jobs": {
       "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1477730.html#track=feed-jobs",
@@ -412,7 +486,8 @@
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
       "zuletzt_gesehen": "2026-08-12T06:57:47Z",
       "neu": false,
-      "gesichtet": false
+      "gesichtet": false,
+      "entfernt": true
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1479182.html#track=feed-jobs": {
       "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1479182.html#track=feed-jobs",
@@ -448,7 +523,8 @@
       "erstmals_gesehen": "2026-08-11T06:33:41Z",
       "zuletzt_gesehen": "2026-08-12T06:57:47Z",
       "neu": false,
-      "gesichtet": false
+      "gesichtet": false,
+      "entfernt": true
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1479177.html#track=feed-jobs": {
       "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1479177.html#track=feed-jobs",
@@ -484,7 +560,8 @@
       "erstmals_gesehen": "2026-08-11T06:33:41Z",
       "zuletzt_gesehen": "2026-08-12T06:57:47Z",
       "neu": false,
-      "gesichtet": false
+      "gesichtet": false,
+      "entfernt": true
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1479174.html#track=feed-jobs": {
       "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1479174.html#track=feed-jobs",
@@ -520,79 +597,8 @@
       "erstmals_gesehen": "2026-08-11T06:33:41Z",
       "zuletzt_gesehen": "2026-08-12T06:57:47Z",
       "neu": false,
-      "gesichtet": false
-    },
-    "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf": {
-      "id": "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf",
-      "refnr": null,
-      "quelle": "NABU Rheinland-Pfalz",
-      "titel": "- Mitarbeiter*in (m/w/d) für die NABU-Regionalsstelle Eifel-Ahr-Hunsrück - Kennung RGS EAH",
-      "arbeitgeber": "NABU Rheinland-Pfalz",
-      "ort": "Mainz / Regionalstellen",
-      "plz": "",
-      "entfernung_km": null,
-      "veroeffentlicht": null,
-      "frist": null,
-      "eintritt": null,
-      "url": "https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf",
-      "archetyp": "naturschutz",
-      "treffer_begriff": "NABU Rheinland-Pfalz",
-      "screening": {
-        "studium": {
-          "stufe": "offen",
-          "beleg": null
-        },
-        "ehrenamtslogik": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "befristung": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "textlaenge": 90,
-        "nur_titel": true
-      },
-      "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-12T06:57:47Z",
-      "neu": false,
-      "gesichtet": false
-    },
-    "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf": {
-      "id": "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf",
-      "refnr": null,
-      "quelle": "NABU Rheinland-Pfalz",
-      "titel": "- Mitarbeiter*in (m/w/d) für die NABU-Regionalsstelle Rhein-Westerwald - Kennung: RGS WW",
-      "arbeitgeber": "NABU Rheinland-Pfalz",
-      "ort": "Mainz / Regionalstellen",
-      "plz": "",
-      "entfernung_km": null,
-      "veroeffentlicht": null,
-      "frist": null,
-      "eintritt": null,
-      "url": "https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf",
-      "archetyp": "naturschutz",
-      "treffer_begriff": "NABU Rheinland-Pfalz",
-      "screening": {
-        "studium": {
-          "stufe": "offen",
-          "beleg": null
-        },
-        "ehrenamtslogik": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "befristung": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "textlaenge": 88,
-        "nur_titel": true
-      },
-      "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-12T06:57:47Z",
-      "neu": false,
-      "gesichtet": false
+      "gesichtet": false,
+      "entfernt": true
     }
   },
   "laeufe": [
@@ -649,6 +655,16 @@
     {
       "zeit": "2026-08-12T06:57:47Z",
       "gefunden": 16,
+      "neu": 0,
+      "gesamt": 16,
+      "ausgeschlossen": 2,
+      "ausserhalb_umkreis": 231,
+      "ohne_plz": 6,
+      "uebersprungen": []
+    },
+    {
+      "zeit": "2026-08-13T07:02:02Z",
+      "gefunden": 10,
       "neu": 0,
       "gesamt": 16,
       "ausgeschlossen": 2,

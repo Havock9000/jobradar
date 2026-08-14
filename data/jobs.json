@@ -1,43 +1,5 @@
 {
   "stellen": {
-    "ba:14126-1603439-1-S": {
-      "id": "ba:14126-1603439-1-S",
-      "refnr": "14126-1603439-1-S",
-      "quelle": "Bundesagentur für Arbeit",
-      "titel": "Mediengestalter:in Bild & Ton",
-      "arbeitgeber": "Westdeutscher Rundfunk",
-      "ort": "Siegen",
-      "plz": "57072",
-      "entfernung_km": 26,
-      "veroeffentlicht": "2026-07-24",
-      "frist": null,
-      "eintritt": "2026-08-15",
-      "url": "https://www.arbeitsagentur.de/jobsuche/jobdetail/14126-1603439-1-S",
-      "archetyp": "medienproduktion",
-      "treffer_begriff": "Mediengestalter Bild und Ton",
-      "vertragsdauer": "BEFRISTET",
-      "quereinstieg": false,
-      "screening": {
-        "studium": {
-          "stufe": "offen",
-          "beleg": null
-        },
-        "ehrenamtslogik": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "befristung": {
-          "getroffen": true,
-          "beleg": "strukturierte Angabe der BA: BEFRISTET"
-        },
-        "textlaenge": 4209,
-        "nur_titel": false
-      },
-      "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
-      "neu": false,
-      "gesichtet": false
-    },
     "ba:10000-1207318280-S": {
       "id": "ba:10000-1207318280-S",
       "refnr": "10000-1207318280-S",
@@ -72,7 +34,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
+      "zuletzt_gesehen": "2026-08-14T06:58:16Z",
       "neu": false,
       "gesichtet": false
     },
@@ -110,45 +72,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
-      "neu": false,
-      "gesichtet": false
-    },
-    "ba:19701-k15udl77pj-S": {
-      "id": "ba:19701-k15udl77pj-S",
-      "refnr": "19701-k15udl77pj-S",
-      "quelle": "Bundesagentur für Arbeit",
-      "titel": "Sachbearbeiterin / Sachbearbeiter in der Urkundenstelle (m/w/d)",
-      "arbeitgeber": "Stadtverwaltung Siegen",
-      "ort": "Siegen",
-      "plz": "57072",
-      "entfernung_km": 27,
-      "veroeffentlicht": "2026-08-04",
-      "frist": null,
-      "eintritt": "2026-08-04",
-      "url": "https://www.arbeitsagentur.de/jobsuche/jobdetail/19701-k15udl77pj-S",
-      "archetyp": "verwaltung",
-      "treffer_begriff": "Digitalisierung Kommunalverwaltung",
-      "vertragsdauer": "UNBEFRISTET",
-      "quereinstieg": false,
-      "screening": {
-        "studium": {
-          "stufe": "offen",
-          "beleg": null
-        },
-        "ehrenamtslogik": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "befristung": {
-          "getroffen": false,
-          "beleg": "strukturierte Angabe der BA: UNBEFRISTET"
-        },
-        "textlaenge": 5504,
-        "nur_titel": false
-      },
-      "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
+      "zuletzt_gesehen": "2026-08-14T06:58:16Z",
       "neu": false,
       "gesichtet": false
     },
@@ -186,7 +110,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
+      "zuletzt_gesehen": "2026-08-14T06:58:16Z",
       "neu": false,
       "gesichtet": false
     },
@@ -224,7 +148,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
+      "zuletzt_gesehen": "2026-08-14T06:58:16Z",
       "neu": false,
       "gesichtet": false
     },
@@ -262,7 +186,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
+      "zuletzt_gesehen": "2026-08-14T06:58:16Z",
       "neu": false,
       "gesichtet": false
     },
@@ -298,7 +222,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-11T06:33:41Z",
-      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
+      "zuletzt_gesehen": "2026-08-14T06:58:16Z",
       "neu": false,
       "gesichtet": false
     },
@@ -334,7 +258,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
+      "zuletzt_gesehen": "2026-08-14T06:58:16Z",
       "neu": false,
       "gesichtet": false
     },
@@ -370,9 +294,87 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
+      "zuletzt_gesehen": "2026-08-14T06:58:16Z",
       "neu": false,
       "gesichtet": false
+    },
+    "ba:14126-1603439-1-S": {
+      "id": "ba:14126-1603439-1-S",
+      "refnr": "14126-1603439-1-S",
+      "quelle": "Bundesagentur für Arbeit",
+      "titel": "Mediengestalter:in Bild & Ton",
+      "arbeitgeber": "Westdeutscher Rundfunk",
+      "ort": "Siegen",
+      "plz": "57072",
+      "entfernung_km": 26,
+      "veroeffentlicht": "2026-07-24",
+      "frist": null,
+      "eintritt": "2026-08-15",
+      "url": "https://www.arbeitsagentur.de/jobsuche/jobdetail/14126-1603439-1-S",
+      "archetyp": "medienproduktion",
+      "treffer_begriff": "Mediengestalter Bild und Ton",
+      "vertragsdauer": "BEFRISTET",
+      "quereinstieg": false,
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": true,
+          "beleg": "strukturierte Angabe der BA: BEFRISTET"
+        },
+        "textlaenge": 4209,
+        "nur_titel": false
+      },
+      "erstmals_gesehen": "2026-08-09T10:53:43Z",
+      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
+      "neu": false,
+      "gesichtet": false,
+      "entfernt": true
+    },
+    "ba:19701-k15udl77pj-S": {
+      "id": "ba:19701-k15udl77pj-S",
+      "refnr": "19701-k15udl77pj-S",
+      "quelle": "Bundesagentur für Arbeit",
+      "titel": "Sachbearbeiterin / Sachbearbeiter in der Urkundenstelle (m/w/d)",
+      "arbeitgeber": "Stadtverwaltung Siegen",
+      "ort": "Siegen",
+      "plz": "57072",
+      "entfernung_km": 27,
+      "veroeffentlicht": "2026-08-04",
+      "frist": null,
+      "eintritt": "2026-08-04",
+      "url": "https://www.arbeitsagentur.de/jobsuche/jobdetail/19701-k15udl77pj-S",
+      "archetyp": "verwaltung",
+      "treffer_begriff": "Digitalisierung Kommunalverwaltung",
+      "vertragsdauer": "UNBEFRISTET",
+      "quereinstieg": false,
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": "strukturierte Angabe der BA: UNBEFRISTET"
+        },
+        "textlaenge": 5504,
+        "nur_titel": false
+      },
+      "erstmals_gesehen": "2026-08-09T10:53:43Z",
+      "zuletzt_gesehen": "2026-08-13T07:02:02Z",
+      "neu": false,
+      "gesichtet": false,
+      "entfernt": true
     },
     "ba:10001-1003386234-S": {
       "id": "ba:10001-1003386234-S",
@@ -669,6 +671,16 @@
       "gesamt": 16,
       "ausgeschlossen": 2,
       "ausserhalb_umkreis": 231,
+      "ohne_plz": 6,
+      "uebersprungen": []
+    },
+    {
+      "zeit": "2026-08-14T06:58:16Z",
+      "gefunden": 8,
+      "neu": 0,
+      "gesamt": 16,
+      "ausgeschlossen": 2,
+      "ausserhalb_umkreis": 230,
       "ohne_plz": 6,
       "uebersprungen": []
     }

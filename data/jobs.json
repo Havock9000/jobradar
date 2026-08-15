@@ -1,5 +1,43 @@
 {
   "stellen": {
+    "ba:17793-j119S6859-13724-S": {
+      "id": "ba:17793-j119S6859-13724-S",
+      "refnr": "17793-j119S6859-13724-S",
+      "quelle": "Bundesagentur für Arbeit",
+      "titel": "Betriebsleitung für die Lehr- und Forschungsstation Wiesengut",
+      "arbeitgeber": "Rheinische Friedrich Wilhelms Universität Bonn",
+      "ort": "Hennef (Sieg)",
+      "plz": "53773",
+      "entfernung_km": 25,
+      "veroeffentlicht": "2026-08-14",
+      "frist": null,
+      "eintritt": "2026-08-14",
+      "url": "https://www.arbeitsagentur.de/jobsuche/jobdetail/17793-j119S6859-13724-S",
+      "archetyp": "wisskomm",
+      "treffer_begriff": "Öffentlichkeitsarbeit Universität",
+      "vertragsdauer": "UNBEFRISTET",
+      "quereinstieg": false,
+      "screening": {
+        "studium": {
+          "stufe": "weich",
+          "beleg": "…s Studium der Agrarwissenschaften (Schwerpunkt Pflanzenbau) oder eine vergleichbare Qualifikation (z. B. Agrartechniker*in, Landwirtschaftsmeis…"
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": "strukturierte Angabe der BA: UNBEFRISTET"
+        },
+        "textlaenge": 3754,
+        "nur_titel": false
+      },
+      "erstmals_gesehen": "2026-08-15T05:59:07Z",
+      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
+      "neu": true,
+      "gesichtet": false
+    },
     "ba:10000-1207318280-S": {
       "id": "ba:10000-1207318280-S",
       "refnr": "10000-1207318280-S",
@@ -34,7 +72,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-14T06:58:16Z",
+      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
       "neu": false,
       "gesichtet": false
     },
@@ -72,7 +110,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-14T06:58:16Z",
+      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
       "neu": false,
       "gesichtet": false
     },
@@ -110,7 +148,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-14T06:58:16Z",
+      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
       "neu": false,
       "gesichtet": false
     },
@@ -148,7 +186,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-14T06:58:16Z",
+      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
       "neu": false,
       "gesichtet": false
     },
@@ -186,7 +224,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-14T06:58:16Z",
+      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
       "neu": false,
       "gesichtet": false
     },
@@ -222,8 +260,116 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-11T06:33:41Z",
-      "zuletzt_gesehen": "2026-08-14T06:58:16Z",
+      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
       "neu": false,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1481313.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1481313.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Kommunikation",
+      "titel": "Schulsekretär/-in (w/m/d) für das Georg-Kerschensteiner-Berufskolleg in Troisdorf",
+      "arbeitgeber": "Rhein-Sieg-Kreis",
+      "ort": "53721 Siegburg",
+      "plz": "53721",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-14",
+      "frist": "2026-09-13",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1481313.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Kommunikation",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 205,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-15T05:59:07Z",
+      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
+      "neu": true,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/editor/BVA-THW/2026/08/6608774.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/editor/BVA-THW/2026/08/6608774.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Kommunikation",
+      "titel": "Bürosachbearbeitung Ortsverband (m/w/d) am Standort Siegen - THW-2026-231",
+      "arbeitgeber": "Bundesanstalt Technisches Hilfswerk",
+      "ort": "57072 Siegen",
+      "plz": "57072",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-14",
+      "frist": "2026-09-11",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/editor/BVA-THW/2026/08/6608774.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Kommunikation",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 214,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-15T05:59:07Z",
+      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
+      "neu": true,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1480910.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1480910.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Kommunikation",
+      "titel": "Bauingenieur (m/w/d) Konstruktiver Ingenieurbau",
+      "arbeitgeber": "Die Autobahn GmbH des Bundes",
+      "ort": "57250 Netphen",
+      "plz": "57250",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-14",
+      "frist": "2026-09-30",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1480910.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Kommunikation",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 182,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-15T05:59:07Z",
+      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
+      "neu": true,
       "gesichtet": false
     },
     "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf": {
@@ -258,7 +404,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-14T06:58:16Z",
+      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
       "neu": false,
       "gesichtet": false
     },
@@ -294,7 +440,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-14T06:58:16Z",
+      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
       "neu": false,
       "gesichtet": false
     },
@@ -679,6 +825,16 @@
       "gefunden": 8,
       "neu": 0,
       "gesamt": 16,
+      "ausgeschlossen": 2,
+      "ausserhalb_umkreis": 230,
+      "ohne_plz": 6,
+      "uebersprungen": []
+    },
+    {
+      "zeit": "2026-08-15T05:59:07Z",
+      "gefunden": 12,
+      "neu": 4,
+      "gesamt": 20,
       "ausgeschlossen": 2,
       "ausserhalb_umkreis": 230,
       "ohne_plz": 6,

@@ -34,8 +34,8 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
-      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
-      "neu": true,
+      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
+      "neu": false,
       "gesichtet": false
     },
     "ba:10000-1207318280-S": {
@@ -72,7 +72,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
+      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
       "neu": false,
       "gesichtet": false
     },
@@ -110,7 +110,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
+      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
       "neu": false,
       "gesichtet": false
     },
@@ -148,7 +148,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
+      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
       "neu": false,
       "gesichtet": false
     },
@@ -186,7 +186,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
+      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
       "neu": false,
       "gesichtet": false
     },
@@ -224,7 +224,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
+      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
       "neu": false,
       "gesichtet": false
     },
@@ -260,7 +260,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-11T06:33:41Z",
-      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
+      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
       "neu": false,
       "gesichtet": false
     },
@@ -296,8 +296,8 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
-      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
-      "neu": true,
+      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
+      "neu": false,
       "gesichtet": false
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/editor/BVA-THW/2026/08/6608774.html#track=feed-jobs": {
@@ -332,8 +332,8 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
-      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
-      "neu": true,
+      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
+      "neu": false,
       "gesichtet": false
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1480910.html#track=feed-jobs": {
@@ -368,8 +368,8 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
-      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
-      "neu": true,
+      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
+      "neu": false,
       "gesichtet": false
     },
     "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf": {
@@ -404,7 +404,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
+      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
       "neu": false,
       "gesichtet": false
     },
@@ -440,7 +440,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-15T05:59:07Z",
+      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
       "neu": false,
       "gesichtet": false
     },
@@ -834,6 +834,16 @@
       "zeit": "2026-08-15T05:59:07Z",
       "gefunden": 12,
       "neu": 4,
+      "gesamt": 20,
+      "ausgeschlossen": 2,
+      "ausserhalb_umkreis": 230,
+      "ohne_plz": 6,
+      "uebersprungen": []
+    },
+    {
+      "zeit": "2026-08-16T06:00:18Z",
+      "gefunden": 12,
+      "neu": 0,
       "gesamt": 20,
       "ausgeschlossen": 2,
       "ausserhalb_umkreis": 230,

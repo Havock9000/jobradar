@@ -34,7 +34,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
-      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
+      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
       "neu": false,
       "gesichtet": false
     },
@@ -72,7 +72,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
+      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
       "neu": false,
       "gesichtet": false
     },
@@ -110,8 +110,46 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
+      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
       "neu": false,
+      "gesichtet": false
+    },
+    "ba:10001-1003500328-S": {
+      "id": "ba:10001-1003500328-S",
+      "refnr": "10001-1003500328-S",
+      "quelle": "Bundesagentur für Arbeit",
+      "titel": "Mitarbeiter / Mitarbeiterin (m/w/d) im Bereich Bürgerkommunikation / digitale Öffentlichkeitsarbeit",
+      "arbeitgeber": "Stadtverwaltung Gummersbach",
+      "ort": "Gummersbach",
+      "plz": "51643",
+      "entfernung_km": 31,
+      "veroeffentlicht": "2026-08-06",
+      "frist": null,
+      "eintritt": "2026-08-06",
+      "url": "https://www.arbeitsagentur.de/jobsuche/jobdetail/10001-1003500328-S",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Presse- und Öffentlichkeitsarbeit",
+      "vertragsdauer": "UNBEFRISTET",
+      "quereinstieg": null,
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": "strukturierte Angabe der BA: UNBEFRISTET"
+        },
+        "textlaenge": 3452,
+        "nur_titel": false
+      },
+      "erstmals_gesehen": "2026-08-17T06:04:10Z",
+      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
+      "neu": true,
       "gesichtet": false
     },
     "ba:10001-1002424292-S": {
@@ -148,7 +186,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
+      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
       "neu": false,
       "gesichtet": false
     },
@@ -186,7 +224,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
+      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
       "neu": false,
       "gesichtet": false
     },
@@ -224,8 +262,80 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
+      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
       "neu": false,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1286017.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1286017.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Öffentlichkeitsarbeit",
+      "titel": "Mitarbeiter / Mitarbeiterin (m/w/d) im Bereich Bürgerkommunikation / digitale Öffentlichkeitsarbeit",
+      "arbeitgeber": "Stadt Gummersbach",
+      "ort": "51643 Gummersbach",
+      "plz": "51643",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-17",
+      "frist": "2026-09-14",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1286017.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Öffentlichkeitsarbeit",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 227,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-17T06:04:10Z",
+      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
+      "neu": true,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/stellenmarkt_nrw/2026/08/5ba39dd8-503e-49ef-9898-d3db3683373a.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/stellenmarkt_nrw/2026/08/5ba39dd8-503e-49ef-9898-d3db3683373a.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Öffentlichkeitsarbeit",
+      "titel": "Mitarbeiter / Mitarbeiterin (m/w/d) im Bereich Bürgerkommunikation / digitale Öffentlichkeitsarbeit",
+      "arbeitgeber": "Stadt Gummersbach",
+      "ort": "51643 Gummersbach",
+      "plz": "51643",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-17",
+      "frist": "2026-09-14",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/stellenmarkt_nrw/2026/08/5ba39dd8-503e-49ef-9898-d3db3683373a.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Öffentlichkeitsarbeit",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 227,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-17T06:04:10Z",
+      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
+      "neu": true,
       "gesichtet": false
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1470968.html#track=feed-jobs": {
@@ -260,7 +370,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-11T06:33:41Z",
-      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
+      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
       "neu": false,
       "gesichtet": false
     },
@@ -296,7 +406,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
-      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
+      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
       "neu": false,
       "gesichtet": false
     },
@@ -332,7 +442,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
-      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
+      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
       "neu": false,
       "gesichtet": false
     },
@@ -368,7 +478,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
-      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
+      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
       "neu": false,
       "gesichtet": false
     },
@@ -404,7 +514,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
+      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
       "neu": false,
       "gesichtet": false
     },
@@ -440,7 +550,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-16T06:00:18Z",
+      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
       "neu": false,
       "gesichtet": false
     },
@@ -848,6 +958,16 @@
       "ausgeschlossen": 2,
       "ausserhalb_umkreis": 230,
       "ohne_plz": 6,
+      "uebersprungen": []
+    },
+    {
+      "zeit": "2026-08-17T06:04:10Z",
+      "gefunden": 15,
+      "neu": 3,
+      "gesamt": 23,
+      "ausgeschlossen": 2,
+      "ausserhalb_umkreis": 226,
+      "ohne_plz": 5,
       "uebersprungen": []
     }
   ]

@@ -34,7 +34,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
-      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
+      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
       "neu": false,
       "gesichtet": false
     },
@@ -72,7 +72,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
+      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
       "neu": false,
       "gesichtet": false
     },
@@ -110,7 +110,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
+      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
       "neu": false,
       "gesichtet": false
     },
@@ -148,8 +148,8 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
-      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
-      "neu": true,
+      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
+      "neu": false,
       "gesichtet": false
     },
     "ba:10001-1002424292-S": {
@@ -186,7 +186,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
+      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
       "neu": false,
       "gesichtet": false
     },
@@ -224,7 +224,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
+      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
       "neu": false,
       "gesichtet": false
     },
@@ -262,7 +262,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
+      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
       "neu": false,
       "gesichtet": false
     },
@@ -298,8 +298,8 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
-      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
-      "neu": true,
+      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
+      "neu": false,
       "gesichtet": false
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/stellenmarkt_nrw/2026/08/5ba39dd8-503e-49ef-9898-d3db3683373a.html#track=feed-jobs": {
@@ -334,8 +334,116 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
-      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
-      "neu": true,
+      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
+      "neu": false,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1481313.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1481313.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Kommunikation",
+      "titel": "Schulsekretär/-in (w/m/d) für das Georg-Kerschensteiner-Berufskolleg in Troisdorf",
+      "arbeitgeber": "Rhein-Sieg-Kreis",
+      "ort": "53721 Siegburg",
+      "plz": "53721",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-14",
+      "frist": "2026-09-13",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1481313.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Kommunikation",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 205,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-15T05:59:07Z",
+      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
+      "neu": false,
+      "gesichtet": false
+    },
+    "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf": {
+      "id": "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf",
+      "refnr": null,
+      "quelle": "NABU Rheinland-Pfalz",
+      "titel": "- Mitarbeiter*in (m/w/d) für die NABU-Regionalsstelle Eifel-Ahr-Hunsrück - Kennung RGS EAH",
+      "arbeitgeber": "NABU Rheinland-Pfalz",
+      "ort": "Mainz / Regionalstellen",
+      "plz": "",
+      "entfernung_km": null,
+      "veroeffentlicht": null,
+      "frist": null,
+      "eintritt": null,
+      "url": "https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf",
+      "archetyp": "naturschutz",
+      "treffer_begriff": "NABU Rheinland-Pfalz",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 90,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-09T10:53:43Z",
+      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
+      "neu": false,
+      "gesichtet": false
+    },
+    "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf": {
+      "id": "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf",
+      "refnr": null,
+      "quelle": "NABU Rheinland-Pfalz",
+      "titel": "- Mitarbeiter*in (m/w/d) für die NABU-Regionalsstelle Rhein-Westerwald - Kennung: RGS WW",
+      "arbeitgeber": "NABU Rheinland-Pfalz",
+      "ort": "Mainz / Regionalstellen",
+      "plz": "",
+      "entfernung_km": null,
+      "veroeffentlicht": null,
+      "frist": null,
+      "eintritt": null,
+      "url": "https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf",
+      "archetyp": "naturschutz",
+      "treffer_begriff": "NABU Rheinland-Pfalz",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 88,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-09T10:53:43Z",
+      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
+      "neu": false,
       "gesichtet": false
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1470968.html#track=feed-jobs": {
@@ -372,43 +480,8 @@
       "erstmals_gesehen": "2026-08-11T06:33:41Z",
       "zuletzt_gesehen": "2026-08-17T06:04:10Z",
       "neu": false,
-      "gesichtet": false
-    },
-    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1481313.html#track=feed-jobs": {
-      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1481313.html#track=feed-jobs",
-      "refnr": null,
-      "quelle": "Bund/Länder – Kommunikation",
-      "titel": "Schulsekretär/-in (w/m/d) für das Georg-Kerschensteiner-Berufskolleg in Troisdorf",
-      "arbeitgeber": "Rhein-Sieg-Kreis",
-      "ort": "53721 Siegburg",
-      "plz": "53721",
-      "entfernung_km": null,
-      "veroeffentlicht": "2026-08-14",
-      "frist": "2026-09-13",
-      "eintritt": null,
-      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1481313.html#track=feed-jobs",
-      "archetyp": "pressestelle",
-      "treffer_begriff": "Bund/Länder – Kommunikation",
-      "screening": {
-        "studium": {
-          "stufe": "offen",
-          "beleg": null
-        },
-        "ehrenamtslogik": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "befristung": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "textlaenge": 205,
-        "nur_titel": true
-      },
-      "erstmals_gesehen": "2026-08-15T05:59:07Z",
-      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
-      "neu": false,
-      "gesichtet": false
+      "gesichtet": false,
+      "entfernt": true
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/editor/BVA-THW/2026/08/6608774.html#track=feed-jobs": {
       "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/editor/BVA-THW/2026/08/6608774.html#track=feed-jobs",
@@ -444,7 +517,8 @@
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
       "zuletzt_gesehen": "2026-08-17T06:04:10Z",
       "neu": false,
-      "gesichtet": false
+      "gesichtet": false,
+      "entfernt": true
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1480910.html#track=feed-jobs": {
       "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1480910.html#track=feed-jobs",
@@ -480,79 +554,8 @@
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
       "zuletzt_gesehen": "2026-08-17T06:04:10Z",
       "neu": false,
-      "gesichtet": false
-    },
-    "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf": {
-      "id": "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf",
-      "refnr": null,
-      "quelle": "NABU Rheinland-Pfalz",
-      "titel": "- Mitarbeiter*in (m/w/d) für die NABU-Regionalsstelle Eifel-Ahr-Hunsrück - Kennung RGS EAH",
-      "arbeitgeber": "NABU Rheinland-Pfalz",
-      "ort": "Mainz / Regionalstellen",
-      "plz": "",
-      "entfernung_km": null,
-      "veroeffentlicht": null,
-      "frist": null,
-      "eintritt": null,
-      "url": "https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf",
-      "archetyp": "naturschutz",
-      "treffer_begriff": "NABU Rheinland-Pfalz",
-      "screening": {
-        "studium": {
-          "stufe": "offen",
-          "beleg": null
-        },
-        "ehrenamtslogik": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "befristung": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "textlaenge": 90,
-        "nur_titel": true
-      },
-      "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
-      "neu": false,
-      "gesichtet": false
-    },
-    "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf": {
-      "id": "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf",
-      "refnr": null,
-      "quelle": "NABU Rheinland-Pfalz",
-      "titel": "- Mitarbeiter*in (m/w/d) für die NABU-Regionalsstelle Rhein-Westerwald - Kennung: RGS WW",
-      "arbeitgeber": "NABU Rheinland-Pfalz",
-      "ort": "Mainz / Regionalstellen",
-      "plz": "",
-      "entfernung_km": null,
-      "veroeffentlicht": null,
-      "frist": null,
-      "eintritt": null,
-      "url": "https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf",
-      "archetyp": "naturschutz",
-      "treffer_begriff": "NABU Rheinland-Pfalz",
-      "screening": {
-        "studium": {
-          "stufe": "offen",
-          "beleg": null
-        },
-        "ehrenamtslogik": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "befristung": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "textlaenge": 88,
-        "nur_titel": true
-      },
-      "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-17T06:04:10Z",
-      "neu": false,
-      "gesichtet": false
+      "gesichtet": false,
+      "entfernt": true
     },
     "ba:14126-1603439-1-S": {
       "id": "ba:14126-1603439-1-S",
@@ -968,6 +971,16 @@
       "ausgeschlossen": 2,
       "ausserhalb_umkreis": 226,
       "ohne_plz": 5,
+      "uebersprungen": []
+    },
+    {
+      "zeit": "2026-08-18T06:00:23Z",
+      "gefunden": 12,
+      "neu": 0,
+      "gesamt": 23,
+      "ausgeschlossen": 0,
+      "ausserhalb_umkreis": 230,
+      "ohne_plz": 6,
       "uebersprungen": []
     }
   ]

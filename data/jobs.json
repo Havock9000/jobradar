@@ -34,7 +34,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
-      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
+      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
       "neu": false,
       "gesichtet": false
     },
@@ -72,7 +72,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
+      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
       "neu": false,
       "gesichtet": false
     },
@@ -110,7 +110,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
+      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
       "neu": false,
       "gesichtet": false
     },
@@ -148,7 +148,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
-      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
+      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
       "neu": false,
       "gesichtet": false
     },
@@ -186,7 +186,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
+      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
       "neu": false,
       "gesichtet": false
     },
@@ -224,7 +224,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
+      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
       "neu": false,
       "gesichtet": false
     },
@@ -262,7 +262,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
+      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
       "neu": false,
       "gesichtet": false
     },
@@ -298,7 +298,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
-      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
+      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
       "neu": false,
       "gesichtet": false
     },
@@ -334,7 +334,187 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
-      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
+      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
+      "neu": false,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482271.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482271.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Kommunikation",
+      "titel": "Ingenieur/in oder Techniker/in für Abwassertechnik (m/w/d)",
+      "arbeitgeber": "Verbandsgemeinde Altenahr",
+      "ort": "53505 Altenahr",
+      "plz": "53505",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-18",
+      "frist": "2026-09-18",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482271.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Kommunikation",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 191,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-19T06:01:30Z",
+      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
+      "neu": true,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482026.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482026.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Kommunikation",
+      "titel": "Notfallsanitäter:innen",
+      "arbeitgeber": "Stadt Königswinter",
+      "ort": "53639 Königswinter",
+      "plz": "53639",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-18",
+      "frist": "2026-09-13",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482026.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Kommunikation",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 152,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-19T06:01:30Z",
+      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
+      "neu": true,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482016.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482016.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Kommunikation",
+      "titel": "Rettungssanitäter:innen",
+      "arbeitgeber": "Stadt Königswinter",
+      "ort": "53639 Königswinter",
+      "plz": "53639",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-18",
+      "frist": "2026-09-13",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482016.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Kommunikation",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 153,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-19T06:01:30Z",
+      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
+      "neu": true,
+      "gesichtet": false
+    },
+    "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf": {
+      "id": "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf",
+      "refnr": null,
+      "quelle": "NABU Rheinland-Pfalz",
+      "titel": "- Mitarbeiter*in (m/w/d) für die NABU-Regionalsstelle Eifel-Ahr-Hunsrück - Kennung RGS EAH",
+      "arbeitgeber": "NABU Rheinland-Pfalz",
+      "ort": "Mainz / Regionalstellen",
+      "plz": "",
+      "entfernung_km": null,
+      "veroeffentlicht": null,
+      "frist": null,
+      "eintritt": null,
+      "url": "https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf",
+      "archetyp": "naturschutz",
+      "treffer_begriff": "NABU Rheinland-Pfalz",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 90,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-09T10:53:43Z",
+      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
+      "neu": false,
+      "gesichtet": false
+    },
+    "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf": {
+      "id": "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf",
+      "refnr": null,
+      "quelle": "NABU Rheinland-Pfalz",
+      "titel": "- Mitarbeiter*in (m/w/d) für die NABU-Regionalsstelle Rhein-Westerwald - Kennung: RGS WW",
+      "arbeitgeber": "NABU Rheinland-Pfalz",
+      "ort": "Mainz / Regionalstellen",
+      "plz": "",
+      "entfernung_km": null,
+      "veroeffentlicht": null,
+      "frist": null,
+      "eintritt": null,
+      "url": "https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf",
+      "archetyp": "naturschutz",
+      "treffer_begriff": "NABU Rheinland-Pfalz",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 88,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-09T10:53:43Z",
+      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
       "neu": false,
       "gesichtet": false
     },
@@ -372,79 +552,8 @@
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
       "zuletzt_gesehen": "2026-08-18T06:00:23Z",
       "neu": false,
-      "gesichtet": false
-    },
-    "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf": {
-      "id": "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf",
-      "refnr": null,
-      "quelle": "NABU Rheinland-Pfalz",
-      "titel": "- Mitarbeiter*in (m/w/d) für die NABU-Regionalsstelle Eifel-Ahr-Hunsrück - Kennung RGS EAH",
-      "arbeitgeber": "NABU Rheinland-Pfalz",
-      "ort": "Mainz / Regionalstellen",
-      "plz": "",
-      "entfernung_km": null,
-      "veroeffentlicht": null,
-      "frist": null,
-      "eintritt": null,
-      "url": "https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf",
-      "archetyp": "naturschutz",
-      "treffer_begriff": "NABU Rheinland-Pfalz",
-      "screening": {
-        "studium": {
-          "stufe": "offen",
-          "beleg": null
-        },
-        "ehrenamtslogik": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "befristung": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "textlaenge": 90,
-        "nur_titel": true
-      },
-      "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
-      "neu": false,
-      "gesichtet": false
-    },
-    "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf": {
-      "id": "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf",
-      "refnr": null,
-      "quelle": "NABU Rheinland-Pfalz",
-      "titel": "- Mitarbeiter*in (m/w/d) für die NABU-Regionalsstelle Rhein-Westerwald - Kennung: RGS WW",
-      "arbeitgeber": "NABU Rheinland-Pfalz",
-      "ort": "Mainz / Regionalstellen",
-      "plz": "",
-      "entfernung_km": null,
-      "veroeffentlicht": null,
-      "frist": null,
-      "eintritt": null,
-      "url": "https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf",
-      "archetyp": "naturschutz",
-      "treffer_begriff": "NABU Rheinland-Pfalz",
-      "screening": {
-        "studium": {
-          "stufe": "offen",
-          "beleg": null
-        },
-        "ehrenamtslogik": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "befristung": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "textlaenge": 88,
-        "nur_titel": true
-      },
-      "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-18T06:00:23Z",
-      "neu": false,
-      "gesichtet": false
+      "gesichtet": false,
+      "entfernt": true
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1470968.html#track=feed-jobs": {
       "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1470968.html#track=feed-jobs",
@@ -979,6 +1088,16 @@
       "neu": 0,
       "gesamt": 23,
       "ausgeschlossen": 0,
+      "ausserhalb_umkreis": 230,
+      "ohne_plz": 6,
+      "uebersprungen": []
+    },
+    {
+      "zeit": "2026-08-19T06:01:30Z",
+      "gefunden": 14,
+      "neu": 3,
+      "gesamt": 26,
+      "ausgeschlossen": 1,
       "ausserhalb_umkreis": 230,
       "ohne_plz": 6,
       "uebersprungen": []

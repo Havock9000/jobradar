@@ -34,7 +34,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
-      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
+      "zuletzt_gesehen": "2026-08-20T06:01:44Z",
       "neu": false,
       "gesichtet": false
     },
@@ -72,7 +72,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
+      "zuletzt_gesehen": "2026-08-20T06:01:44Z",
       "neu": false,
       "gesichtet": false
     },
@@ -110,7 +110,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
+      "zuletzt_gesehen": "2026-08-20T06:01:44Z",
       "neu": false,
       "gesichtet": false
     },
@@ -148,7 +148,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
-      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
+      "zuletzt_gesehen": "2026-08-20T06:01:44Z",
       "neu": false,
       "gesichtet": false
     },
@@ -186,7 +186,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
+      "zuletzt_gesehen": "2026-08-20T06:01:44Z",
       "neu": false,
       "gesichtet": false
     },
@@ -224,7 +224,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
+      "zuletzt_gesehen": "2026-08-20T06:01:44Z",
       "neu": false,
       "gesichtet": false
     },
@@ -262,7 +262,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
+      "zuletzt_gesehen": "2026-08-20T06:01:44Z",
       "neu": false,
       "gesichtet": false
     },
@@ -298,7 +298,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
-      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
+      "zuletzt_gesehen": "2026-08-20T06:01:44Z",
       "neu": false,
       "gesichtet": false
     },
@@ -334,8 +334,44 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
-      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
+      "zuletzt_gesehen": "2026-08-20T06:01:44Z",
       "neu": false,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482650.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482650.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Kommunikation",
+      "titel": "Projektmanager/-in",
+      "arbeitgeber": "Universität Siegen",
+      "ort": "57076 Siegen",
+      "plz": "57076",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-19",
+      "frist": "2026-09-18",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482650.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Kommunikation",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 142,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-20T06:01:44Z",
+      "zuletzt_gesehen": "2026-08-20T06:01:44Z",
+      "neu": true,
       "gesichtet": false
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482271.html#track=feed-jobs": {
@@ -370,80 +406,8 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-19T06:01:30Z",
-      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
-      "neu": true,
-      "gesichtet": false
-    },
-    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482026.html#track=feed-jobs": {
-      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482026.html#track=feed-jobs",
-      "refnr": null,
-      "quelle": "Bund/Länder – Kommunikation",
-      "titel": "Notfallsanitäter:innen",
-      "arbeitgeber": "Stadt Königswinter",
-      "ort": "53639 Königswinter",
-      "plz": "53639",
-      "entfernung_km": null,
-      "veroeffentlicht": "2026-08-18",
-      "frist": "2026-09-13",
-      "eintritt": null,
-      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482026.html#track=feed-jobs",
-      "archetyp": "pressestelle",
-      "treffer_begriff": "Bund/Länder – Kommunikation",
-      "screening": {
-        "studium": {
-          "stufe": "offen",
-          "beleg": null
-        },
-        "ehrenamtslogik": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "befristung": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "textlaenge": 152,
-        "nur_titel": true
-      },
-      "erstmals_gesehen": "2026-08-19T06:01:30Z",
-      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
-      "neu": true,
-      "gesichtet": false
-    },
-    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482016.html#track=feed-jobs": {
-      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482016.html#track=feed-jobs",
-      "refnr": null,
-      "quelle": "Bund/Länder – Kommunikation",
-      "titel": "Rettungssanitäter:innen",
-      "arbeitgeber": "Stadt Königswinter",
-      "ort": "53639 Königswinter",
-      "plz": "53639",
-      "entfernung_km": null,
-      "veroeffentlicht": "2026-08-18",
-      "frist": "2026-09-13",
-      "eintritt": null,
-      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482016.html#track=feed-jobs",
-      "archetyp": "pressestelle",
-      "treffer_begriff": "Bund/Länder – Kommunikation",
-      "screening": {
-        "studium": {
-          "stufe": "offen",
-          "beleg": null
-        },
-        "ehrenamtslogik": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "befristung": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "textlaenge": 153,
-        "nur_titel": true
-      },
-      "erstmals_gesehen": "2026-08-19T06:01:30Z",
-      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
-      "neu": true,
+      "zuletzt_gesehen": "2026-08-20T06:01:44Z",
+      "neu": false,
       "gesichtet": false
     },
     "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf": {
@@ -478,7 +442,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
+      "zuletzt_gesehen": "2026-08-20T06:01:44Z",
       "neu": false,
       "gesichtet": false
     },
@@ -514,9 +478,83 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
+      "zuletzt_gesehen": "2026-08-20T06:01:44Z",
       "neu": false,
       "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482026.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482026.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Kommunikation",
+      "titel": "Notfallsanitäter:innen",
+      "arbeitgeber": "Stadt Königswinter",
+      "ort": "53639 Königswinter",
+      "plz": "53639",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-18",
+      "frist": "2026-09-13",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482026.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Kommunikation",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 152,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-19T06:01:30Z",
+      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
+      "neu": false,
+      "gesichtet": false,
+      "entfernt": true
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482016.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482016.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Kommunikation",
+      "titel": "Rettungssanitäter:innen",
+      "arbeitgeber": "Stadt Königswinter",
+      "ort": "53639 Königswinter",
+      "plz": "53639",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-18",
+      "frist": "2026-09-13",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482016.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Kommunikation",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 153,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-19T06:01:30Z",
+      "zuletzt_gesehen": "2026-08-19T06:01:30Z",
+      "neu": false,
+      "gesichtet": false,
+      "entfernt": true
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1481313.html#track=feed-jobs": {
       "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1481313.html#track=feed-jobs",
@@ -1099,6 +1137,16 @@
       "gesamt": 26,
       "ausgeschlossen": 1,
       "ausserhalb_umkreis": 230,
+      "ohne_plz": 6,
+      "uebersprungen": []
+    },
+    {
+      "zeit": "2026-08-20T06:01:44Z",
+      "gefunden": 13,
+      "neu": 1,
+      "gesamt": 27,
+      "ausgeschlossen": 1,
+      "ausserhalb_umkreis": 232,
       "ohne_plz": 6,
       "uebersprungen": []
     }

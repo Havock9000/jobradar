@@ -34,7 +34,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
-      "zuletzt_gesehen": "2026-08-21T06:02:57Z",
+      "zuletzt_gesehen": "2026-08-22T05:59:41Z",
       "neu": false,
       "gesichtet": false
     },
@@ -72,8 +72,8 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-21T06:02:57Z",
-      "zuletzt_gesehen": "2026-08-21T06:02:57Z",
-      "neu": true,
+      "zuletzt_gesehen": "2026-08-22T05:59:41Z",
+      "neu": false,
       "gesichtet": false
     },
     "ba:10000-1207318280-S": {
@@ -110,7 +110,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-21T06:02:57Z",
+      "zuletzt_gesehen": "2026-08-22T05:59:41Z",
       "neu": false,
       "gesichtet": false
     },
@@ -148,7 +148,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-21T06:02:57Z",
+      "zuletzt_gesehen": "2026-08-22T05:59:41Z",
       "neu": false,
       "gesichtet": false
     },
@@ -186,7 +186,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
-      "zuletzt_gesehen": "2026-08-21T06:02:57Z",
+      "zuletzt_gesehen": "2026-08-22T05:59:41Z",
       "neu": false,
       "gesichtet": false
     },
@@ -224,7 +224,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-21T06:02:57Z",
+      "zuletzt_gesehen": "2026-08-22T05:59:41Z",
       "neu": false,
       "gesichtet": false
     },
@@ -262,7 +262,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-21T06:02:57Z",
+      "zuletzt_gesehen": "2026-08-22T05:59:41Z",
       "neu": false,
       "gesichtet": false
     },
@@ -300,8 +300,80 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-21T06:02:57Z",
+      "zuletzt_gesehen": "2026-08-22T05:59:41Z",
       "neu": false,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1473043.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1473043.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Öffentlichkeitsarbeit",
+      "titel": "Sozialpädagoge/-in / Sozialarbeiter/in (m/w/d) im Bereich \"Kinder- und Jugendförderung\"",
+      "arbeitgeber": "Stadtverwaltung Neuwied",
+      "ort": "56564 Neuwied",
+      "plz": "56564",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-21",
+      "frist": "2026-09-06",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1473043.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Öffentlichkeitsarbeit",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 217,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-22T05:59:41Z",
+      "zuletzt_gesehen": "2026-08-22T05:59:41Z",
+      "neu": true,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1483390.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1483390.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Öffentlichkeitsarbeit",
+      "titel": "Sozialpädagoge / Sozialarbeiter im Jugendzentrum Big House (m/w/d)",
+      "arbeitgeber": "Stadtverwaltung Neuwied",
+      "ort": "56564 Neuwied",
+      "plz": "56564",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-21",
+      "frist": "2026-09-06",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1483390.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Öffentlichkeitsarbeit",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 196,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-22T05:59:41Z",
+      "zuletzt_gesehen": "2026-08-22T05:59:41Z",
+      "neu": true,
       "gesichtet": false
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1286017.html#track=feed-jobs": {
@@ -336,7 +408,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
-      "zuletzt_gesehen": "2026-08-21T06:02:57Z",
+      "zuletzt_gesehen": "2026-08-22T05:59:41Z",
       "neu": false,
       "gesichtet": false
     },
@@ -372,8 +444,44 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
-      "zuletzt_gesehen": "2026-08-21T06:02:57Z",
+      "zuletzt_gesehen": "2026-08-22T05:59:41Z",
       "neu": false,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1483338.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1483338.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Kommunikation",
+      "titel": "Persönlicher Referent des Bürgermeisters (m/w/d)",
+      "arbeitgeber": "Stadt Rösrath",
+      "ort": "51503 Rösrath",
+      "plz": "51503",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-21",
+      "frist": "2026-08-28",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1483338.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Kommunikation",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 168,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-22T05:59:41Z",
+      "zuletzt_gesehen": "2026-08-22T05:59:41Z",
+      "neu": true,
       "gesichtet": false
     },
     "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf": {
@@ -408,7 +516,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-21T06:02:57Z",
+      "zuletzt_gesehen": "2026-08-22T05:59:41Z",
       "neu": false,
       "gesichtet": false
     },
@@ -444,7 +552,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-21T06:02:57Z",
+      "zuletzt_gesehen": "2026-08-22T05:59:41Z",
       "neu": false,
       "gesichtet": false
     },
@@ -1197,6 +1305,16 @@
       "gesamt": 28,
       "ausgeschlossen": 0,
       "ausserhalb_umkreis": 234,
+      "ohne_plz": 6,
+      "uebersprungen": []
+    },
+    {
+      "zeit": "2026-08-22T05:59:41Z",
+      "gefunden": 15,
+      "neu": 3,
+      "gesamt": 31,
+      "ausgeschlossen": 1,
+      "ausserhalb_umkreis": 226,
       "ohne_plz": 6,
       "uebersprungen": []
     }

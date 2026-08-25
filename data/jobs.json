@@ -34,7 +34,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
-      "zuletzt_gesehen": "2026-08-24T06:23:07Z",
+      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
       "neu": false,
       "gesichtet": false
     },
@@ -72,7 +72,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-21T06:02:57Z",
-      "zuletzt_gesehen": "2026-08-24T06:23:07Z",
+      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
       "neu": false,
       "gesichtet": false
     },
@@ -110,7 +110,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-24T06:23:07Z",
+      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
       "neu": false,
       "gesichtet": false
     },
@@ -148,7 +148,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-24T06:23:07Z",
+      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
       "neu": false,
       "gesichtet": false
     },
@@ -186,7 +186,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
-      "zuletzt_gesehen": "2026-08-24T06:23:07Z",
+      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
       "neu": false,
       "gesichtet": false
     },
@@ -224,7 +224,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-24T06:23:07Z",
+      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
       "neu": false,
       "gesichtet": false
     },
@@ -262,7 +262,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-24T06:23:07Z",
+      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
       "neu": false,
       "gesichtet": false
     },
@@ -300,7 +300,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-24T06:23:07Z",
+      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
       "neu": false,
       "gesichtet": false
     },
@@ -336,7 +336,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-22T05:59:41Z",
-      "zuletzt_gesehen": "2026-08-24T06:23:07Z",
+      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
       "neu": false,
       "gesichtet": false
     },
@@ -372,7 +372,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-22T05:59:41Z",
-      "zuletzt_gesehen": "2026-08-24T06:23:07Z",
+      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
       "neu": false,
       "gesichtet": false
     },
@@ -408,7 +408,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
-      "zuletzt_gesehen": "2026-08-24T06:23:07Z",
+      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
       "neu": false,
       "gesichtet": false
     },
@@ -446,7 +446,8 @@
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
       "zuletzt_gesehen": "2026-08-24T06:23:07Z",
       "neu": false,
-      "gesichtet": false
+      "gesichtet": false,
+      "entfernt": true
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1483338.html#track=feed-jobs": {
       "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1483338.html#track=feed-jobs",
@@ -482,7 +483,8 @@
       "erstmals_gesehen": "2026-08-22T05:59:41Z",
       "zuletzt_gesehen": "2026-08-24T06:23:07Z",
       "neu": false,
-      "gesichtet": false
+      "gesichtet": false,
+      "entfernt": true
     },
     "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf": {
       "id": "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_eah.pdf",
@@ -518,7 +520,8 @@
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
       "zuletzt_gesehen": "2026-08-24T06:23:07Z",
       "neu": false,
-      "gesichtet": false
+      "gesichtet": false,
+      "entfernt": true
     },
     "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf": {
       "id": "seite:https://rlp.nabu.de/imperia/md/content/rlp/intern/20260727_stellenausschreibung_1_rgs_ww.pdf",
@@ -554,7 +557,8 @@
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
       "zuletzt_gesehen": "2026-08-24T06:23:07Z",
       "neu": false,
-      "gesichtet": false
+      "gesichtet": false,
+      "entfernt": true
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482650.html#track=feed-jobs": {
       "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1482650.html#track=feed-jobs",
@@ -1334,6 +1338,16 @@
       "neu": 0,
       "gesamt": 31,
       "ausgeschlossen": 1,
+      "ausserhalb_umkreis": 224,
+      "ohne_plz": 6,
+      "uebersprungen": []
+    },
+    {
+      "zeit": "2026-08-25T06:02:59Z",
+      "gefunden": 11,
+      "neu": 0,
+      "gesamt": 31,
+      "ausgeschlossen": 0,
       "ausserhalb_umkreis": 224,
       "ohne_plz": 6,
       "uebersprungen": []

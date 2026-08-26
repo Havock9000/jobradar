@@ -34,7 +34,83 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
-      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
+      "zuletzt_gesehen": "2026-08-26T06:04:34Z",
+      "neu": false,
+      "gesichtet": false
+    },
+    "ba:10000-1207639755-S": {
+      "id": "ba:10000-1207639755-S",
+      "refnr": "10000-1207639755-S",
+      "quelle": "Bundesagentur für Arbeit",
+      "titel": "Mediengestalter Digital  & Print (m/w/d) in Teilzeit",
+      "arbeitgeber": "Christian Bargon Multimediadesign",
+      "ort": "Siegburg",
+      "plz": "53721",
+      "entfernung_km": 32,
+      "veroeffentlicht": "2026-08-26",
+      "frist": null,
+      "eintritt": "2026-10-01",
+      "url": "https://www.arbeitsagentur.de/jobsuche/jobdetail/10000-1207639755-S",
+      "archetyp": "medienproduktion",
+      "treffer_begriff": "Videoproduktion",
+      "vertragsdauer": "KEINE_ANGABE",
+      "quereinstieg": false,
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 4648,
+        "nur_titel": false
+      },
+      "erstmals_gesehen": "2026-08-26T06:04:34Z",
+      "zuletzt_gesehen": "2026-08-26T06:04:34Z",
+      "neu": true,
+      "gesichtet": false
+    },
+    "ba:10000-1207318280-S": {
+      "id": "ba:10000-1207318280-S",
+      "refnr": "10000-1207318280-S",
+      "quelle": "Bundesagentur für Arbeit",
+      "titel": "Content-Creator – Video Content (m/w/d)",
+      "arbeitgeber": "leguano GmbH",
+      "ort": "Buchholz (Westerwald)",
+      "plz": "53567",
+      "entfernung_km": 20,
+      "veroeffentlicht": "2026-07-27",
+      "frist": null,
+      "eintritt": "2026-08-03",
+      "url": "https://www.arbeitsagentur.de/jobsuche/jobdetail/10000-1207318280-S",
+      "archetyp": "medienproduktion",
+      "treffer_begriff": "Videoproduktion",
+      "vertragsdauer": "UNBEFRISTET",
+      "quereinstieg": false,
+      "screening": {
+        "studium": {
+          "stufe": "weich",
+          "beleg": "…s Studium (z.B. Medienproduktion, Marketing, Kommunikation) oder eine vergleichbare Ausbildung sowie relevante Berufserfahrung (mind. 2–3 Jahre…"
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": "strukturierte Angabe der BA: UNBEFRISTET"
+        },
+        "textlaenge": 4519,
+        "nur_titel": false
+      },
+      "erstmals_gesehen": "2026-08-09T10:53:43Z",
+      "zuletzt_gesehen": "2026-08-26T06:04:34Z",
       "neu": false,
       "gesichtet": false
     },
@@ -72,45 +148,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-21T06:02:57Z",
-      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
-      "neu": false,
-      "gesichtet": false
-    },
-    "ba:10000-1207318280-S": {
-      "id": "ba:10000-1207318280-S",
-      "refnr": "10000-1207318280-S",
-      "quelle": "Bundesagentur für Arbeit",
-      "titel": "Content-Creator – Video Content (m/w/d)",
-      "arbeitgeber": "leguano GmbH",
-      "ort": "Buchholz (Westerwald)",
-      "plz": "53567",
-      "entfernung_km": 20,
-      "veroeffentlicht": "2026-07-27",
-      "frist": null,
-      "eintritt": "2026-08-03",
-      "url": "https://www.arbeitsagentur.de/jobsuche/jobdetail/10000-1207318280-S",
-      "archetyp": "medienproduktion",
-      "treffer_begriff": "Videoproduktion",
-      "vertragsdauer": "UNBEFRISTET",
-      "quereinstieg": false,
-      "screening": {
-        "studium": {
-          "stufe": "weich",
-          "beleg": "…s Studium (z.B. Medienproduktion, Marketing, Kommunikation) oder eine vergleichbare Ausbildung sowie relevante Berufserfahrung (mind. 2–3 Jahre…"
-        },
-        "ehrenamtslogik": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "befristung": {
-          "getroffen": false,
-          "beleg": "strukturierte Angabe der BA: UNBEFRISTET"
-        },
-        "textlaenge": 4519,
-        "nur_titel": false
-      },
-      "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
+      "zuletzt_gesehen": "2026-08-26T06:04:34Z",
       "neu": false,
       "gesichtet": false
     },
@@ -148,7 +186,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
+      "zuletzt_gesehen": "2026-08-26T06:04:34Z",
       "neu": false,
       "gesichtet": false
     },
@@ -186,8 +224,46 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
-      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
+      "zuletzt_gesehen": "2026-08-26T06:04:34Z",
       "neu": false,
+      "gesichtet": false
+    },
+    "ba:12951-111f7273-ec55-446f--S": {
+      "id": "ba:12951-111f7273-ec55-446f--S",
+      "refnr": "12951-111f7273-ec55-446f--S",
+      "quelle": "Bundesagentur für Arbeit",
+      "titel": "Pädagogische Bereichsleitung (m/w/d)",
+      "arbeitgeber": "Marienhaus Klinikum Bendorf - Neuwied – Waldbreitbach",
+      "ort": "Waldbreitbach",
+      "plz": "56588",
+      "entfernung_km": 30,
+      "veroeffentlicht": "2026-08-26",
+      "frist": null,
+      "eintritt": "2026-08-26",
+      "url": "https://www.arbeitsagentur.de/jobsuche/jobdetail/12951-111f7273-ec55-446f--S",
+      "archetyp": "medienbildung",
+      "treffer_begriff": "Medienpädagoge",
+      "vertragsdauer": "KEINE_ANGABE",
+      "quereinstieg": false,
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": true,
+          "beleg": "…Pädagogische Bereichsleitung (m/w/d) ✓ ab sofort ✓ befristet ✓ Teilzeit / Vollzeit ✓ Waldbreitbach Wir bei Marienhaus ve…"
+        },
+        "textlaenge": 3932,
+        "nur_titel": false
+      },
+      "erstmals_gesehen": "2026-08-26T06:04:34Z",
+      "zuletzt_gesehen": "2026-08-26T06:04:34Z",
+      "neu": true,
       "gesichtet": false
     },
     "ba:10001-1002424292-S": {
@@ -224,7 +300,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
+      "zuletzt_gesehen": "2026-08-26T06:04:34Z",
       "neu": false,
       "gesichtet": false
     },
@@ -262,8 +338,116 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
+      "zuletzt_gesehen": "2026-08-26T06:04:34Z",
       "neu": false,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1473043.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1473043.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Öffentlichkeitsarbeit",
+      "titel": "Sozialpädagoge/-in / Sozialarbeiter/in (m/w/d) im Bereich \"Kinder- und Jugendförderung\"",
+      "arbeitgeber": "Stadtverwaltung Neuwied",
+      "ort": "56564 Neuwied",
+      "plz": "56564",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-21",
+      "frist": "2026-09-06",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1473043.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Öffentlichkeitsarbeit",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 217,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-22T05:59:41Z",
+      "zuletzt_gesehen": "2026-08-26T06:04:34Z",
+      "neu": false,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1483390.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1483390.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Öffentlichkeitsarbeit",
+      "titel": "Sozialpädagoge / Sozialarbeiter im Jugendzentrum Big House (m/w/d)",
+      "arbeitgeber": "Stadtverwaltung Neuwied",
+      "ort": "56564 Neuwied",
+      "plz": "56564",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-21",
+      "frist": "2026-09-06",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1483390.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Öffentlichkeitsarbeit",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 196,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-22T05:59:41Z",
+      "zuletzt_gesehen": "2026-08-26T06:04:34Z",
+      "neu": false,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/stellenmarkt_nrw/2026/08/961d023a-38a6-4f84-9f76-3526ac24b32c.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/stellenmarkt_nrw/2026/08/961d023a-38a6-4f84-9f76-3526ac24b32c.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Kommunikation",
+      "titel": "Ergotherapeutin / Ergotherapeut (m/w/d) für die LVR-Hugo-Kükelhaus-Schule in Wiehl Förderschwerpunkt Körperliche und motorische Entwicklung",
+      "arbeitgeber": "Landschaftsverband Rheinland",
+      "ort": "51674 Wiehl",
+      "plz": "51674",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-25",
+      "frist": "2026-09-22",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/stellenmarkt_nrw/2026/08/961d023a-38a6-4f84-9f76-3526ac24b32c.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Kommunikation",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 272,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-26T06:04:34Z",
+      "zuletzt_gesehen": "2026-08-26T06:04:34Z",
+      "neu": true,
       "gesichtet": false
     },
     "ba:10001-1003487744-S": {
@@ -302,79 +486,8 @@
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
       "zuletzt_gesehen": "2026-08-25T06:02:59Z",
       "neu": false,
-      "gesichtet": false
-    },
-    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1473043.html#track=feed-jobs": {
-      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1473043.html#track=feed-jobs",
-      "refnr": null,
-      "quelle": "Bund/Länder – Öffentlichkeitsarbeit",
-      "titel": "Sozialpädagoge/-in / Sozialarbeiter/in (m/w/d) im Bereich \"Kinder- und Jugendförderung\"",
-      "arbeitgeber": "Stadtverwaltung Neuwied",
-      "ort": "56564 Neuwied",
-      "plz": "56564",
-      "entfernung_km": null,
-      "veroeffentlicht": "2026-08-21",
-      "frist": "2026-09-06",
-      "eintritt": null,
-      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1473043.html#track=feed-jobs",
-      "archetyp": "pressestelle",
-      "treffer_begriff": "Bund/Länder – Öffentlichkeitsarbeit",
-      "screening": {
-        "studium": {
-          "stufe": "offen",
-          "beleg": null
-        },
-        "ehrenamtslogik": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "befristung": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "textlaenge": 217,
-        "nur_titel": true
-      },
-      "erstmals_gesehen": "2026-08-22T05:59:41Z",
-      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
-      "neu": false,
-      "gesichtet": false
-    },
-    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1483390.html#track=feed-jobs": {
-      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1483390.html#track=feed-jobs",
-      "refnr": null,
-      "quelle": "Bund/Länder – Öffentlichkeitsarbeit",
-      "titel": "Sozialpädagoge / Sozialarbeiter im Jugendzentrum Big House (m/w/d)",
-      "arbeitgeber": "Stadtverwaltung Neuwied",
-      "ort": "56564 Neuwied",
-      "plz": "56564",
-      "entfernung_km": null,
-      "veroeffentlicht": "2026-08-21",
-      "frist": "2026-09-06",
-      "eintritt": null,
-      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1483390.html#track=feed-jobs",
-      "archetyp": "pressestelle",
-      "treffer_begriff": "Bund/Länder – Öffentlichkeitsarbeit",
-      "screening": {
-        "studium": {
-          "stufe": "offen",
-          "beleg": null
-        },
-        "ehrenamtslogik": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "befristung": {
-          "getroffen": false,
-          "beleg": null
-        },
-        "textlaenge": 196,
-        "nur_titel": true
-      },
-      "erstmals_gesehen": "2026-08-22T05:59:41Z",
-      "zuletzt_gesehen": "2026-08-25T06:02:59Z",
-      "neu": false,
-      "gesichtet": false
+      "gesichtet": false,
+      "entfernt": true
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1286017.html#track=feed-jobs": {
       "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1286017.html#track=feed-jobs",
@@ -410,7 +523,8 @@
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
       "zuletzt_gesehen": "2026-08-25T06:02:59Z",
       "neu": false,
-      "gesichtet": false
+      "gesichtet": false,
+      "entfernt": true
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/stellenmarkt_nrw/2026/08/5ba39dd8-503e-49ef-9898-d3db3683373a.html#track=feed-jobs": {
       "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/stellenmarkt_nrw/2026/08/5ba39dd8-503e-49ef-9898-d3db3683373a.html#track=feed-jobs",
@@ -1349,6 +1463,16 @@
       "gesamt": 31,
       "ausgeschlossen": 0,
       "ausserhalb_umkreis": 224,
+      "ohne_plz": 6,
+      "uebersprungen": []
+    },
+    {
+      "zeit": "2026-08-26T06:04:34Z",
+      "gefunden": 12,
+      "neu": 3,
+      "gesamt": 34,
+      "ausgeschlossen": 0,
+      "ausserhalb_umkreis": 226,
       "ohne_plz": 6,
       "uebersprungen": []
     }

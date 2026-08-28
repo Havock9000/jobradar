@@ -34,7 +34,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
-      "zuletzt_gesehen": "2026-08-27T16:48:13Z",
+      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
       "neu": false,
       "gesichtet": false
     },
@@ -72,7 +72,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-26T06:04:34Z",
-      "zuletzt_gesehen": "2026-08-27T16:48:13Z",
+      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
       "neu": false,
       "gesichtet": false
     },
@@ -110,7 +110,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-27T16:48:13Z",
+      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
       "neu": false,
       "gesichtet": false
     },
@@ -148,7 +148,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-21T06:02:57Z",
-      "zuletzt_gesehen": "2026-08-27T16:48:13Z",
+      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
       "neu": false,
       "gesichtet": false
     },
@@ -186,7 +186,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-27T16:48:13Z",
+      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
       "neu": false,
       "gesichtet": false
     },
@@ -224,8 +224,8 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-27T16:48:13Z",
-      "zuletzt_gesehen": "2026-08-27T16:48:13Z",
-      "neu": true,
+      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
+      "neu": false,
       "gesichtet": false
     },
     "ba:10001-1003500328-S": {
@@ -262,7 +262,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
-      "zuletzt_gesehen": "2026-08-27T16:48:13Z",
+      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
       "neu": false,
       "gesichtet": false
     },
@@ -300,8 +300,8 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-27T16:48:13Z",
-      "zuletzt_gesehen": "2026-08-27T16:48:13Z",
-      "neu": true,
+      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
+      "neu": false,
       "gesichtet": false
     },
     "ba:10001-1002424292-S": {
@@ -338,7 +338,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-27T16:48:13Z",
+      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
       "neu": false,
       "gesichtet": false
     },
@@ -376,8 +376,44 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-27T16:48:13Z",
+      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
       "neu": false,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1485711.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1485711.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Öffentlichkeitsarbeit",
+      "titel": "Klimaschutzmanager (m/w/d)",
+      "arbeitgeber": "Verbandsgemeinde Betzdorf-Gebhardshain",
+      "ort": "57518 Betzdorf",
+      "plz": "57518",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-27",
+      "frist": "2026-10-01",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1485711.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Öffentlichkeitsarbeit",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 172,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-28T17:42:06Z",
+      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
+      "neu": true,
       "gesichtet": false
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1484727.html#track=feed-jobs": {
@@ -412,8 +448,8 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-27T16:48:13Z",
-      "zuletzt_gesehen": "2026-08-27T16:48:13Z",
-      "neu": true,
+      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
+      "neu": false,
       "gesichtet": false
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1473043.html#track=feed-jobs": {
@@ -448,7 +484,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-22T05:59:41Z",
-      "zuletzt_gesehen": "2026-08-27T16:48:13Z",
+      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
       "neu": false,
       "gesichtet": false
     },
@@ -484,7 +520,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-22T05:59:41Z",
-      "zuletzt_gesehen": "2026-08-27T16:48:13Z",
+      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
       "neu": false,
       "gesichtet": false
     },
@@ -1595,6 +1631,16 @@
       "gefunden": 13,
       "neu": 3,
       "gesamt": 37,
+      "ausgeschlossen": 0,
+      "ausserhalb_umkreis": 221,
+      "ohne_plz": 5,
+      "uebersprungen": []
+    },
+    {
+      "zeit": "2026-08-28T17:42:06Z",
+      "gefunden": 14,
+      "neu": 1,
+      "gesamt": 38,
       "ausgeschlossen": 0,
       "ausserhalb_umkreis": 221,
       "ohne_plz": 5,

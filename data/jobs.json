@@ -34,7 +34,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-15T05:59:07Z",
-      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
+      "zuletzt_gesehen": "2026-08-29T11:46:56Z",
       "neu": false,
       "gesichtet": false
     },
@@ -72,7 +72,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-26T06:04:34Z",
-      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
+      "zuletzt_gesehen": "2026-08-29T11:46:56Z",
       "neu": false,
       "gesichtet": false
     },
@@ -110,7 +110,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
+      "zuletzt_gesehen": "2026-08-29T11:46:56Z",
       "neu": false,
       "gesichtet": false
     },
@@ -148,7 +148,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-21T06:02:57Z",
-      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
+      "zuletzt_gesehen": "2026-08-29T11:46:56Z",
       "neu": false,
       "gesichtet": false
     },
@@ -186,7 +186,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
+      "zuletzt_gesehen": "2026-08-29T11:46:56Z",
       "neu": false,
       "gesichtet": false
     },
@@ -224,7 +224,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-27T16:48:13Z",
-      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
+      "zuletzt_gesehen": "2026-08-29T11:46:56Z",
       "neu": false,
       "gesichtet": false
     },
@@ -262,7 +262,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-17T06:04:10Z",
-      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
+      "zuletzt_gesehen": "2026-08-29T11:46:56Z",
       "neu": false,
       "gesichtet": false
     },
@@ -300,7 +300,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-27T16:48:13Z",
-      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
+      "zuletzt_gesehen": "2026-08-29T11:46:56Z",
       "neu": false,
       "gesichtet": false
     },
@@ -338,7 +338,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
+      "zuletzt_gesehen": "2026-08-29T11:46:56Z",
       "neu": false,
       "gesichtet": false
     },
@@ -376,7 +376,7 @@
         "nur_titel": false
       },
       "erstmals_gesehen": "2026-08-09T10:53:43Z",
-      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
+      "zuletzt_gesehen": "2026-08-29T11:46:56Z",
       "neu": false,
       "gesichtet": false
     },
@@ -412,8 +412,8 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-28T17:42:06Z",
-      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
-      "neu": true,
+      "zuletzt_gesehen": "2026-08-29T11:46:56Z",
+      "neu": false,
       "gesichtet": false
     },
     "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1484727.html#track=feed-jobs": {
@@ -448,7 +448,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-27T16:48:13Z",
-      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
+      "zuletzt_gesehen": "2026-08-29T11:46:56Z",
       "neu": false,
       "gesichtet": false
     },
@@ -484,7 +484,7 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-22T05:59:41Z",
-      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
+      "zuletzt_gesehen": "2026-08-29T11:46:56Z",
       "neu": false,
       "gesichtet": false
     },
@@ -520,8 +520,80 @@
         "nur_titel": true
       },
       "erstmals_gesehen": "2026-08-22T05:59:41Z",
-      "zuletzt_gesehen": "2026-08-28T17:42:06Z",
+      "zuletzt_gesehen": "2026-08-29T11:46:56Z",
       "neu": false,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1485840.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1485840.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Kommunikation",
+      "titel": "Referatsleitung (m/w/d) für die wirtschaftliche Jugendhilfe",
+      "arbeitgeber": "Kreisverwaltung Neuwied",
+      "ort": "56564 Neuwied",
+      "plz": "56564",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-28",
+      "frist": "2026-09-18",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/interamt/2026/08/1485840.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Kommunikation",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 189,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-29T11:46:56Z",
+      "zuletzt_gesehen": "2026-08-29T11:46:56Z",
+      "neu": true,
+      "gesichtet": false
+    },
+    "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/stellenmarkt_nrw/2026/07/1296aeb1-79e0-4605-a3c3-b28ec1a35579.html#track=feed-jobs": {
+      "id": "rss:https://www.service.bund.de/IMPORTE/Stellenangebote/stellenmarkt_nrw/2026/07/1296aeb1-79e0-4605-a3c3-b28ec1a35579.html#track=feed-jobs",
+      "refnr": null,
+      "quelle": "Bund/Länder – Kommunikation",
+      "titel": "Physiotherapeutinnen / Physiotherapeuten (m/w/d) für die LVR-Hugo-Kükelhaus-Schule in Wiehl Förderschwerpunkt körperliche und motorische Entwicklung",
+      "arbeitgeber": "Landschaftsverband Rheinland",
+      "ort": "51674 Wiehl",
+      "plz": "51674",
+      "entfernung_km": null,
+      "veroeffentlicht": "2026-08-28",
+      "frist": "2026-09-28",
+      "eintritt": null,
+      "url": "https://www.service.bund.de/IMPORTE/Stellenangebote/stellenmarkt_nrw/2026/07/1296aeb1-79e0-4605-a3c3-b28ec1a35579.html#track=feed-jobs",
+      "archetyp": "pressestelle",
+      "treffer_begriff": "Bund/Länder – Kommunikation",
+      "screening": {
+        "studium": {
+          "stufe": "offen",
+          "beleg": null
+        },
+        "ehrenamtslogik": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "befristung": {
+          "getroffen": false,
+          "beleg": null
+        },
+        "textlaenge": 281,
+        "nur_titel": true
+      },
+      "erstmals_gesehen": "2026-08-29T11:46:56Z",
+      "zuletzt_gesehen": "2026-08-29T11:46:56Z",
+      "neu": true,
       "gesichtet": false
     },
     "ba:12951-111f7273-ec55-446f--S": {
@@ -1643,6 +1715,16 @@
       "gesamt": 38,
       "ausgeschlossen": 0,
       "ausserhalb_umkreis": 221,
+      "ohne_plz": 5,
+      "uebersprungen": []
+    },
+    {
+      "zeit": "2026-08-29T11:46:56Z",
+      "gefunden": 16,
+      "neu": 2,
+      "gesamt": 40,
+      "ausgeschlossen": 0,
+      "ausserhalb_umkreis": 218,
       "ohne_plz": 5,
       "uebersprungen": []
     }

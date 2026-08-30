@@ -8,6 +8,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from jobradar.lauf import sortierschluessel
+
 CSS = """
 :root{
   --stein:#e9e7e0; --stein-tief:#dbd8cf; --papier:#f5f4f0;
@@ -80,14 +82,14 @@ h1{
 
 /* Zeile */
 .stelle{
-  display:grid;grid-template-columns:64px 1fr auto;gap:16px;align-items:start;
+  display:grid;grid-template-columns:96px 1fr auto;gap:16px;align-items:start;
   padding:15px 0;border-top:1px solid var(--linie)
 }
 .stelle:last-child{border-bottom:1px solid var(--linie)}
 .stelle.entfernt{opacity:.42}
 
 /* Signaturelement: drei Statusfelder, links, immer gleich positioniert */
-.ampel{display:flex;gap:4px;padding-top:4px}
+.ampel{display:flex;flex-wrap:wrap;gap:4px;padding-top:4px;align-items:center}
 .slot{
   width:18px;height:18px;border-radius:3px;
   border:1px solid var(--linie);background:var(--papier);
@@ -133,19 +135,6 @@ h1{
   padding:2px 7px;border-radius:2px
 }
 .datum{font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;font-size:12px;color:var(--tinte-weich);display:block;margin-top:5px}
-.passung{
-  font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;
-  font-size:10px;letter-spacing:.06em;text-transform:uppercase;
-  padding:1px 6px;border-radius:2px;margin-right:5px;white-space:nowrap
-}
-.passung.kern{background:var(--moos);color:var(--papier)}
-.passung.nah{background:var(--bernstein);color:var(--papier)}
-.passung.fern{border:1px dashed var(--linie);color:var(--tinte-weich)}
-.remote{
-  font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;
-  font-size:10px;letter-spacing:.08em;text-transform:uppercase;
-  border:1px solid currentColor;padding:1px 5px;border-radius:2px;margin-right:5px
-}
 
 .leer{
   padding:40px 0;color:var(--tinte-weich);font-size:15px;
@@ -158,44 +147,95 @@ footer{
 }
 
 @media (max-width:620px){
-  .stelle{grid-template-columns:44px 1fr;gap:12px}
-  .rechts{grid-column:2;text-align:left;padding-top:0}
+  .stelle{grid-template-columns:1fr;gap:8px}
+  .rechts{grid-column:1;text-align:left;padding-top:0}
   .datum{display:inline;margin-left:10px}
-  .ampel{flex-direction:column;gap:3px}
+  .ampel{flex-direction:row}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.score{
+  font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;
+  font-size:15px;font-weight:600;min-width:2.4em;text-align:right;display:inline-block
+}
+.score.hoch{color:var(--moos)}
+.score.mittel{color:var(--bernstein)}
+.score.tief{color:var(--tinte-weich)}
+.score.leer{color:var(--tinte-weich);font-weight:400}
+.marker{
+  font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;
+  font-size:10px;letter-spacing:.05em;text-transform:uppercase;
+  padding:1px 5px;border-radius:2px;margin-right:4px;white-space:nowrap;
+  border:1px solid var(--linie)
+}
+.marker.auf{background:var(--moos);color:var(--papier);border-color:var(--moos)}
+.marker.rei{background:transparent;color:var(--tinte-weich);border-style:dashed}
+.modell{
+  font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;
+  font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+  padding:1px 5px;border-radius:2px;margin-right:5px;border:1px solid currentColor
+}
+.geschaetzt{color:var(--tinte-weich)}
+.gefiltert{opacity:.55}
+.gefiltert .titel a{text-decoration:line-through}
+.grundmarke{
+  font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;
+  font-size:10px;text-transform:uppercase;letter-spacing:.06em;
+  background:var(--linie);padding:1px 5px;border-radius:2px;margin-right:5px
+}
+.auchbei{font-size:11.5px;color:var(--tinte-weich)}
 """
 
 JS = """
 (function(){
-  // ohneFremd startet auf true: Stellen aus anderen Berufen (Forstwirt,
-  // SAP-Consultant, Buchhaltung) sollen nicht die erreichbaren zuschuetten.
-  // Sie sind nicht geloescht — ein Klick auf "Auch fachfremde" holt sie zurueck,
-  // und der Zaehler unten nennt jederzeit ihre Zahl.
-  var filter = {archetyp:'alle', nurNeu:false, ohneStudium:false,
-                ohneEhrenamt:false, ohneAbgelaufen:true, ohneFremd:true};
+  var filter = {archetyp:'alle', nurNeu:false, ohneEhrenamt:false,
+                ohneAbgelaufen:true, zeigeGefiltert:false, nurMitText:false};
+  var sortierung = 'score';
+
+  function zahl(el, name){
+    var v = el.dataset[name];
+    return (v === '' || v === undefined) ? null : Number(v);
+  }
 
   function anwenden(){
     document.querySelectorAll('.stelle').forEach(function(el){
       var zeig = true;
       if (filter.archetyp !== 'alle' && el.dataset.archetyp !== filter.archetyp) zeig = false;
       if (filter.nurNeu && el.dataset.neu !== '1') zeig = false;
-      if (filter.ohneStudium && el.dataset.studium === 'hart') zeig = false;
       if (filter.ohneEhrenamt && el.dataset.ehrenamt === '1') zeig = false;
       if (filter.ohneAbgelaufen && el.dataset.abgelaufen === '1') zeig = false;
-      if (filter.ohneFremd && el.dataset.passung === 'fremd') zeig = false;
+      if (filter.nurMitText && el.dataset.text !== '1') zeig = false;
+      // Ausgefilterte sind vorhanden, nur ausgeblendet — damit pruefbar
+      // bleibt, ob ein Filtermuster zu breit greift.
+      if (!filter.zeigeGefiltert && el.dataset.gefiltert !== '') zeig = false;
       el.hidden = !zeig;
     });
-    var versteckt = document.querySelectorAll('.stelle[data-passung="fremd"]').length;
-    var hinweis = document.getElementById('fremdzahl');
-    if (hinweis) hinweis.textContent = filter.ohneFremd && versteckt
-      ? versteckt + ' fachfremde ausgeblendet' : '';
+
     document.querySelectorAll('.gruppe').forEach(function(g){
-      var sichtbar = g.querySelectorAll('.stelle:not([hidden])').length;
-      g.hidden = sichtbar === 0;
+      var sichtbare = Array.prototype.slice.call(
+        g.querySelectorAll('.stelle:not([hidden])'));
+      sichtbare.sort(function(a, b){
+        if (sortierung === 'fahrzeit'){
+          var fa = zahl(a,'fahrzeit'), fb = zahl(b,'fahrzeit');
+          if (fa === null && fb === null) return 0;
+          if (fa === null) return 1;
+          if (fb === null) return -1;
+          return fa - fb;
+        }
+        if (sortierung === 'datum'){
+          return (b.dataset.datum || '').localeCompare(a.dataset.datum || '');
+        }
+        var sa = zahl(a,'score'), sb = zahl(b,'score');
+        if (sa === null && sb === null) return 0;
+        if (sa === null) return 1;
+        if (sb === null) return -1;
+        return sb - sa;
+      });
+      sichtbare.forEach(function(el){ g.appendChild(el); });
+      g.hidden = sichtbare.length === 0;
       var z = g.querySelector('.zaehler');
-      if (z) z.textContent = sichtbar + ' sichtbar';
+      if (z) z.textContent = sichtbare.length + ' sichtbar';
     });
+
     var alle = document.querySelectorAll('.stelle:not([hidden])').length;
     var leer = document.getElementById('leer');
     if (leer) leer.hidden = alle > 0;
@@ -216,20 +256,31 @@ JS = """
       anwenden();
     });
   });
+
+  document.querySelectorAll('[data-sort]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      sortierung = btn.dataset.sort;
+      document.querySelectorAll('[data-sort]').forEach(function(b){
+        b.setAttribute('aria-pressed', String(b.dataset.sort === sortierung));
+      });
+      anwenden();
+    });
+  });
+
   anwenden();
 })();
 """
 
 
 def esc(value: Any) -> str:
-    return html.escape(str(value or ""))
+    return html.escape("" if value is None else str(value), quote=True)
 
 
 def _tage_bis(iso_datum: str | None) -> int | None:
     if not iso_datum:
         return None
     try:
-        ziel = datetime.strptime(iso_datum[:10], "%Y-%m-%d").replace(tzinfo=timezone.utc)
+        ziel = datetime.strptime(iso_datum, "%Y-%m-%d").replace(tzinfo=timezone.utc)
     except ValueError:
         return None
     return (ziel - datetime.now(timezone.utc)).days
@@ -239,16 +290,16 @@ def _ampel(screening: dict[str, Any]) -> tuple[str, str, str]:
     """Drei Statusfelder: Studium / Ehrenamtslogik / Befristung."""
     stufe = (screening.get("studium") or {}).get("stufe", "offen")
     if stufe == "hart":
-        studium = '<span class="slot stop" title="Studium zwingend gefordert">S</span>'
+        studium = '<span class="slot stop" title="Studium zwingend">S</span>'
     elif stufe == "weich":
         studium = '<span class="slot warn" title="Studium oder vergleichbare Qualifikation">S</span>'
     else:
         studium = '<span class="slot gut" title="Kein Studium gefordert">S</span>'
 
     if (screening.get("ehrenamtslogik") or {}).get("getroffen"):
-        ehrenamt = '<span class="slot stop" title="Ehrenamtslogik – Durchsatz haengt an Dritten">E</span>'
+        ehrenamt = '<span class="slot stop" title="Ehrenamtslogik erkannt">E</span>'
     else:
-        ehrenamt = '<span class="slot gut" title="Keine Ehrenamtslogik erkennbar">E</span>'
+        ehrenamt = '<span class="slot gut" title="Keine Ehrenamtslogik erkannt">E</span>'
 
     if (screening.get("befristung") or {}).get("getroffen"):
         befristung = '<span class="slot warn" title="Befristet">B</span>'
@@ -258,14 +309,23 @@ def _ampel(screening: dict[str, Any]) -> tuple[str, str, str]:
     return studium, ehrenamt, befristung
 
 
-def _belege(screening: dict[str, Any], remote_beleg: str | None = None) -> str:
-    zeilen = []
-    # Zuerst, weil es erklaert, warum eine Stelle trotz Entfernung dasteht.
-    if remote_beleg:
-        zeilen.append(f"Remote: {remote_beleg}")
+def _belege(stelle: dict[str, Any]) -> str:
+    """Jedes Urteil zeigt die Textstelle, aus der es folgt."""
+    screening = stelle.get("screening") or {}
+    zeilen: list[str] = []
+
+    modell = stelle.get("arbeitsmodell") or {}
+    if modell.get("beleg"):
+        zeilen.append(f"Arbeitsmodell ({modell.get('modell')}): {modell['beleg']}")
+
+    erreichbar = stelle.get("erreichbar") or {}
+    if erreichbar.get("hinweis"):
+        zeilen.append(f"Erreichbarkeit: {erreichbar['hinweis']}")
+
     studium = screening.get("studium") or {}
     if studium.get("beleg"):
-        praefix = "Studium zwingend" if studium.get("stufe") == "hart" else "Studium mit Alternative"
+        praefix = ("Studium zwingend" if studium.get("stufe") == "hart"
+                   else "Studium mit Alternative")
         zeilen.append(f"{praefix}: {studium['beleg']}")
     ehrenamt = screening.get("ehrenamtslogik") or {}
     if ehrenamt.get("beleg"):
@@ -273,10 +333,23 @@ def _belege(screening: dict[str, Any], remote_beleg: str | None = None) -> str:
     befristung = screening.get("befristung") or {}
     if befristung.get("beleg"):
         zeilen.append(f"Befristung: {befristung['beleg']}")
+
+    for r in (stelle.get("passung") or {}).get("reibung") or []:
+        zeilen.append(f"Reibung {r.get('gruppe')} ({r.get('gewicht')}): "
+                      f"{r.get('beleg')}")
+
     if not zeilen:
         return ""
     items = "".join(f"<li>{esc(z)}</li>" for z in zeilen)
     return f'<ul class="belege">{items}</ul>'
+
+
+MODELL_TITEL = {
+    "remote": "Vollständig remote laut Anzeigentext",
+    "hybrid": "Teilweise vor Ort",
+    "onsite": "Präsenz erwartet",
+    "unklar": "Arbeitsmodell nicht angegeben — gegen die Hybrid-Schwelle geprüft",
+}
 
 
 def _zeile(stelle: dict[str, Any]) -> str:
@@ -285,35 +358,70 @@ def _zeile(stelle: dict[str, Any]) -> str:
     stufe = (screening.get("studium") or {}).get("stufe", "offen")
     ehrenamt = "1" if (screening.get("ehrenamtslogik") or {}).get("getroffen") else "0"
 
-    meta = []
+    passung = stelle.get("passung") or {}
+    score = passung.get("score")
+    hat_text = passung.get("status") == "bewertet"
+    if not hat_text:
+        score_html = ('<span class="score leer" title="Keine Beschreibung '
+                      'vorhanden — kein Score, kein Urteil">–</span>')
+    else:
+        klasse = "hoch" if score >= 5 else ("mittel" if score >= 2 else "tief")
+        score_html = (f'<span class="score {klasse}" title="Summe der '
+                      f'getroffenen Aufgabengruppen minus Reibung">{score:+d}</span>')
+
+    marker = "".join(
+        f'<span class="marker auf">{esc(a)}</span>'
+        for a in passung.get("aufgaben") or [])
+    marker += "".join(
+        f'<span class="marker rei" title="{esc(r.get("beleg"))}">'
+        f'{esc(r.get("gruppe"))} {esc(r.get("gewicht"))}</span>'
+        for r in passung.get("reibung") or [])
+
+    meta: list[str] = []
+    modell = (stelle.get("arbeitsmodell") or {}).get("modell", "unklar")
+    meta.append(f'<span class="modell" title="{esc(MODELL_TITEL.get(modell, ""))}">'
+                f'{esc(modell)}</span>')
+
+    fahrzeit = stelle.get("fahrzeit") or {}
+    minuten = fahrzeit.get("minuten")
+    if minuten is not None:
+        klasse = "geschaetzt" if fahrzeit.get("geschaetzt") else ""
+        titel = ("geschätzt über " + str(fahrzeit.get("quelle"))
+                 if fahrzeit.get("geschaetzt") else "OpenRouteService, PKW")
+        meta.append(f'<span class="{klasse}" title="{esc(titel)}">'
+                    f'{int(minuten)} min</span>')
+    else:
+        meta.append('<span class="geschaetzt" title="Weder ORS noch eine '
+                    'Entfernungsangabe der Quelle">Fahrzeit unbekannt</span>')
+
     if stelle.get("arbeitgeber"):
         meta.append(esc(stelle["arbeitgeber"]))
-    ort = stelle.get("ort") or ""
-    km = stelle.get("entfernung_km")
-    if stelle.get("remote_beleg"):
-        # Ausserhalb des Pendelradius, aber vollstaendig remote — die
-        # Entfernung ist hier die unwichtigste Angabe, nicht die wichtigste.
-        meta.append(f'<span class="remote">remote</span> {esc(ort) or "ortsunabhängig"}')
-    elif ort and km is not None:
-        meta.append(f"{esc(ort)} · {int(km)} km")
-    elif ort:
-        meta.append(esc(ort))
+    if stelle.get("ort"):
+        meta.append(esc(stelle["ort"]))
+    if stelle.get("entgelt"):
+        meta.append(esc(stelle["entgelt"]))
+    if stelle.get("wochenstunden"):
+        meta.append(esc(f"{stelle['wochenstunden']:g} h/Woche"))
     meta.append(esc(stelle.get("quelle", "")))
     if stelle.get("entfernt"):
         meta.append("nicht mehr gelistet")
 
+    auch = stelle.get("auch_gefunden_bei") or []
+    if auch:
+        quellen = ", ".join(sorted({a.get("quelle", "") for a in auch if a.get("quelle")}))
+        meta.append(f'<span class="auchbei">auch bei {esc(quellen)}</span>')
+
+    grund = stelle.get("gefiltert")
+    grund_html = ""
+    if grund:
+        grund_html = f'<span class="grundmarke">{esc(grund)}</span>'
+
     frist = stelle.get("frist")
     tage = _tage_bis(frist)
     abgelaufen = tage is not None and tage < 0
-
-    klassen = "stelle"
-    if stelle.get("entfernt"):
-        klassen += " entfernt"
-    if abgelaufen:
-        klassen += " abgelaufen"
-
-    neu_badge = '<span class="neu">neu</span>' if stelle.get("neu") and not abgelaufen else ""
     datum = esc(stelle.get("veroeffentlicht") or "")
+    neu_badge = ('<span class="neu">neu</span>'
+                 if stelle.get("neu") and not abgelaufen else "")
 
     frist_html = ""
     if frist:
@@ -324,30 +432,24 @@ def _zeile(stelle: dict[str, Any]) -> str:
         else:
             frist_html = f'<span class="frist ruhig">Frist {esc(frist)}</span>'
 
-    nur_titel = ('<span class="nurtitel" title="Nur der Titel wurde geprueft — '
-                 'gruene Statusfelder sind hier nicht aussagekraeftig">nur Titel</span>'
-                 if screening.get("nur_titel") else "")
+    nur_titel = ('<span class="nurtitel" title="Keine Beschreibung vorhanden — '
+                 'Status und Score sind hier nicht belastbar">ohne Beschreibung</span>'
+                 if not hat_text else "")
 
-    passung = stelle.get("passung") or {}
-    passung_stufe = passung.get("stufe", "fremd")
-    if passung_stufe == "kern":
-        meta.insert(0, '<span class="passung kern" title="Dein Handwerk oder '
-                       'deine Berufserfahrung">direkt erreichbar</span>')
-    elif passung_stufe == "angrenzend":
-        meta.insert(0, '<span class="passung nah" title="Plausibel mit '
-                       'Einarbeitung oder Quereinstieg">mit Einarbeitung</span>')
-    else:
-        meta.insert(0, '<span class="passung fern" title="Anderer Beruf, andere '
-                       'Ausbildung — nach Titel eingeschaetzt">fachfremd</span>')
-
+    klassen = "stelle" + (" gefiltert" if grund else "")
     return f"""<article class="{klassen}" data-archetyp="{esc(stelle.get('archetyp'))}"
-  data-neu="{'1' if stelle.get('neu') else '0'}" data-studium="{esc(stufe)}" data-ehrenamt="{ehrenamt}"
-  data-abgelaufen="{'1' if abgelaufen else '0'}" data-passung="{esc(passung_stufe)}">
-  <div class="ampel">{s}{e}{b}</div>
+  data-neu="{'1' if stelle.get('neu') else '0'}" data-studium="{esc(stufe)}"
+  data-ehrenamt="{ehrenamt}" data-abgelaufen="{'1' if abgelaufen else '0'}"
+  data-gefiltert="{esc(grund or '')}" data-text="{'1' if hat_text else '0'}"
+  data-score="{score if hat_text else ''}"
+  data-fahrzeit="{minuten if minuten is not None else ''}"
+  data-datum="{datum}">
+  <div class="ampel">{score_html}{s}{e}{b}</div>
   <div>
-    <p class="titel"><a href="{esc(stelle.get('url'))}" target="_blank" rel="noopener">{esc(stelle.get('titel') or 'Ohne Titel')}</a>{nur_titel}</p>
+    <p class="titel">{grund_html}<a href="{esc(stelle.get('url'))}" target="_blank" rel="noopener">{esc(stelle.get('titel') or 'Ohne Titel')}</a>{nur_titel}</p>
     <div class="meta">{''.join(f'<span>{m}</span>' for m in meta if m)}</div>
-    {_belege(screening, stelle.get("remote_beleg"))}
+    <div class="meta">{marker}</div>
+    {_belege(stelle)}
   </div>
   <div class="rechts">{neu_badge}<span class="datum">{datum}</span>{frist_html}</div>
 </article>"""
@@ -357,14 +459,10 @@ def baue_dashboard(cfg: dict[str, Any], zustand: dict[str, Any], ziel: Path) -> 
     archetypen = sorted(cfg.get("archetypen", []), key=lambda a: a.get("rang", 99))
     stellen = list(zustand.get("stellen", {}).values())
 
-    # Erst die neuen, innerhalb dessen das jüngste Veröffentlichungsdatum oben.
-    # Reihenfolge der Sortierungen ist umgekehrt zur Wichtigkeit (stabile Sorts):
-    # zuletzt sortiert = staerkstes Kriterium. Erreichbarkeit schlaegt "neu" —
-    # eine neue Stelle in einem fremden Beruf nuetzt nichts.
+    # Serverseitige Vorsortierung nach Score; die Filterleiste kann im Browser
+    # auf Fahrzeit oder Datum umschalten.
     stellen.sort(key=lambda s: s.get("veroeffentlicht") or "0000-00-00", reverse=True)
-    stellen.sort(key=lambda s: 0 if s.get("neu") else 1)
-    stellen.sort(key=lambda s: {"kern": 0, "angrenzend": 1}.get(
-        (s.get("passung") or {}).get("stufe"), 2))
+    stellen.sort(key=sortierschluessel)
 
     gruppen_html = []
     for a in archetypen:
@@ -373,9 +471,25 @@ def baue_dashboard(cfg: dict[str, Any], zustand: dict[str, Any], ziel: Path) -> 
             continue
         zeilen = "".join(_zeile(s) for s in eintraege)
         notiz = f'<p class="notiz">{esc(a.get("notiz"))}</p>' if a.get("notiz") else ""
+        sichtbar = sum(1 for s in eintraege if not s.get("gefiltert"))
         gruppen_html.append(f"""<section class="gruppe" data-archetyp="{esc(a['id'])}">
-  <h2>{esc(a['label'])} <span class="zaehler">{len(eintraege)} sichtbar</span></h2>
+  <h2>{esc(a['label'])} <span class="zaehler">{sichtbar} sichtbar</span></h2>
   {notiz}
+  {zeilen}
+</section>""")
+
+    # Eintraege aus dem Bestand, deren Archetyp es nicht mehr gibt (nach einer
+    # Umbenennung in config.yaml), duerfen nicht stillschweigend verschwinden.
+    bekannte_ids = {a["id"] for a in archetypen}
+    reste = [s for s in stellen if s.get("archetyp") not in bekannte_ids]
+    if reste:
+        zeilen = "".join(_zeile(s) for s in reste)
+        sichtbar = sum(1 for s in reste if not s.get("gefiltert"))
+        gruppen_html.append(f"""<section class="gruppe" data-archetyp="_rest">
+  <h2>Ohne aktuellen Archetyp <span class="zaehler">{sichtbar} sichtbar</span></h2>
+  <p class="notiz">Diese Anzeigen stammen aus einem Lauf mit anderer
+  Archetyp-Einteilung. Beim naechsten Lauf werden sie neu zugeordnet oder
+  verfallen.</p>
   {zeilen}
 </section>""")
 
@@ -387,18 +501,28 @@ def baue_dashboard(cfg: dict[str, Any], zustand: dict[str, Any], ziel: Path) -> 
     uebersprungen_html = ""
     if uebersprungen:
         zeilen = "".join(f"<br>· {esc(u)}" for u in uebersprungen)
-        uebersprungen_html = (f"Beim letzten Lauf übersprungen:{zeilen}<br>")
+        uebersprungen_html = f"Beim letzten Lauf übersprungen:{zeilen}<br>"
+
+    gefiltert = letzter.get("gefiltert") or {}
+    gefiltert_text = ", ".join(
+        f"{esc(grund)} {esc(zahl)}" for grund, zahl in gefiltert.items()) or "keine"
 
     filter_buttons = ['<button data-filter="archetyp" data-wert="alle" aria-pressed="true">Alle Felder</button>']
     for a in archetypen:
         filter_buttons.append(
-            f'<button data-filter="archetyp" data-wert="{esc(a["id"])}" aria-pressed="false">{esc(a["label"])}</button>')
+            f'<button data-filter="archetyp" data-wert="{esc(a["id"])}" '
+            f'aria-pressed="false">{esc(a["label"])}</button>')
     filter_buttons += [
         '<button data-filter="nurNeu" aria-pressed="false">Nur neue</button>',
-        '<button data-filter="ohneStudium" aria-pressed="false">Studiumspflicht ausblenden</button>',
         '<button data-filter="ohneEhrenamt" aria-pressed="false">Ehrenamtslogik ausblenden</button>',
         '<button data-filter="ohneAbgelaufen" aria-pressed="true">Abgelaufene ausblenden</button>',
-        '<button data-filter="ohneFremd" aria-pressed="true">Fachfremde ausblenden</button>',
+        '<button data-filter="nurMitText" aria-pressed="false">Nur mit Beschreibung</button>',
+        '<button data-filter="zeigeGefiltert" aria-pressed="false">Ausgefilterte zeigen</button>',
+    ]
+    sort_buttons = [
+        '<button data-sort="score" aria-pressed="true">Score</button>',
+        '<button data-sort="fahrzeit" aria-pressed="false">Fahrzeit</button>',
+        '<button data-sort="datum" aria-pressed="false">Datum</button>',
     ]
 
     doc = f"""<!DOCTYPE html>
@@ -410,37 +534,37 @@ def baue_dashboard(cfg: dict[str, Any], zustand: dict[str, Any], ziel: Path) -> 
 <!-- Bewusst keine Web-Fonts. Ein <link> auf fonts.googleapis.com meldet bei
      jedem Oeffnen IP, Browser und aufgerufene Seite an Google — bei einer
      Seite, die die eigene Stellensuche abbildet, ist das die eine Information,
-     die niemand mitlesen soll. Die CSS-Stacks unten greifen auf Schriften
-     zurueck, die auf Windows, macOS und Linux ohnehin vorhanden sind. -->
+     die niemand mitlesen soll. -->
 <style>{CSS}</style>
 </head>
 <body>
 <div class="wrap">
 <header>
-  <p class="eyebrow">Stellenradar · {esc(cfg['standort']['wo'])} · {esc(cfg['standort']['umkreis_km'])} km</p>
+  <p class="eyebrow">Stellenradar · {esc(cfg['standort'].get('ort') or cfg['standort']['wo'])}</p>
   <h1>Was gerade offen ist</h1>
-  <p class="lauf">Stand {esc(stand)} · <b>{esc(letzter.get('gesamt', 0))}</b> Anzeigen im Bestand · <b>{esc(letzter.get('neu', 0))}</b> seit dem letzten Lauf neu</p>
+  <p class="lauf">Stand {esc(stand)} · <b>{esc(letzter.get('sichtbar', 0))}</b> in der Standardansicht · <b>{esc(letzter.get('gesamt', 0))}</b> im Bestand · <b>{esc(letzter.get('neu', 0))}</b> neu</p>
 </header>
 
 <div class="legende">
+  <span><span class="score hoch">+5</span> Score aus dem Anzeigentext, nicht aus dem Titel</span>
   <span><span class="slot gut">S</span> Studium: kein / mit Alternative / zwingend</span>
   <span><span class="slot stop">E</span> Ehrenamtslogik erkannt</span>
   <span><span class="slot warn">B</span> Befristet</span>
-  <span><span class="nurtitel">nur Titel</span> Volltext fehlte — Status nicht belastbar</span>
+  <span><span class="nurtitel">ohne Beschreibung</span> kein Score — Datenlage fehlt</span>
 </div>
 
 <div class="filter">{''.join(filter_buttons)}</div>
+<div class="filter">Sortierung: {''.join(sort_buttons)}</div>
 
 {''.join(gruppen_html) if gruppen_html else ''}
-<p class="leer" id="leer" {'' if gruppen_html else ''}>Keine Anzeigen passen zu den gewählten Filtern.</p>
-<p class="datum" id="fremdzahl"></p>
+<p class="leer" id="leer">Keine Anzeigen passen zu den gewählten Filtern.</p>
 
 <footer>
-Quellen: Bundesagentur für Arbeit (inoffizielle Jobsuche-API), service.bund.de (RSS) und einzelne Karriereseiten. Letztere werden nur ohne Login und nur nach robots.txt-Prüfung abgerufen, einmal je Lauf.<br>
-{uebersprungen_html}Beim letzten Lauf {esc(letzter.get('ausgeschlossen', 0))} Anzeigen per Titelfilter ausgeschlossen (Performance Marketing, reine Social-Media- und Vertriebsrollen). Steht die Zahl auffällig hoch, ist ein Muster in <code>ausschluss_titel</code> zu breit.<br>
-Die Statusfelder sind Mustererkennung im Anzeigentext, keine Rechtsauskunft — Belegstellen stehen unter jeder Zeile, Einzelfälle bitte selbst nachlesen. Bei Treffern von Karriereseiten wird nur der Titel gescreent.<br>
-Bewerbungsfristen stammen aus JobPosting-Markup (schema.org) auf den Arbeitgeberseiten — derselben Quelle, aus der Google for Jobs liest. Fehlt das Markup, fehlt die Frist.<br>
-Interamt hat keinen offenen Feed: dort den eigenen Jobticker abonnieren.
+Bewertet wird der <b>Anzeigentext</b>, nicht die Berufsbezeichnung. Dieselbe Tätigkeit heißt je nach Arbeitgeber „Referent*in Öffentlichkeitsarbeit“, „Sachbearbeitung Kommunikation“ oder „Marketingassistenz“ — ein Titelfilter entfernt darum zwangsläufig Passendes. Der Score summiert getroffene Aufgabengruppen und zieht Reibungsmuster ab.<br>
+Entfernt werden nur drei Dinge: zu lange Fahrzeit, Umfang unter {esc((cfg.get('harte_filter') or {}).get('mindest_wochenstunden', 20))} Wochenstunden und zwingend gefordertes Studium. Beim letzten Lauf ausgefiltert: {gefiltert_text}. Über „Ausgefilterte zeigen“ nachprüfbar.<br>
+Fahrzeiten sind PKW-Zeiten. Ohne <code>ORS_API_KEY</code> werden sie geschätzt und grau dargestellt; bei guter Bahnanbindung weicht der Tür-zu-Tür-Wert ab.<br>
+{esc(letzter.get('zusammengefuehrt', 0))} Duplikate zusammengeführt (der Eintrag mit der längeren Beschreibung gewinnt, die anderen Fundstellen stehen als „auch bei“ dabei). {esc(letzter.get('ohne_beschreibung', 0))} Anzeigen ohne Beschreibung — die bekommen keinen Score, weil eine 0 ein Urteil wäre, das die Datenlage nicht hergibt.<br>
+{uebersprungen_html}Quellen: Bundesagentur für Arbeit (inoffizielle Jobsuche-API), service.bund.de (RSS), einzelne Karriereseiten nach robots.txt-Prüfung, optional JobSpy. Die Statusfelder sind Mustererkennung, keine Rechtsauskunft — Belegstellen stehen unter jeder Zeile.
 </footer>
 </div>
 <script>{JS}</script>
@@ -458,4 +582,4 @@ if __name__ == "__main__":
     root = Path(__file__).resolve().parent.parent
     cfg = yaml.safe_load((root / "config.yaml").read_text(encoding="utf-8"))
     zustand = json.loads((root / "data" / "jobs.json").read_text(encoding="utf-8"))
-    print(baue_dashboard(cfg, zustand, root / "index.html"), file=sys.stderr)
+    print(baue_dashboard(cfg, zustand, root / "site" / "index.html"), file=sys.stderr)

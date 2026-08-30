@@ -1,22 +1,30 @@
 # Jobradar – Konfiguration
-# Alles, was du regelmäßig anfassen wirst, steht hier. scan.py bleibt unberührt.
+# Alles, was du regelmäßig anfassen wirst, steht hier. Der Code bleibt unberührt.
+#
+# GRUNDSATZ seit dem Umbau vom 11.08.2026: Es wird so wenig wie möglich
+# entfernt und so viel wie möglich sortiert. Berufsbezeichnungen sind in
+# diesem Feld unzuverlässig — dieselbe Tätigkeit heißt je nach Arbeitgeber
+# "Referent*in Öffentlichkeitsarbeit", "Sachbearbeitung Kommunikation",
+# "Mitarbeiter*in Stabsstelle", "Online-Redakteur*in" oder
+# "Marketingassistenz". Deshalb urteilt das Radar über den ANZEIGENTEXT
+# (siehe `passung`) und nicht mehr über den Titel.
+#
+# Nur drei Kriterien entfernen eine Stelle aus der Standardansicht:
+# Erreichbarkeit (Fahrzeit), Umfang unter der Mindeststundenzahl und ein
+# zwingend gefordertes Studium. Alles andere ist Markierung oder Punktabzug.
 
 standort:
-  # Ankerpunkt für den Umkreis. Wird an die BA-API als "wo" übergeben.
+  # Ankerpunkt. `wo` geht als Ortsangabe an die BA-API, `ort` an das Geocoding.
   wo: "57577"
+  ort: "Hamm (Sieg)"
+  # Suchradius der BA-Abfrage. Bewusst großzügig: Die eigentliche Grenze zieht
+  # die Fahrzeitprüfung (siehe `erreichbarkeit`), nicht dieser Wert.
   umkreis_km: 60
 
-  # Ortsfilter für Quellen OHNE eigenen Umkreisparameter — also die RSS-Feeds
-  # von service.bund.de, die bundesweit liefern. Die BA-Suche filtert selbst
-  # über wo/umkreis und ist hiervon nicht betroffen.
-  #
-  # Gefiltert wird über die ersten drei PLZ-Ziffern, weil die Feeds nur
-  # "Ort: 15848 Beeskow" liefern und keine Koordinaten. Das ist eine Näherung
-  # an Luftlinie, NICHT an Fahrtzeit — Autobahnanschluss schlägt Entfernung.
-  # Die Liste unten ist mein Vorschlag für „höchstens ~50 min ab 57577“ und
-  # gehört überprüft: Streichen macht das Radar enger, Ergänzen weiter.
-  #
-  # Leere Liste = kein Ortsfilter (bundesweiter Bestand wie vorher).
+  # Grobe Ortskenntnis für Quellen ohne Entfernungsangabe (RSS liefert nur
+  # "Ort: 15848 Beeskow"). Dient NICHT mehr als harter Filter, sondern als
+  # letzter Schätzer für die Fahrzeit, wenn weder ORS noch eine
+  # Entfernungsangabe der Quelle vorliegen. Siehe erreichbarkeit.schaetzung.
   plz_praefixe:
     - "570"   # Siegen
     - "572"   # Kreuztal, Netphen, Freudenberg, Neunkirchen, Burbach
@@ -30,277 +38,353 @@ standort:
     - "563"   # Puderbach
     - "564"   # Montabaur, Westerburg
     - "565"   # Neuwied
-    # Randlage — grenzwertig bei 50 min, im Zweifel streichen:
     - "574"   # Olpe, Attendorn, Wenden, Drolshagen
     - "516"   # Gummersbach, Wiehl
     - "356"   # Dillenburg
     - "357"   # Herborn, Driedorf
-  # Bewusst NICHT drin: 531 (Bonn), 560 (Koblenz), 500/506 (Köln),
-  # 573 (Bad Berleburg) — alle jenseits 50 min.
-
-# ---------------------------------------------------------------------------
-# Erreichbarkeit: sortiert das Dashboard danach, was du tatsächlich bekommen
-# kannst. Greift NUR gegen den Titel, wie der Ausschlussfilter auch.
-#
-# Warum das nötig wurde: Das Studiumsfeld taugt dafür nicht. Am 09.08.2026
-# standen 49 von 63 Stellen auf S="offen" (grün) — darunter Forstwirt,
-# Revierförster, Projektingenieur Wassertechnik, Gehaltsbuchhalter, Controller,
-# Teamlead SAP und Modeberater. "Offen" heißt nur "im Text steht nichts von
-# Studium"; über den geforderten Beruf sagt es nichts. Es fehlte ein POSITIVES
-# Passungssignal — bis dahin blieb alles drin, was ein Suchbegriff hereinzog.
-#
-# kern        → dein Handwerk oder deine Berufserfahrung. Könntest du sofort.
-# angrenzend  → plausibel mit Einarbeitung oder Quereinstieg.
-# alles übrige → "fremd": anderer Beruf, andere Ausbildung. Wird nicht
-#                gelöscht, sondern ans Ende sortiert und standardmäßig
-#                ausgeblendet; der Zähler im Dashboard nennt die Zahl.
-#
-# Das ist deine Selbsteinschätzung, nicht meine — die Listen gehören geprüft.
-# ---------------------------------------------------------------------------
-erreichbarkeit:
-  kern:
-    - "Video|Bewegtbild|Film(produktion|emacher)?\\b"
-    - "Kamera|Kameramann|Kamerafrau"
-    - "Schnitt|Cutter|Editor|Motion|Postproduktion"
-    - "Mediengestalter.*(Bild|Ton)|Bild und Ton"
-    - "Content.?Creator|Videograf|Producer"
-    - "Ton(technik|meister|ingenieur)"
-    # "Marketer" und "Advertising" nachgetragen 09.08.2026: "Marketing" matcht
-    # "Marketer" nicht, dadurch landeten "Marketer (m/w/d)" und "Online
-    # Advertising Manager" faelschlich unter fachfremd.
-    - "Marketing|Marketer|Advertising|Kampagne|Werbe"
-    - "Kommunikation|Öffentlichkeitsarbeit|Presse|PR-"
-    - "Redakteur|Redaktion|Journalist"
-    - "Social Media|Content\\b"
-  angrenzend:
-    - "Assistenz|Assistent"
-    - "Sachbearbeit"
-    - "Projektmanage|Projektkoordin|Projektmitarbeit"
-    - "Veranstaltung|Event|Kultur|Messe|Ausstellung"
-    # Gestalterisch benachbart, aber nicht dein Handwerk — bewusst nur
-    # "angrenzend". "Design" allein steht hier NICHT, sonst rutscht
-    # "Interior Design Manager" mit herein.
-    - "Grafik|Art Director|Gestaltung|Layout"
-    - "Tourismus|Stadtmarketing|Wirtschaftsförderung"
-    - "Medienpädagog|Medienzentrum|Bildung|Dozent"
-    - "Referent|Koordinator|Koordination"
-    - "Digitalisierung|Multimedia|Medien\\b"
-
-# ---------------------------------------------------------------------------
-# Remote: zweiter, bundesweiter Suchlauf.
-#
-# Regel: Innerhalb der plz_praefixe zählt jede Stelle. Außerhalb zählt sie nur,
-# wenn sie praktisch vollständig remote ist — dann ist die Entfernung egal.
-#
-# Warum nicht einfach das BA-Feld `homeofficemoeglich`? Weil es nichts über den
-# Anteil sagt. Gemessen am 09.08.2026: ein Arbeitgeber in Neusäß ist so
-# markiert, im Anzeigentext steht aber "Grundsätzlich arbeiten wir vor Ort im
-# Studio". Das Feld taugt nur als Vorfilter, welche Anzeigen sich zu lesen
-# lohnen — das Urteil fällt am Volltext.
-#
-# Ebenso wenig taugt ein nacktes "100 %"-Muster: das trifft bei einem
-# Hundefutterhersteller "100% Lebensmittelqualität". Die Muster unten koppeln
-# den Prozentsatz deshalb an ein Remote-Wort im selben Satz.
-#
-# Ertrag der strengen Muster: 1 von 40 geprüften Anzeigen. Das ist gewollt —
-# echte Vollzeit-Remote-Stellen sind selten, und ein weiches Muster füllt das
-# Dashboard mit "gelegentlich Homeoffice"-Stellen 400 km entfernt.
-# ---------------------------------------------------------------------------
-remote:
-  aktiv: true
-  # Deckel für Detailabrufe pro Lauf. Jeder Kandidat kostet eine Anfrage.
-  # 60 war zu wenig: es gibt ~256 Kandidaten, der Deckel prüfte also ein
-  # willkürliches Viertel. Eine Priorisierung nach Titel wurde geprüft und
-  # verworfen — nur 1 von 256 Anzeigen nennt Remote im Titel, das Signal
-  # steht ausschließlich im Volltext. Also alle prüfen; kostet rund
-  # 3 Minuten Laufzeit pro Tag, was für einen nächtlichen Lauf egal ist.
-  max_details: 400
-  muster:
-    - "(?:100|9\\d)\\s*%[^.;]{0,25}(?:remote|[Hh]ome\\s?-?office|mobil(?:es)?\\s+Arbeiten)"
-    - "(?:remote|[Hh]ome\\s?-?office)[^.;]{0,25}(?:100|9\\d)\\s*%"
-    - "voll(?:st(?:ä|ae)ndig|umf(?:ä|ae)nglich)?\\s*(?:remote|im\\s+[Hh]ome\\s?-?office)"
-    - "\\bremote[- ]?first\\b"
-    - "\\bvollremote\\b"
-    - "(?:deutschlandweit|bundesweit|ortsunabh(?:ä|ae)ngig)\\s+(?:remote|arbeiten)"
-    - "ausschlie(?:ß|ss)lich\\s+remote"
+    - "531"   # Bonn — mit Fahrzeitprüfung wieder zulässig, hybrid/remote
+    - "560"   # Koblenz — dito
 
 lauf:
-  # Nur Anzeigen, die in den letzten N Tagen veröffentlicht wurden.
   veroeffentlicht_seit_tagen: 30
-  # Ergebnisse pro Suchbegriff (BA-API, max. 100).
   treffer_pro_begriff: 100
-  # Sekunden Pause zwischen Requests. Nicht unter 0.3 setzen.
   pause_sekunden: 0.6
-  # Anzeigen ohne Sichtung nach N Tagen aus dem Dashboard entfernen.
   verfall_tage: 60
 
 # ---------------------------------------------------------------------------
-# Archetypen: bestimmen Suchbegriffe UND Sortierung im Dashboard.
-# rang 1 = ganz oben. Begriffe werden einzeln an die BA-API geschickt.
+# Harte Filter. NUR diese drei entfernen Stellen aus der Standardansicht.
+# Jeder Grund wird gezählt und ist im Dashboard einzeln einblendbar, damit
+# auffällt, wenn ein Muster zu breit greift.
+# ---------------------------------------------------------------------------
+harte_filter:
+  # Fehlende Stundenangabe schließt NICHT aus.
+  mindest_wochenstunden: 20
+  # Nur Status "hart" (Studium ohne genannte Alternative). "weich" bleibt
+  # sichtbar — das ist der Fall, in dem Berufserfahrung greift.
+  studium_zwingend_ausschliessen: true
+
+verguetung:
+  # Wird NICHT gefiltert: fehlt in der BA-Datenbank meistens, und
+  # "keine Angabe" ist kein Ausschluss. Nur zur Anzeige, wenn im Text steht.
+  minimum_vollzeit_eur: 3000
+  muster:
+    - 'TV[öO]D[- ]?[A-Za-z]*\s*(?:E\s?)?\d{1,2}'
+    - 'TV-?L\s*(?:E\s?)?\d{1,2}'
+    - 'Entgeltgruppe\s*\d{1,2}'
+    - 'EG\s*\d{1,2}\b'
+    - 'A\s?\d{1,2}\s*(?:LBesO|BBesO)'
+
+# ---------------------------------------------------------------------------
+# Titel-Ausschlussmuster — SEIT 11.08.2026 NICHT MEHR HART.
 #
-# Messung vom 2026-08-09 (v6-API, Umkreis 60 km, 30 Tage). 18 der damals 34
-# Begriffe lieferten null Treffer. Zwei Hypothesen wurden geprüft und beide
-# widerlegt — bitte nicht erneut durchspielen:
+# `ausschluss_titel_hart: false` heißt: Diese Muster entfernen nichts mehr.
+# Sie wirken nur noch als Punktabzug im Scoring (passung.reibung.titel_abwertung)
+# und werden im Dashboard als Reibungsmarker angezeigt.
 #
-#   1. "Die API verundet die Wörter, kürzere Begriffe greifen besser."
-#      Falsch in der Wirkung: Kürzen tauscht null Treffer gegen Rauschen.
-#      "Quereinstieg" → 57 Treffer im Radius, u.a. Kunstharzbodenbeschichtung.
-#      "Tourismus" → 19 Hotelkaufleute. "Medientechnik" → Monteure.
-#      "Veranstaltungstechnik" → Lagerlogistik. Bei ~8 echten Stellen im
-#      Dashboard schüttet ein einziger solcher Begriff alles zu.
+# Grund für die Umstellung: Der Filter hat nachweislich Passendes gekillt —
+# "Performance Marketing Manager (m/w/d)" in 57520 Niederdreisbach, 25 km
+# entfernt, mit "bis zu 100 % Remote", verschwand ohne jede Spur. Ein Titel
+# ist in diesem Feld ein zu schwaches Signal für eine Entfernungsentscheidung.
+# ---------------------------------------------------------------------------
+ausschluss_titel_hart: false
+ausschluss_titel:
+  - '\bSEA\b'
+  - '\bSEO\b'
+  - "Google Ads"
+  - "Meta Ads"
+  - "Media[- ]?Buyer"
+  - "E-?Commerce"
+  - "Influencer"
+  - "Affiliate"
+  - 'Vertriebsmitarbeiter|Außendienstmitarbeiter|Verkäufer\b'
+
+# ---------------------------------------------------------------------------
+# Archetypen: bestimmen Suchbegriffe UND Gruppierung im Dashboard.
+# Jeder Begriff geht EINZELN an die BA-API — kombinierte Begriffe liefern
+# schlechtere Treffer (gemessen 09.08.2026: "Stadtmarketing Tourismus" → 0,
+# "Stadtmarketing" → 3).
 #
-#   2. "Das Zeitfenster ist zu eng."
-#      Falsch: veroeffentlichtseit=30 und =100 liefern beide exakt
-#      5 eindeutige BA-Treffer im Radius.
-#
-# Fazit: Die Nullen sind größtenteils korrekt. Der Suchraum ist real dünn —
-# ländlicher Raum, enge Nische, 50-Minuten-Grenze. Wer mehr Treffer will,
-# muss am Radius drehen, nicht an den Begriffen.
+# Der Cluster `angrenzend` ist der eigentliche Zweck des Umbaus: Stellen,
+# deren Titel nichts mit Kommunikation zu tun hat, deren Aufgabenbeschreibung
+# aber überwiegend daraus besteht. Ob so eine Stelle sichtbar wird, entscheidet
+# jetzt `passung` am Text, nicht der Titel.
 # ---------------------------------------------------------------------------
 archetypen:
-  - id: wisskomm
-    label: "Wissenschafts- & Hochschulkommunikation"
+  - id: kommunikation
+    label: "Kommunikation & Öffentlichkeitsarbeit"
     rang: 1
+    notiz: "Der Kern der Suche. Titel variieren stark, deshalb viele Varianten."
+    begriffe:
+      - Öffentlichkeitsarbeit
+      - Presse- und Öffentlichkeitsarbeit
+      - Unternehmenskommunikation
+      - Kommunikationsreferent
+      - Pressereferent
+      - Pressesprecher
+      - Stabsstelle Kommunikation
+      - Kommunikationsmanager
+      - Corporate Communications
+
+  - id: redaktion
+    label: "Redaktion & Content"
+    rang: 2
+    notiz: "Textarbeit als Hauptaufgabe."
+    begriffe:
+      - Redakteur
+      - Online-Redakteur
+      - Content Manager
+      - Newsletter Redaktion
+      - Redaktion Website
+
+  - id: video
+    label: "Bewegtbild & Medienproduktion"
+    rang: 3
+    notiz: "Das gelernte Handwerk: Mediengestalter Bild und Ton (IHK)."
+    begriffe:
+      - Mediengestalter Bild und Ton
+      - Videoproduktion
+      - Videoredaktion
+      - Kamera Schnitt
+      - Bewegtbild
+      - Medienproduktion
+
+  - id: wissenschaftskommunikation
+    label: "Wissenschaftskommunikation"
+    rang: 4
     notiz: "Produkt statt Überzeugungsarbeit. Häufigste Ausnahme vom Studiumszwang."
     begriffe:
       - Wissenschaftskommunikation
-      - Hochschulkommunikation
-      - Referent Kommunikation Hochschule
-      - Öffentlichkeitsarbeit Universität
-
-  - id: medienproduktion
-    label: "Medienproduktion & Bewegtbild"
-    rang: 2
-    notiz: "Dein gelerntes Handwerk. Inhouse-Redaktionen, Produktionsfirmen, Sender, Museen."
-    begriffe:
-      - Mediengestalter Bild und Ton
-      # "Mediengestalter" ohne Zusatz wurde am 09.08.2026 getestet und wieder
-      # entfernt: Es trifft den Druckberuf "Mediengestalter Digital und Print"
-      # — ein anderer Ausbildungsberuf. Von 7 Treffern waren 0 aus Bild und Ton
-      # (Druckvorlagenhersteller, Grafiker, Bürokaufmann, Interior Designer).
-      - Videoredakteur
-      # Nachgetragen 2026-08-09: "Videoredakteur" liefert 0, "Videoproduktion"
-      # findet dieselbe Sorte Stelle (Content-Creator Video). Beide bleiben —
-      # die BA matcht unscharf, was heute leer ist, kann nächsten Monat greifen.
-      - Videoproduktion
-      - Videojournalist
-      # Handwerksbegriffe, nachgetragen auf Wunsch 2026-08-09. Hier ist die
-      # Rauschtoleranz höher als anderswo: das ist das gelernte Handwerk,
-      # ein Fehltreffer kostet einen Blick, ein Fehlen kostet eine Stelle.
-      - Cutter
-      - Video Editor
-      - Videoproducer
-      - Kameramann
-      - Tontechniker
-      - Motion Design
-      - Filmproduktion
-      - Postproduktion
-      - Kameramann Kamerafrau
-      - Videograf
-      - Cutter Videoschnitt
-      - Bewegtbild Redaktion
-      - Formatentwicklung Video
-      - Dokumentarfilm Redaktion
-      - Multimediaproduktion
-      - Tontechniker Postproduktion
+      - Science Communication
+      - Öffentlichkeitsarbeit Forschung
+      - Social Media Wissenschaft
+      - Videoredaktion Forschung
 
   - id: marketing
     label: "Marketing & Kampagnen"
-    rang: 3
-    notiz: >-
-      Deine zweite Berufserfahrung. War bis 09.08.2026 bewusst ausgeschlossen —
-      das Radar sollte davon wegführen. Auf ausdrücklichen Wunsch wieder drin.
-      Der zugehörige Ausschluss in ausschluss_titel wurde entsprechend gelockert.
-    begriffe:
-      - Marketing Manager
-      - Marketingassistenz
-      - Assistenz Marketing
-      - Performance Marketing
-      - Online Marketing
-      - Digital Marketing
-      - Content Marketing
-      - Referent Marketing
-
-  - id: pressestelle
-    label: "Presse- & Öffentlichkeitsarbeit (Behörde/Kommune)"
-    rang: 4
-    notiz: "Nahbereich stark, aber oft auf Laufbahn oder Studium gegated."
-    begriffe:
-      - Presse- und Öffentlichkeitsarbeit
-      - Pressesprecher
-      - Referent Unternehmenskommunikation
-      - Redakteur Öffentlichkeitsarbeit
-
-  - id: verwaltung
-    label: "Kommunale Verwaltung – Quereinstieg"
     rang: 5
-    notiz: >-
-      Kommunen stellen ohne Verwaltungsausbildung ein und qualifizieren über den
-      Beschäftigtenlehrgang I nach. Kommunikationsnahe Ämter (Wirtschaftsförderung,
-      Tourismus, Kultur, Digitalisierung) sind der realistische Einstieg.
+    notiz: "Zweite Berufserfahrung. Belegstärke laut Suchprofil: stark."
     begriffe:
-      - Sachbearbeitung Verwaltung Quereinstieg
-      - Wirtschaftsförderung Verbandsgemeinde
-      - Stadtmarketing Tourismus
-      - Kulturamt Veranstaltungsmanagement
-      - Digitalisierung Kommunalverwaltung
-      - Verwaltungsfachangestellte Quereinsteiger
+      - Marketingreferent
+      - Social Media
+      - Kampagnenmanagement
+      - Online Marketing
 
-  - id: medienbildung
-    label: "Medienpädagogik & Medienzentrum"
+  - id: angrenzend
+    label: "Angrenzend – Titel täuscht, Aufgabe passt"
     rang: 6
-    notiz: "Realistische Lehrtätigkeit ohne Abschlusshürde."
+    notiz: >-
+      Hier stehen Stellen, deren Titel nichts mit Kommunikation zu tun hat.
+      Ob eine davon taugt, entscheidet der Score am Aufgabentext. Ein hoher
+      Score in diesem Cluster ist der Beweis, dass der Umbau funktioniert.
     begriffe:
-      - Medienpädagoge
-      - Medienzentrum
-      - Dozent Medientechnik
-      - Referent digitale Bildung
-      - Offener Kanal Bürgermedien
-
-  - id: naturschutz
-    label: "Naturschutz-Kommunikation"
-    rang: 7
-    notiz: "Höchste Sinnbindung, schwächste Strukturpassung (Ehrenamtslogik)."
-    begriffe:
-      - Öffentlichkeitsarbeit Naturschutz
-      - Umweltbildung Referent
-      - Naturpark Geschäftsstelle
-      - Biologische Station
-      # Nachgetragen 2026-08-09: findet "Fachkraft Naturschutz & Umweltplanung",
-      # die kein anderer Begriff erwischt. Kostet aber Rauschen — von 3 Treffern
-      # ist einer brauchbar, dazu kommen Forstwirt und Arbeitslehrer. Vertretbar,
-      # weil dieser Archetyp Rang 6 hat und unten im Dashboard steht. Wenn er
-      # dich nervt: diese Zeile streichen, der Rest bleibt davon unberührt.
-      - Naturschutz
+      - Bildungsreferent
+      - Fundraising
+      - Veranstaltungsmanagement
+      - Wirtschaftsförderung
+      - Standortmarketing
+      - Medienpädagogik
+      - Kulturmanagement
 
 # ---------------------------------------------------------------------------
-# Karriereseiten einzelner Arbeitgeber, die keinen Feed anbieten.
+# Passung: inhaltliches Scoring am ANZEIGENTEXT statt am Titel.
 #
-# Nur öffentlich zugängliche Seiten ohne Login. robots.txt wird vor jedem
-# Abruf geprüft; untersagte Seiten werden übersprungen und im Fuß des
-# Dashboards genannt.
+# Gezählt wird, wie viele verschiedene Gruppen im Text vorkommen; jede Gruppe
+# zählt einmal mit ihrem Gewicht, unabhängig davon, wie oft ihre Muster
+# auftauchen. Sonst gewinnt die Anzeige, die "Video" zwanzigmal schreibt,
+# gegen die, die drei verschiedene passende Aufgaben nennt.
 #
-# Neue Quelle hinzufügen: erst prüfen, ob die Seite serverseitig rendert —
-#     python -m jobradar.seiten "https://beispiel.de/stellen"
-# Findet der Test keine Links, lädt die Seite ihre Liste per JavaScript nach
-# und ist mit diesem Modul nicht auslesbar.
-#
-# details_folgen: true lädt jede gefundene Einzelanzeige nach und liest dort
-# JobPosting-Markup (schema.org/JSON-LD) aus — dieselbe Struktur, aus der
-# Google for Jobs seine Einträge zieht. Liefert Volltext und Bewerbungsfrist.
-# Kostet eine Anfrage je Anzeige, darum max_details als Deckel. Vorher am
-# Einzellink prüfen, ob überhaupt Markup vorhanden ist:
-#     python -m jobradar.seiten "https://beispiel.de/stellen/referent-presse"
-#
-# NICHT eintragen: LinkedIn, Indeed, StepStone und alles hinter einem Login.
-# Deren Nutzungsbedingungen untersagen automatisierten Zugriff.
+# Stellschrauben sind die Gewichte. Wer mehr Bewegtbild will, hebt dort.
 # ---------------------------------------------------------------------------
+passung:
+  aufgaben:
+    bewegtbild:
+      gewicht: 3
+      muster: [Video, Bewegtbild, Schnitt, Kamera, Videoproduktion, Reels, Imagefilm, Dreh]
+    redaktion:
+      gewicht: 3
+      muster: [Redaktion, Texten, Pressemitteilung, Newsletter, "Beiträge verfassen", "Website pflegen"]
+    social:
+      gewicht: 2
+      muster: ["Social Media", Instagram, LinkedIn, Community, "Kanäle betreuen"]
+    dokumentation:
+      gewicht: 2
+      muster: ["Veranstaltungen dokumentieren", Fotos, Bildmaterial, Archiv]
+    rechte:
+      gewicht: 2
+      muster: [Bildrechte, Nutzungsrechte, Lizenz, Urheberrecht]
+    grafik:
+      gewicht: 1
+      muster: [Grafik, Layout, Gestaltung, InDesign]
+
+  reibung:
+    cms:
+      gewicht: -1
+      muster: [TYPO3, Drupal, Contao, WordPress, Content-Management-System]
+    ehrenamt:
+      gewicht: -3
+      muster: [Ehrenamt, Freiwillige, Vereinsarbeit, Ortsgruppen]
+    vertrieb:
+      gewicht: -2
+      muster: [Akquise, Vertrieb, Neukunden, Umsatzziel]
+    titel_abwertung:
+      gewicht: -2   # greift, wenn ein Muster aus ausschluss_titel im Titel steht
+
+# ---------------------------------------------------------------------------
+# Erreichbarkeit: Fahrzeit statt Luftlinie, plus Wochenbudget.
+#
+# Arbeitsmodell wird aus dem Anzeigentext erkannt (remote / hybrid / onsite /
+# unklar). ABGRENZUNG: "Homeoffice möglich" und "anteilig mobil" sind HYBRID,
+# nicht remote — sonst rutscht jede Stelle mit Gleitzeitfloskel durch.
+#
+# `unklar` wird NICHT gefiltert, sondern gegen die Hybrid-Schwelle geprüft und
+# markiert. Grund: Forschungseinrichtungen und Verwaltungen nennen das Modell
+# selten in der Ausschreibung; ein harter Ausschluss killt genau die Stellen,
+# auf die es ankommt.
+# ---------------------------------------------------------------------------
+erreichbarkeit:
+  wochenbudget_min: 450        # 7,5 h Fahrzeit pro Woche gesamt
+  remote:
+    max_fahrzeit_min: null     # unbegrenzt
+  hybrid:
+    max_fahrzeit_min: 75
+  onsite:
+    max_fahrzeit_min: 45
+  unklar:
+    behandeln_als: hybrid
+
+  # OpenRouteService liefert reine PKW-Fahrzeit. Ohne ORS_API_KEY greift die
+  # Schätzung unten, und JEDE geschätzte Zeit wird im Dashboard als solche
+  # ausgewiesen — kein stiller Fallback.
+  ors:
+    profil: "driving-car"
+    cache: "data/fahrzeiten.json"
+  schaetzung:
+    # Luftlinie × umweg_faktor ÷ schnitt_kmh. Der Umwegfaktor bildet ab, dass
+    # Straßen nicht gerade verlaufen; 65 km/h ist ein realistischer Mittelwert
+    # für Bundesstraßen im Westerwald mit Autobahnanteil.
+    umweg_faktor: 1.35
+    schnitt_kmh: 65
+    # Letzte Rückfallebene für Quellen ohne jede Entfernungsangabe (RSS nennt
+    # nur die PLZ). Liegt die PLZ in standort.plz_praefixe, wird diese Fahrzeit
+    # angenommen, sonst jene. Beide bewusst so gewählt, dass "drin" unter der
+    # Onsite-Schwelle und "draußen" über der Hybrid-Schwelle liegt.
+    plz_treffer_min: 35
+    plz_fehltreffer_min: 120
+
+  arbeitsmodell:
+    remote:
+      - '(?:100|9\d)\s*%[^.;]{0,25}(?:remote|[Hh]ome\s?-?office|mobil(?:es)?\s+Arbeiten)'
+      - '(?:remote|[Hh]ome\s?-?office)[^.;]{0,25}(?:100|9\d)\s*%'
+      - 'voll(?:st(?:ä|ae)ndig|umf(?:ä|ae)nglich)?\s*(?:remote|im\s+[Hh]ome\s?-?office)'
+      - '\bremote[- ]?first\b'
+      - '\bvollremote\b'
+      - '(?:deutschlandweit|bundesweit|ortsunabh(?:ä|ae)ngig)\s+(?:remote|arbeiten)'
+      - 'ausschlie(?:ß|ss)lich\s+remote'
+      - '\bTelearbeit\b\s*(?:zu\s*)?(?:100|9\d)\s*%'
+    hybrid:
+      - '[Hh]ome\s?-?office\s*(?:ist\s*)?(?:anteilig|teilweise|m(?:ö|oe)glich|nach\s+Absprache)'
+      - 'anteilig\s+mobil|mobiles\s+Arbeiten|Telearbeit'
+      - 'hybrid(?:es)?\s*(?:Arbeiten|Arbeitsmodell)?'
+      - '\d\s*Tage?\s*(?:pro\s*Woche\s*)?(?:vor\s+Ort|im\s+B(?:ü|ue)ro|Pr(?:ä|ae)senz)'
+      - '(?:ein|zwei|drei|vier)\s*(?:Pr(?:ä|ae)senztage?|Tage?\s+vor\s+Ort)'
+      - 'Gleitzeit.{0,30}[Hh]ome\s?-?office'
+    onsite:
+      - 'aussschlie(?:ß|ss)lich\s+in\s+Pr(?:ä|ae)senz'
+      - 'ausschlie(?:ß|ss)lich\s+in\s+Pr(?:ä|ae)senz'
+      - 'kein\s+[Hh]ome\s?-?office|keine\s+M(?:ö|oe)glichkeit\s+(?:zum|zu)\s+[Hh]ome'
+      - 'durchgehende\s+Pr(?:ä|ae)senz|volle\s+Pr(?:ä|ae)senzpflicht'
+      - 'Anwesenheit\s+vor\s+Ort\s+(?:ist\s+)?(?:zwingend|erforderlich)'
+  # Präsenztage für das Wochenbudget. Reihenfolge: Ziffer schlägt Wort.
+  praesenztage:
+    - '(\d)\s*(?:Tage?|x)\s*(?:pro\s*Woche\s*)?(?:vor\s+Ort|im\s+B(?:ü|ue)ro|Pr(?:ä|ae)senz)'
+    - '(\d)\s*Pr(?:ä|ae)senztage?'
+    - '(ein|zwei|drei|vier|f(?:ü|ue)nf)\s*Pr(?:ä|ae)senztage?'
+    - '(ein|zwei|drei|vier|f(?:ü|ue)nf)\s*Tage?\s+vor\s+Ort'
+
+# ---------------------------------------------------------------------------
+# Deduplizierung über Quellen hinweg.
+# Schwelle siehe CLAUDE.md — sie wurde gegen einen echten Negativfall geeicht.
+# ---------------------------------------------------------------------------
+dedupe:
+  # Gemessen am 11.08.2026 mit difflib.SequenceMatcher auf normalisierten Titeln:
+  #
+  #   0.714  Pressesprecher            vs Pressereferent            -> getrennt
+  #   0.769  Referent ÖA               vs Referent ÖA Schwerpunkt Video -> getrennt
+  #   0.923  Mediengestalter Bild Ton  vs Mediengestalter Bild und Ton  -> zusammen
+  #   0.938  Content Manager           vs Content Managerin         -> zusammen
+  #   1.000  Referent*in ÖA (m/w/d)    vs Referent/-in ÖA           -> zusammen
+  #
+  # Die Schwelle muss also über 0.769 und höchstens 0.923 liegen. 0.85 sitzt
+  # fast in der Mitte dieses Fensters. Wer sie senkt, legt irgendwann
+  # "Schwerpunkt Video" mit der Grundstelle zusammen — genau der Fall, den
+  # der Negativtest in tests/test_offline.py absichert.
+  titel_aehnlichkeit: 0.85
+
+# ---------------------------------------------------------------------------
+# JobSpy (Indeed/LinkedIn). BEWUSST AUS.
+# LinkedIn blockt Rechenzentrums-IPs zuverlässig; auf GitHub-Actions bleibt
+# der LinkedIn-Teil ohne Wohn-Proxy leer. Das ist kein Fehler, sondern erwartet.
+# Die Nutzungsbedingungen der Portale untersagen automatisierten Zugriff;
+# das Einschalten ist eine bewusste Entscheidung des Betreibers.
+# ---------------------------------------------------------------------------
+jobspy:
+  aktiv: false
+  sites: [indeed]
+  results_wanted: 50
+  hours_old: 168
+  linkedin_beschreibung_laden: false   # kostet massiv Durchsatz
+
+# ---------------------------------------------------------------------------
+# Zweiter, bundesweiter Suchlauf für Remote-Stellen.
+# Die Muster dafür stehen NICHT hier, sondern in erreichbarkeit.arbeitsmodell —
+# es gibt nur eine Definition von "remote" im ganzen Projekt.
+#
+# Ertrag am 09.08.2026 gemessen: 234 Kandidaten mit BA-Homeoffice-Kennzeichen,
+# alle Volltexte geprüft, 0 erfüllten die Schwelle. Die Mechanik bleibt für den
+# Fall, dass eine auftaucht; sie kostet rund 3 Minuten Laufzeit.
+# ---------------------------------------------------------------------------
+remote:
+  aktiv: true
+  max_details: 400
+
 seiten_quellen:
+  # Geprueft 11.08.2026. KEINE der geprueften Forschungseinrichtungen hat
+  # JobPosting-Markup (JSON-LD) — weder auf der Uebersicht noch auf der
+  # Einzelanzeige. Deshalb ueberall `markup: false`; der Volltext wird dann
+  # aus dem HTML der Detailseite gezogen.
+  #
+  # Nicht aufgenommen, mit Grund:
+  #   DZNE (jobs.dzne.de)      – Liste wird per JavaScript nachgeladen,
+  #                              5 Links auf 26 kB. Nicht auslesbar.
+  #   Uni Siegen               – alle geprueften Pfade liefern 404; die
+  #                              richtige URL liess sich nicht ermitteln.
+  #   Helmholtz (jobs.)        – Host nicht erreichbar (ConnectionError).
+  #   MPG / Fraunhofer / DLR   – bundesweite Portale ohne festen Ort. Ohne
+  #                              Ortsangabe greift die Fahrzeitpruefung nicht,
+  #                              das Dashboard liefe mit Muenchen und Dresden
+  #                              voll. Erst sinnvoll mit ortsgefilterter URL.
+  #   FZ Juelich               – rund 95 km, ausserhalb jeder Pendelgrenze.
+
+  - label: "Universität Bonn"
+    arbeitgeber: "Rheinische Friedrich-Wilhelms-Universität Bonn"
+    ort: "Bonn"
+    # Luftlinie ab 57577; die Fahrzeitschaetzung rechnet daraus ~50 min.
+    # Damit haengt die Aufnahme am Arbeitsmodell: hybrid ja, onsite nein.
+    entfernung_km: 40
+    archetyp: wissenschaftskommunikation
+    url: "https://www.uni-bonn.de/de/universitaet/arbeiten-an-der-uni/stellenangebote"
+    # Getestet: 32 echte Anzeigenlinks, Titel sauber im Linktext.
+    link_muster: "stellenausschreibungen/[a-z0-9]"
+    link_ausschluss: "datenschutz|impressum|tarifvertrag|informationen-zum"
+    markup: false
+    details_folgen: true
+    max_details: 25
+
   - label: "Biologische Station Rhein-Sieg"
     arbeitgeber: "Biologische Station im Rhein-Sieg-Kreis e.V."
     ort: "Eitorf"
     entfernung_km: 25
-    archetyp: naturschutz
+    archetyp: angrenzend
     url: "https://www.biostation-rhein-sieg.de/%C3%BCber-uns/stellen/"
     # Verschärft: das alte Muster fing den Selbstlink "Stellen" und "zuklappen".
     link_muster: "stellenausschreibung|stellenangebot|ausschreibung|bewerb"
@@ -322,7 +406,7 @@ seiten_quellen:
   - label: "NABU Rheinland-Pfalz"
     arbeitgeber: "NABU Rheinland-Pfalz"
     ort: "Mainz / Regionalstellen"
-    archetyp: naturschutz
+    archetyp: angrenzend
     url: "https://rlp.nabu.de/wir-ueber-uns/stellenangebote/"
     # Verschärft: fing vorher "Landesgeschäftsstelle", "Regionalstellen",
     # "Vorlesen". Die echten Anzeigen heißen "…stellenausschreibung….pdf".
@@ -339,36 +423,7 @@ seiten_quellen:
 # killen — nur wenn die Rolle SELBST danach benannt ist. Ausgeschlossene
 # Anzeigen werden nicht angezeigt, aber im Fuß des Dashboards gezählt.
 # ---------------------------------------------------------------------------
-ausschluss_titel:
-  # GELOCKERT 09.08.2026. Bis dahin flogen Performance Marketing, Kampagnen-
-  # management, Paid Media und Growth raus — Absicht war, vom alten Feld
-  # wegzuführen. Auf ausdrücklichen Wunsch wieder zugelassen.
-  # Was es konkret gekostet hat: "Performance Marketing Manager (m/w/d)" in
-  # 57520 Niederdreisbach, 25 km entfernt, "bis zu 100 % Remote" — von diesem
-  # Filter weggeworfen, ohne dass es irgendwo sichtbar wurde.
-  #
-  # Noch ausgeschlossen bleiben die Spezialistenrollen, nach denen nicht
-  # gefragt wurde. Wenn die auch rein sollen, hier streichen:
-  - "\\bSEA\\b"
-  - "\\bSEO\\b"
-  - "Google Ads"
-  - "Meta Ads"
-  - "Media[- ]?Buyer"
-  - "E-?Commerce"
-  - "^(Junior |Senior )?Social[- ]Media[- ](Manager|Redakteur|Specialist)"
-  - "Community[- ]?Manager"
-  - "Influencer"
-  - "Affiliate"
-  # "Außendienst" allein traf auch kommunale Ordnungsamt-Stellen
-  # ("Sachbearbeitung Ordnungswidrigkeiten/Außendienst") — im öffentlichen
-  # Dienst heißt das nur "draußen statt am Schreibtisch". Vertriebsstellen
-  # fliegen weiterhin über "Vertrieb" bzw. "Außendienstmitarbeiter" raus.
-  - "Vertrieb|Außendienstmitarbeiter|Verkäufer|Sales"
 
-# ---------------------------------------------------------------------------
-# Screening: erzeugt die drei Statusfelder pro Anzeige.
-# Getroffene Muster werden im Dashboard als Belegstelle angezeigt.
-# ---------------------------------------------------------------------------
 screening:
   studium:
     # "hart" schlägt "weich" nur, wenn kein weich-Muster im selben Text greift.
@@ -410,9 +465,9 @@ screening:
 # ---------------------------------------------------------------------------
 rss_quellen:
   - label: "Bund/Länder – Öffentlichkeitsarbeit"
-    archetyp: pressestelle
+    archetyp: kommunikation
     url: "https://www.service.bund.de/Content/DE/Stellen/Suche/Formular.html?nn=4641514&type=0&templateQueryString=%C3%96ffentlichkeitsarbeit&sortOrder=dateOfIssue_dt+desc&resultsPerPage=100&jobsrss=true"
 
   - label: "Bund/Länder – Kommunikation"
-    archetyp: pressestelle
+    archetyp: kommunikation
     url: "https://www.service.bund.de/Content/DE/Stellen/Suche/Formular.html?nn=4641514&type=0&templateQueryString=Kommunikation&sortOrder=dateOfIssue_dt+desc&resultsPerPage=100&jobsrss=true"

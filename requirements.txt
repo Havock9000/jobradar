@@ -2,3 +2,9 @@ requests>=2.31
 PyYAML>=6.0
 feedparser>=6.0
 beautifulsoup4>=4.12
+
+# Optionale Quelle (Indeed/LinkedIn), standardmäßig AUS in config.yaml.
+# Gepinnt, weil JobSpy sein Ausgabeschema zwischen Minor-Versionen ändert und
+# das Feld `description` genau das ist, worauf Screening und Scoring beruhen.
+# Der Import ist lazy: fehlt das Paket, bleibt nur diese Quelle stumm.
+python-jobspy==1.1.82

@@ -151,6 +151,24 @@ def lies_jobposting(suppe: BeautifulSoup) -> list[dict[str, Any]]:
     return treffer
 
 
+def _seitentext(suppe: BeautifulSoup) -> str:
+    """Sichtbarer Text einer Detailseite, ohne Navigation und Skripte.
+
+    Fuer Arbeitgeber ohne JobPosting-Markup. Bevorzugt den Inhaltsbereich;
+    faellt auf den ganzen Body zurueck, wenn keiner erkennbar ist.
+    """
+    kopie = BeautifulSoup(str(suppe), "html.parser")
+    for tag in kopie(["script", "style", "nav", "header", "footer", "form"]):
+        tag.decompose()
+    bereich = None
+    for wahl in ("main", "article", "#content", "#inhalt", ".content"):
+        bereich = kopie.select_one(wahl)
+        if bereich:
+            break
+    quelle = bereich or kopie
+    return " ".join(quelle.get_text(" ", strip=True).split())
+
+
 class SeitenQuelle:
     def __init__(self, session: requests.Session, pause: float):
         self.session = session
@@ -229,7 +247,10 @@ class SeitenQuelle:
         # sitzt auf der Einzelanzeige, nicht auf der Uebersicht.
         if quelle.get("details_folgen"):
             grenze = int(quelle.get("max_details", 15))
-            self._folge_details(eintraege[:grenze], quelle["label"])
+            # markup: false sagt, dass die Seite kein JSON-LD hat und der
+            # Volltext stattdessen aus dem HTML zu holen ist.
+            self._folge_details(eintraege[:grenze], quelle["label"],
+                                markup_erwartet=quelle.get("markup", True))
 
         return eintraege
 
@@ -241,7 +262,8 @@ class SeitenQuelle:
             return
         _uebernimm(jobs[0], eintraege[0])
 
-    def _folge_details(self, eintraege: list[dict[str, Any]], label: str) -> None:
+    def _folge_details(self, eintraege: list[dict[str, Any]], label: str,
+                       markup_erwartet: bool = True) -> None:
         for eintrag in eintraege:
             erlaubt, grund = self.robots.erlaubt(eintrag["url"])
             if not erlaubt:
@@ -260,6 +282,17 @@ class SeitenQuelle:
             jobs = lies_jobposting(suppe)
             if jobs:
                 _uebernimm(jobs[0], eintrag)
+            elif not markup_erwartet:
+                # HTML-Fall: Die Seite hat kein JobPosting-Markup, der
+                # Anzeigentext steht aber im Dokument. Ohne ihn liefe das
+                # Scoring auf dem blossen Linktext und die Stelle saehe
+                # unauffaellig aus, statt als "ohne Beschreibung" erkennbar
+                # zu sein.
+                text = _seitentext(suppe)
+                if len(text) > 400:
+                    eintrag["_volltext"] = text
+                    eintrag["_volltext_echt"] = True
+                    eintrag["_strukturiert"] = False
 
 
 def _uebernimm(job: dict[str, Any], eintrag: dict[str, Any]) -> None:

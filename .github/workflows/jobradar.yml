@@ -19,6 +19,13 @@ concurrency:
 jobs:
   scan:
     runs-on: ubuntu-latest
+    env:
+      # Beide optional. Fehlen sie, läuft der Scan trotzdem:
+      # ohne ORS_API_KEY werden Fahrzeiten geschätzt und im Dashboard als
+      # geschätzt ausgewiesen; ohne JOBSPY_PROXIES bleibt der LinkedIn-Teil
+      # leer (siehe README).
+      ORS_API_KEY: ${{ secrets.ORS_API_KEY }}
+      JOBSPY_PROXIES: ${{ secrets.JOBSPY_PROXIES }}
     steps:
       - uses: actions/checkout@v4
 
@@ -37,16 +44,18 @@ jobs:
         run: |
           git config user.name "jobradar"
           git config user.email "jobradar@users.noreply.github.com"
-          git add data/jobs.json site/index.html
+          # -A statt Einzelpfade: data/fahrzeiten.json entsteht erst beim
+          # ersten Lauf, ein fehlender Pfad liesse "git add" scheitern.
+          git add -A data site/index.html
           git diff --staged --quiet || git commit -m "Lauf $(date -u +%Y-%m-%d)"
-          # Falls du zwischendurch selbst gepusht hast, sonst scheitert der Push.
+          # Falls zwischendurch selbst gepusht wurde, sonst scheitert der Push.
           git pull --rebase --autostash
           git push
 
       # NUR site/ hochladen, niemals das Repositorywurzelverzeichnis.
-      # Mit "path: ." lagen CLAUDE.md (persoenliches Profil, Wohnort,
+      # Mit "path: ." lagen CLAUDE.md (persönliches Profil, Wohnort,
       # Knockout-Kriterien) und config.yaml (komplette Suchstrategie) unter
-      # der oeffentlichen Pages-URL. site/ enthaelt nur das Dashboard.
+      # der öffentlichen Pages-URL. site/ enthält nur das Dashboard.
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./site

@@ -1,8 +1,8 @@
 # Jobradar
 
-Fragt täglich zwei öffentliche Quellen nach Stellenanzeigen im Umkreis ab, screent
-den Anzeigentext gegen die eigenen Ausschlusskriterien und veröffentlicht das
-Ergebnis als statische Seite.
+Fragt täglich öffentliche Quellen nach Stellenanzeigen ab, bewertet den
+**Anzeigentext** gegen ein Aufgabenprofil, prüft Fahrzeit und Arbeitsmodell und
+veröffentlicht das Ergebnis als statische Seite.
 
 **Quellen**
 
@@ -30,14 +30,15 @@ Volltext, Veröffentlichungsdatum und Bewerbungsfrist. Bei kleinen Vereinen und
 Kommunen fehlt das Markup oft; dann bleibt es beim Titel, und das Dashboard
 markiert die Zeile mit *nur Titel*.
 
-## Was bewusst nicht abgefragt wird
+## Was standardmäßig nicht abgefragt wird
 
-LinkedIn, Indeed und StepStone untersagen automatisierten Zugriff in ihren
-Nutzungsbedingungen. Ein eigens dafür angelegtes Konto verletzt diese
-Bedingungen und riskiert die Sperrung — mitten in einer Bewerbungsphase ein
-teurer Preis für Daten, die die BA-Quelle weitgehend mit abdeckt. Dasselbe gilt
-für alles hinter einem Login und für Portale mit kostenpflichtigem Zugang
-(z. B. WILA Arbeitsmarkt); die dort abonnierte Ausgabe ist der vorgesehene Weg.
+Indeed und LinkedIn sind seit dem 11.08.2026 über `jobradar/jobspy_quelle.py`
+technisch angebunden, stehen in `config.yaml` aber auf `jobspy.aktiv: false`.
+Näheres unter „Indeed und LinkedIn" weiter unten.
+
+Nicht abgefragt bleiben: alles hinter einem Login, Portale mit
+kostenpflichtigem Zugang (z. B. WILA Arbeitsmarkt) — die dort abonnierte
+Ausgabe ist der vorgesehene Weg — und Google-Suchergebnisse.
 
 Das Modul `jobradar/seiten.py` bewegt sich bewusst innerhalb dieser Grenze:
 nur öffentliche Seiten ohne Login, robots.txt vor jedem Abruf geprüft,
@@ -74,11 +75,15 @@ Alles Änderbare steht in `config.yaml`:
   mehrere einzelne.
 - **`screening`** — die Muster hinter den drei Statusfeldern. Reguläre Ausdrücke,
   Groß-/Kleinschreibung wird ignoriert.
-- **`ausschluss_titel`** — Rollen, die gar nicht erst auftauchen sollen
-  (Performance Marketing, reine Social-Media- und Vertriebsrollen). Wird
-  **nur gegen den Titel** geprüft, damit Anzeigen mit Social Media als einer
-  Aufgabe unter vielen erhalten bleiben. Die Zahl der ausgeschlossenen Anzeigen
-  steht im Fuß des Dashboards — steigt sie auffällig, ist ein Muster zu breit.
+- **`passung`** — die Aufgaben- und Reibungsmuster mit ihren Gewichten. Das
+  ist der eigentliche Hebel, seit über den Text statt über den Titel
+  entschieden wird.
+- **`erreichbarkeit`** — Arbeitsmodell-Muster, Fahrzeitschwellen, Wochenbudget.
+- **`ausschluss_titel`** — **entfernt seit dem 11.08.2026 nichts mehr.**
+  `ausschluss_titel_hart: false` schaltet die Muster auf reine Abwertung
+  (−2 im Score) mit sichtbarem Reibungsmarker. Grund: Der Filter hat
+  nachweislich Passendes gekillt — ein „Performance Marketing Manager" 25 km
+  entfernt mit „bis zu 100 % Remote" verschwand spurlos.
 - **`seiten_quellen`** — Karriereseiten einzelner Arbeitgeber. Vor dem
   Eintragen prüfen, ob die Seite serverseitig rendert:
 
@@ -130,3 +135,51 @@ das nicht.
   manuelles Nachsehen nötig.
 - **RSS von service.bund.de liefert wenig Struktur.** Arbeitgeber und Ort werden
   heuristisch aus dem Text gezogen und fehlen manchmal.
+
+## Wie entschieden wird (seit 11.08.2026)
+
+Bewertet wird der **Anzeigentext**, nicht die Berufsbezeichnung. Dieselbe
+Tätigkeit heißt je nach Arbeitgeber „Referent*in Öffentlichkeitsarbeit",
+„Sachbearbeitung Kommunikation", „Mitarbeiter*in Stabsstelle" oder
+„Marketingassistenz" — ein Titelfilter entfernt darum zwangsläufig Passendes.
+
+Der Score summiert getroffene Aufgabengruppen (Bewegtbild, Redaktion, Social,
+Dokumentation, Rechte, Grafik) und zieht Reibungsmuster ab (CMS −1,
+Ehrenamtslogik −3, Vertrieb −2, Titelmuster −2). Gewichte stehen unter
+`passung` in `config.yaml`.
+
+Nur drei Dinge entfernen eine Stelle aus der Standardansicht:
+
+1. **Erreichbarkeit** — Fahrzeit gegen die Schwelle des Arbeitsmodells
+   (onsite 45 min, hybrid 75 min, remote unbegrenzt) plus Wochenbudget
+   (Präsenztage × Fahrzeit × 2 ≤ 450 min).
+2. **Umfang** unter 20 Wochenstunden, wenn eine Stundenzahl im Text steht.
+3. **Zwingendes Studium.** „Studium oder vergleichbare Qualifikation" bleibt.
+
+Alles andere ist Markierung oder Punktabzug, und über „Ausgefilterte zeigen"
+bleibt jede Entscheidung nachprüfbar.
+
+### Fahrzeit
+
+Mit `ORS_API_KEY` (openrouteservice.org, kostenlos) echte PKW-Fahrzeiten,
+zwischengespeichert in `data/fahrzeiten.json`. Ohne Key wird geschätzt und im
+Dashboard grau als geschätzt ausgewiesen. ORS liefert reine Autofahrzeit; bei
+Bahnanbindung weicht der Tür-zu-Tür-Wert ab.
+
+### Indeed und LinkedIn
+
+`jobradar/jobspy_quelle.py` bindet python-jobspy ein, steht aber in
+`config.yaml` auf `jobspy.aktiv: false`. Die Nutzungsbedingungen der Portale
+untersagen automatisierten Zugriff — das Einschalten ist eine Entscheidung des
+Betreibers, keine Voreinstellung. Dies ist keine Rechtsauskunft.
+
+Technisch: **GitHub-Actions-IPs (Azure-Rechenzentren) werden von LinkedIn
+zuverlässig geblockt.** Der LinkedIn-Teil bleibt dort ohne Wohn-Proxy leer —
+das ist kein Bug. Proxys kommen über `JOBSPY_PROXIES` (kommasepariert) als
+optionales Secret. Indeed/Deutschland liefert dagegen echte Volltexte
+(geprüft: 8 von 8 Treffern, 1.789–6.816 Zeichen).
+
+### academics.de
+
+Bietet keinen RSS-Feed, und die robots.txt untersagt automatisierten Zugriff
+ausdrücklich. Dort einen eigenen Suchagenten abonnieren — wie bei Interamt.

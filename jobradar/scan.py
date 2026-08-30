@@ -21,6 +21,12 @@ from typing import Any
 import requests
 import yaml
 
+from jobradar.dedupe import zusammenfuehren
+from jobradar.erreichbarkeit import Arbeitsmodell, Fahrzeit, Regelwerk
+from jobradar.lauf import FILTERGRUENDE, _leerer_zaehler, bewerte_eintrag
+from jobradar.merkmale import Entgelt
+from jobradar.passung import Passung
+
 BA_BASE = "https://rest.arbeitsagentur.de/jobboerse/jobsuche-service/pc"
 # Suche laeuft auf v6. v4/app/jobs und v5 antworten seit 2026 mit
 # 403 "No match found for request" — das Gateway routet die Pfade nicht mehr.
@@ -119,128 +125,11 @@ class Ausschluss:
         return None
 
 
-class Umkreis:
-    """Ortsfilter fuer Quellen ohne eigenen Umkreisparameter.
-
-    Die BA-Suche filtert selbst ueber `wo`/`umkreis`. Die RSS-Feeds von
-    service.bund.de tun das nicht — sie liefern bundesweit. Ohne diesen Filter
-    stehen Stellen aus Beeskow und Hildesheim im Dashboard.
-
-    Gefiltert wird ueber PLZ-Praefixe statt echter Entfernung: die Feeds
-    liefern nur "Ort: 15848 Beeskow", keine Koordinaten, und eine
-    Geocoding-Abfrage je Anzeige waere ein Netzabruf pro Eintrag. Die Praefixe
-    stehen in config.yaml und sind damit deine Entscheidung, nicht meine.
-    """
-
-    def __init__(self, cfg: dict[str, Any]):
-        praefixe = (cfg.get("standort") or {}).get("plz_praefixe") or []
-        self.praefixe = tuple(str(p).strip() for p in praefixe if str(p).strip())
-        self.verworfen = 0
-        self.ohne_plz: list[str] = []
-
-    def im_umkreis(self, eintrag: dict[str, Any]) -> bool:
-        """Reine Pruefung ohne Zaehlung — fuer Zweitpruefungen wie die
-        Remote-Suche, die die Ausfallstatistik nicht verfaelschen sollen."""
-        if not self.praefixe:
-            return True
-        plz = str(eintrag.get("plz") or "")
-        return bool(plz) and plz.startswith(self.praefixe)
-
-    def drin(self, eintrag: dict[str, Any]) -> bool:
-        """Eine Regel fuer alle Quellen — auch fuer die BA.
-
-        Die BA filtert zwar selbst ueber `wo`/`umkreis`, aber 60 km Luftlinie
-        reichen bis Bonn und Koeln. Sich auf ihre Vorfilterung zu verlassen
-        heisst, genau die Grenze zu uebernehmen, die zu weit ist.
-
-        Ohne PLZ ist nicht entscheidbar. Diese Faelle fliegen raus, werden aber
-        einzeln protokolliert — sonst verschwindet womoeglich eine Stelle vor
-        der Haustuer, nur weil die Quelle die PLZ weggelassen hat.
-        """
-        if not self.praefixe:
-            return True
-        plz = str(eintrag.get("plz") or "")
-        if not plz:
-            km = eintrag.get("entfernung_km")
-            self.ohne_plz.append(
-                f"{eintrag.get('titel', '')[:50]} · {eintrag.get('ort') or '?'}"
-                + (f" · {km} km" if km is not None else ""))
-            return False
-        if plz.startswith(self.praefixe):
-            return True
-        self.verworfen += 1
-        return False
-
-
-class Passung:
-    """Schaetzt am Titel, ob eine Stelle ueberhaupt erreichbar ist.
-
-    Noetig, weil das Studiumsfeld das nicht leistet: "offen" heisst nur, dass
-    im Text kein Abschluss gefordert wird — ein Forstwirt oder ein SAP-Consultant
-    steht damit genauso auf gruen wie eine Videostelle. Ohne ein positives
-    Passungssignal bleibt alles im Dashboard, was ein Suchbegriff hereinzieht.
-
-    Nur gegen den Titel, wie der Ausschlussfilter auch (Grenze 4): Eine Anzeige,
-    die Video als eine Aufgabe unter vielen nennt, soll dadurch nicht zur
-    Kernstelle werden.
-    """
-
-    STUFEN = {"kern": 0, "angrenzend": 1, "fremd": 2}
-
-    def __init__(self, cfg: dict[str, Any]):
-        e = cfg.get("erreichbarkeit") or {}
-        self.kern = [re.compile(p, re.IGNORECASE) for p in e.get("kern") or []]
-        self.angrenzend = [re.compile(p, re.IGNORECASE)
-                           for p in e.get("angrenzend") or []]
-
-    def bewerte(self, titel: str) -> dict[str, Any]:
-        titel = titel or ""
-        for stufe, muster in (("kern", self.kern), ("angrenzend", self.angrenzend)):
-            for pat in muster:
-                m = pat.search(titel)
-                if m:
-                    return {"stufe": stufe, "beleg": m.group(0)}
-        return {"stufe": "fremd", "beleg": None}
-
-
-class RemotePruefer:
-    """Entscheidet, ob eine Anzeige weit genug remote ist, um die Entfernung
-    unerheblich zu machen.
-
-    Das strukturierte BA-Feld `homeofficemoeglich` reicht dafuer nicht: Es sagt
-    nur "irgendetwas geht", nicht wie viel. Gemessen am 09.08.2026 traegt ein
-    Arbeitgeber in Neusaess das Flag und schreibt im Text "Grundsaetzlich
-    arbeiten wir vor Ort im Studio". Das Flag dient hier nur als Vorfilter,
-    welche Anzeigen einen Detailabruf wert sind — geurteilt wird am Volltext.
-    """
-
-    def __init__(self, cfg: dict[str, Any]):
-        r = cfg.get("remote") or {}
-        self.aktiv = bool(r.get("aktiv"))
-        self.max_details = int(r.get("max_details", 60))
-        self.muster = [re.compile(p, re.IGNORECASE) for p in r.get("muster") or []]
-        self.geprueft = 0
-        self.erkannt = 0
-
-    # Gemessen am 09.08.2026: Eine Anzeige aus Hiddenhausen schreibt
-    # "(KEIN 100 % Homeoffice/Remote)". Ohne diese Pruefung liest das Muster
-    # daraus das genaue Gegenteil heraus. Nach der Verneinung darf bis zum
-    # Fundort kein Satzende liegen, sonst greift sie zu weit.
-    VERNEINUNG = re.compile(r"\b(kein\w*|nicht|ohne|statt)\b[^.;!?]{0,40}$",
-                            re.IGNORECASE)
-
-    def beleg(self, text: str) -> str | None:
-        """Gibt die Textstelle zurueck, die den Remote-Anteil belegt (Grenze 5)."""
-        text = text or ""
-        for pat in self.muster:
-            for m in pat.finditer(text):
-                davor = text[max(0, m.start() - 60):m.start()]
-                if self.VERNEINUNG.search(davor):
-                    continue
-                start = max(0, m.start() - 60)
-                end = min(len(text), m.end() + 60)
-                return f"…{text[start:end].strip()}…"
-        return None
+# Umkreis, Passung (titelbasiert) und RemotePruefer sind am 11.08.2026
+# entfallen. Der Titelfilter urteilte ueber die Berufsbezeichnung, und die
+# Umkreispruefung ueber Luftlinie — beides zu grob. An ihre Stelle treten
+# jobradar.passung (Scoring am Anzeigentext) und jobradar.erreichbarkeit
+# (Fahrzeit, Arbeitsmodell, Wochenbudget).
 
 
 class Screener:
@@ -539,174 +428,190 @@ def lade_zustand(pfad: Path) -> dict[str, Any]:
         return {"stellen": {}, "laeufe": []}
 
 
+def _sammle(cfg: dict[str, Any], session: requests.Session,
+            ba: "BundesagenturQuelle", ausschluss: "Ausschluss",
+            arbeitsmodell: Arbeitsmodell) -> tuple[list[dict[str, Any]], Any, Any]:
+    """Alle Quellen einsammeln. Noch ohne Bewertung, ohne Filter.
+
+    Der Titel-Ausschluss wird hier NUR angewendet, wenn er in der Config als
+    hart markiert ist. Standardmäßig ist er weich und wirkt allein als
+    Abwertung im Score.
+    """
+    hart = bool(cfg.get("ausschluss_titel_hart"))
+    roh: list[dict[str, Any]] = []
+    gesehen: set[str] = set()
+
+    def nimm(eintrag: dict[str, Any] | None) -> None:
+        if not eintrag or eintrag["id"] in gesehen:
+            return
+        if hart and ausschluss.greift(eintrag["titel"]):
+            return
+        if not hart:
+            ausschluss.greift(eintrag["titel"])   # nur zählen
+        gesehen.add(eintrag["id"])
+        roh.append(eintrag)
+
+    for archetyp in cfg.get("archetypen", []):
+        log(f"» {archetyp['label']}")
+        for begriff in archetyp.get("begriffe", []):
+            treffer = ba.suche(begriff)
+            log(f"  · '{begriff}': {len(treffer)}")
+            for r in treffer:
+                nimm(BundesagenturQuelle.normalisiere(r, archetyp["id"], begriff))
+
+    if ba.versuche and ba.fehler == ba.versuche:
+        raise QuellenAusfall(
+            f"Alle {ba.versuche} BA-Abfragen fehlgeschlagen. Entweder ist der "
+            f"Endpunkt erneut umgezogen ({BA_SEARCH}) oder diese IP wird "
+            f"abgewiesen — GitHub-Runner laufen in Azure-Rechenzentren, die "
+            f"von Behoerden-APIs oft gesperrt sind.")
+
+    # Bundesweiter Zweitlauf für echte Remote-Stellen. Die Fahrzeitregel lässt
+    # remote unbegrenzt zu, also lohnt der Blick über den Pendelradius hinaus.
+    remote_cfg = cfg.get("remote") or {}
+    if remote_cfg.get("aktiv"):
+        log("» Remote-Suche (bundesweit)")
+        kandidaten: dict[str, dict[str, Any]] = {}
+        for archetyp in cfg.get("archetypen", []):
+            for begriff in archetyp.get("begriffe", []):
+                for r in ba.suche(begriff, bundesweit=True):
+                    if not r.get("homeofficemoeglich"):
+                        continue
+                    e = BundesagenturQuelle.normalisiere(
+                        r, archetyp["id"], begriff)
+                    if not e or e["id"] in gesehen or e["id"] in kandidaten:
+                        continue
+                    kandidaten[e["id"]] = e
+        log(f"  · {len(kandidaten)} Kandidaten mit Homeoffice-Kennzeichen")
+        geprueft = erkannt = 0
+        for e in list(kandidaten.values())[:int(remote_cfg.get("max_details", 400))]:
+            volltext = ba.details(e["refnr"])
+            geprueft += 1
+            if arbeitsmodell.bestimme(volltext)["modell"] != "remote":
+                continue
+            e["_volltext"] = volltext
+            e["_volltext_echt"] = True
+            erkannt += 1
+            nimm(e)
+        log(f"  · {geprueft} Volltexte geprueft, {erkannt} sind echt remote")
+
+    rss = RssQuelle(session, float(cfg["lauf"].get("pause_sekunden", 0.6)))
+    for quelle in cfg.get("rss_quellen", []):
+        log(f"» RSS: {quelle['label']}")
+        eintraege = rss.hole(quelle)
+        for e in eintraege:
+            nimm(e)
+        log(f"  · {len(eintraege)} im Feed")
+
+    if rss.versuche and rss.fehler == rss.versuche:
+        raise QuellenAusfall(
+            f"Alle {rss.versuche} RSS-Feeds fehlgeschlagen. Feed-URLs in "
+            f"config.yaml pruefen oder service.bund.de ist gerade weg.")
+
+    from jobradar.jobspy_quelle import JobSpyQuelle
+    js = JobSpyQuelle(cfg, log)
+    if js.aktiv:
+        log("» JobSpy")
+        for archetyp in cfg.get("archetypen", []):
+            for begriff in archetyp.get("begriffe", []):
+                for r in js.suche(begriff):
+                    nimm(JobSpyQuelle.normalisiere(r, archetyp["id"], begriff))
+        log(f"  · {js.versuche} Abfragen, {js.fehler} fehlgeschlagen")
+
+    from jobradar.seiten import SeitenQuelle
+    seiten = SeitenQuelle(session, float(cfg["lauf"].get("pause_sekunden", 0.6)))
+    for quelle in cfg.get("seiten_quellen", []):
+        treffer = seiten.hole(quelle)
+        log(f"» Seite: {quelle['label']}: {len(treffer)}")
+        for e in treffer:
+            nimm(e)
+    for hinweis in seiten.uebersprungen:
+        log(f"  ! übersprungen — {hinweis}")
+
+    return roh, seiten, ba
+
+
 def scanne(cfg: dict[str, Any], zustand: dict[str, Any],
            nur_offline: bool = False) -> dict[str, Any]:
-    screener = Screener(cfg.get("screening", {}))
-    ausschluss = Ausschluss(cfg.get("ausschluss_titel"))
-    umkreis = Umkreis(cfg)
-    remote = RemotePruefer(cfg)
-    passung = Passung(cfg)
     bekannt: dict[str, Any] = zustand.get("stellen", {})
     lauf_zeit = today().strftime("%Y-%m-%dT%H:%M:%SZ")
-    gefunden: dict[str, dict[str, Any]] = {}
 
     if nur_offline:
         # Nur neu rendern: Bestand unverändert lassen, keinen Lauf protokollieren.
         return zustand
 
-    if not nur_offline:
-        session = requests.Session()
-        ba = BundesagenturQuelle(cfg, session)
-        rss = RssQuelle(session, float(cfg["lauf"].get("pause_sekunden", 0.6)))
+    screener = Screener(cfg.get("screening", {}))
+    ausschluss = Ausschluss(cfg.get("ausschluss_titel"))
+    arbeitsmodell = Arbeitsmodell(cfg)
+    regelwerk = Regelwerk(cfg)
+    passung = Passung(cfg)
+    entgelt = Entgelt(cfg)
 
-        for archetyp in cfg.get("archetypen", []):
-            log(f"» {archetyp['label']}")
-            for begriff in archetyp.get("begriffe", []):
-                treffer = ba.suche(begriff)
-                log(f"  · '{begriff}': {len(treffer)}")
-                for roh in treffer:
-                    eintrag = BundesagenturQuelle.normalisiere(
-                        roh, archetyp["id"], begriff)
-                    if not eintrag or eintrag["id"] in gefunden:
-                        continue
-                    if ausschluss.greift(eintrag["titel"]):
-                        continue
-                    # Die BA hat per umkreis vorgefiltert, aber 60 km Luftlinie
-                    # sind bis Bonn und Koeln — deutlich mehr als eine Stunde
-                    # Fahrt. Dieselbe PLZ-Regel wie bei RSS zieht das gerade.
-                    if not umkreis.drin(eintrag):
-                        continue
-                    gefunden[eintrag["id"]] = eintrag
+    session = requests.Session()
+    fahrzeit = Fahrzeit(cfg, ROOT, session)
+    ba = BundesagenturQuelle(cfg, session)
 
-        # Zweiter Durchgang: bundesweit, aber nur was praktisch vollstaendig
-        # remote ist. Innerhalb des Pendelradius braucht es das nicht — dort
-        # zaehlt jede Stelle, und der erste Durchgang hat sie schon.
-        if remote.aktiv:
-            log("» Remote-Suche (bundesweit)")
-            kandidaten: dict[str, dict[str, Any]] = {}
-            for archetyp in cfg.get("archetypen", []):
-                for begriff in archetyp.get("begriffe", []):
-                    for roh in ba.suche(begriff, bundesweit=True):
-                        if not roh.get("homeofficemoeglich"):
-                            continue
-                        eintrag = BundesagenturQuelle.normalisiere(
-                            roh, archetyp["id"], begriff)
-                        if not eintrag:
-                            continue
-                        if eintrag["id"] in gefunden or eintrag["id"] in kandidaten:
-                            continue
-                        if ausschluss.greift(eintrag["titel"]):
-                            continue
-                        if umkreis.im_umkreis(eintrag):
-                            continue  # nah genug, laeuft ueber den ersten Durchgang
-                        kandidaten[eintrag["id"]] = eintrag
+    roh, seiten, ba = _sammle(cfg, session, ba, ausschluss, arbeitsmodell)
+    log(f"» {len(roh)} Anzeigen eingesammelt")
 
-            log(f"  · {len(kandidaten)} Kandidaten mit Homeoffice-Kennzeichen "
-                f"ausserhalb des Umkreises")
-            for eintrag in list(kandidaten.values())[:remote.max_details]:
-                volltext = ba.details(eintrag["refnr"])
-                remote.geprueft += 1
-                beleg = remote.beleg(volltext)
-                if not beleg:
-                    continue
-                eintrag["_volltext"] = volltext
-                eintrag["_volltext_echt"] = True
-                eintrag["remote_beleg"] = beleg
-                remote.erkannt += 1
-                gefunden[eintrag["id"]] = eintrag
-            log(f"  · {remote.geprueft} Volltexte geprueft, "
-                f"{remote.erkannt} erfuellen die Remote-Schwelle")
+    # --- Dedupe VOR dem Screening: teure Schritte nur einmal je Stelle -----
+    schwelle = float((cfg.get("dedupe") or {}).get("titel_aehnlichkeit", 0.82))
+    roh, doppelt = zusammenfuehren(roh, schwelle)
+    log(f"» {doppelt} Duplikate zusammengeführt, {len(roh)} verbleiben")
 
-        # Jede Abfrage gescheitert heisst: die Quelle ist weg, nicht der
-        # Arbeitsmarkt. Abbrechen, bevor der Merge alles als entfernt markiert.
-        if ba.versuche and ba.fehler == ba.versuche:
-            raise QuellenAusfall(
-                f"Alle {ba.versuche} BA-Abfragen fehlgeschlagen. Entweder ist "
-                f"der Endpunkt erneut umgezogen ({BA_SEARCH}) oder diese "
-                f"IP wird abgewiesen — GitHub-Runner laufen in Azure-"
-                f"Rechenzentren, die von Behoerden-APIs oft gesperrt sind.")
+    # Volltexte nur für wirklich neue Anzeigen holen – spart Requests.
+    neu = [e for e in roh if e["id"] not in bekannt and "_volltext" not in e]
+    log(f"» Volltext für {len(neu)} neue Anzeigen")
+    for eintrag in neu:
+        eintrag["_volltext"] = ba.details(eintrag["refnr"]) if eintrag["refnr"] else ""
+        eintrag["_volltext_echt"] = bool(eintrag["_volltext"])
 
-        for quelle in cfg.get("rss_quellen", []):
-            log(f"» RSS: {quelle['label']}")
-            roh_eintraege = rss.hole(quelle)
-            for eintrag in roh_eintraege:
-                if eintrag["id"] in gefunden:
-                    continue
-                if ausschluss.greift(eintrag["titel"]):
-                    continue
-                # Die Feeds liefern bundesweit — hier faellt alles ausserhalb
-                # des Pendelradius raus.
-                if not umkreis.drin(eintrag):
-                    continue
-                gefunden[eintrag["id"]] = eintrag
-            log(f"  · {len(roh_eintraege)} im Feed")
-
-        if rss.versuche and rss.fehler == rss.versuche:
-            raise QuellenAusfall(
-                f"Alle {rss.versuche} RSS-Feeds fehlgeschlagen. Feed-URLs in "
-                f"config.yaml pruefen oder service.bund.de ist gerade weg.")
-
-        from jobradar.seiten import SeitenQuelle
-        seiten = SeitenQuelle(session, float(cfg["lauf"].get("pause_sekunden", 0.6)))
-        for quelle in cfg.get("seiten_quellen", []):
-            treffer = seiten.hole(quelle)
-            log(f"» Seite: {quelle['label']}: {len(treffer)}")
-            for eintrag in treffer:
-                if eintrag["id"] in gefunden:
-                    continue
-                if ausschluss.greift(eintrag["titel"]):
-                    continue
-                gefunden[eintrag["id"]] = eintrag
-        for hinweis in seiten.uebersprungen:
-            log(f"  ! übersprungen — {hinweis}")
-
-        log(f"» {ausschluss.gezaehlt} Anzeigen per Titelfilter ausgeschlossen")
-        log(f"» {umkreis.verworfen} ausserhalb des Umkreises verworfen")
-        if umkreis.ohne_plz:
-            log(f"» {len(umkreis.ohne_plz)} ohne PLZ verworfen — pruefen, ob "
-                f"eine davon doch in Reichweite liegt:")
-            for hinweis in umkreis.ohne_plz:
-                log(f"    – {hinweis}")
-
-        # Volltexte nur für wirklich neue Anzeigen holen – spart Requests.
-        neu = [e for e in gefunden.values()
-               if e["id"] not in bekannt and "_volltext" not in e]
-        log(f"» Volltext für {len(neu)} neue Anzeigen")
-        for eintrag in neu:
-            eintrag["_volltext"] = ba.details(eintrag["refnr"]) if eintrag["refnr"] else ""
-            eintrag["_volltext_echt"] = bool(eintrag["_volltext"])
-
-    # Zusammenführen: Neues screenen, Bekanntes behalten.
+    zaehler = _leerer_zaehler()
+    ohne_text = 0
     stellen: dict[str, Any] = {}
-    for eid, eintrag in gefunden.items():
+
+    for eintrag in roh:
+        eid = eintrag["id"]
+        volltext = eintrag.pop("_volltext", "") or ""
+        eintrag.pop("_volltext_echt", None)
+        eintrag.pop("_strukturiert", None)
+
         if eid in bekannt:
+            # Bekanntes behalten, aber neu bewerten: sonst erreicht eine
+            # Korrektur an Mustern oder Gewichten den Bestand nie.
             alt = bekannt[eid]
+            volltext = volltext or alt.get("_text", "")
+            alt.update({k: v for k, v in eintrag.items()
+                        if k in ("titel", "arbeitgeber", "ort", "plz",
+                                 "entfernung_km", "url", "veroeffentlicht",
+                                 "frist", "auch_gefunden_bei")
+                        and v not in (None, "", [])})
             alt["zuletzt_gesehen"] = lauf_zeit
             alt["neu"] = False
-            # Bei jedem Lauf neu bewerten, nicht nur bei Neuzugaengen: sonst
-            # erreicht eine Korrektur an den erreichbarkeit-Listen den
-            # Bestand nie und wirkt erst fuer kuenftige Anzeigen.
-            alt["passung"] = passung.bewerte(alt.get("titel", ""))
-            stellen[eid] = alt
-            continue
-        volltext = eintrag.pop("_volltext", "") or eintrag["titel"]
-        strukturiert = eintrag.pop("_strukturiert", None)
-        echt = eintrag.pop("_volltext_echt", None)
-        eintrag["screening"] = screener.run(volltext, eintrag.get("vertragsdauer"))
-        # Ob wirklich ein Anzeigentext geprueft wurde, meldet die Quelle selbst.
-        # Frueher entschied das eine Laengenschwelle (< 200 Zeichen) — die hat
-        # RSS-Eintraege faktisch nach Titellaenge sortiert und bei langen Titeln
-        # ein sauberes Screening vorgetaeuscht, obwohl nie ein Anzeigentext
-        # vorlag. Ohne Angabe der Quelle bleibt die Schwelle als Notbehelf.
-        if echt is None:
-            echt = strukturiert is not False and len(volltext) >= 200
-        eintrag["screening"]["nur_titel"] = not echt
-        eintrag["passung"] = passung.bewerte(eintrag["titel"])
-        eintrag["erstmals_gesehen"] = lauf_zeit
-        eintrag["zuletzt_gesehen"] = lauf_zeit
-        eintrag["neu"] = True
-        eintrag["gesichtet"] = False
+            alt.pop("entfernt", None)
+            eintrag = alt
+        else:
+            eintrag["erstmals_gesehen"] = lauf_zeit
+            eintrag["zuletzt_gesehen"] = lauf_zeit
+            eintrag["neu"] = True
+            eintrag["gesichtet"] = False
+
+        # Volltext aufheben, damit spätere Läufe ohne Netzabruf neu bewerten
+        # können. Ohne das wäre jede Musteränderung wirkungslos für Bekanntes.
+        if volltext:
+            eintrag["_text"] = volltext
+        else:
+            volltext = eintrag.get("_text", "")
+        if not volltext.strip():
+            ohne_text += 1
+
+        bewerte_eintrag(eintrag, volltext, screener=screener,
+                        arbeitsmodell=arbeitsmodell, fahrzeit=fahrzeit,
+                        regelwerk=regelwerk, passung=passung, entgelt=entgelt,
+                        cfg=cfg, zaehler=zaehler)
         stellen[eid] = eintrag
+
+    fahrzeit.sichern()
 
     # Verschwundene Anzeigen behalten, bis sie verfallen.
     verfall = int(cfg["lauf"].get("verfall_tage", 60))
@@ -720,16 +625,24 @@ def scanne(cfg: dict[str, Any], zustand: dict[str, Any],
         alt["entfernt"] = True
         stellen[eid] = alt
 
+    sichtbar = sum(1 for s in stellen.values()
+                   if not s.get("gefiltert") and not s.get("entfernt"))
+    log(f"» ausgefiltert: " + ", ".join(f"{g} {zaehler[g]}" for g in FILTERGRUENDE))
+    log(f"» {ohne_text} ohne Beschreibung (Status unbekannt, kein Score)")
+    log(f"» {sichtbar} in der Standardansicht")
+
     laeufe = zustand.get("laeufe", [])[-29:]
     laeufe.append({
         "zeit": lauf_zeit,
-        "gefunden": len(gefunden),
+        "gefunden": len(roh),
         "neu": sum(1 for s in stellen.values() if s.get("neu")),
         "gesamt": len(stellen),
-        "ausgeschlossen": ausschluss.gezaehlt,
-        "ausserhalb_umkreis": umkreis.verworfen,
-        "ohne_plz": len(umkreis.ohne_plz),
-        "remote_gefunden": remote.erkannt,
+        "sichtbar": sichtbar,
+        "zusammengefuehrt": doppelt,
+        "ohne_beschreibung": ohne_text,
+        "titelmuster_getroffen": ausschluss.gezaehlt,
+        "gefiltert": dict(zaehler),
+        "fahrzeit_api_aufrufe": fahrzeit.api_aufrufe,
         "uebersprungen": seiten.uebersprungen,
     })
 

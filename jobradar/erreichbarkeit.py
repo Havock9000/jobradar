@@ -165,8 +165,14 @@ class Fahrzeit:
 
     def fuer(self, eintrag: dict[str, Any]) -> dict[str, Any]:
         schluessel = self._schluessel(eintrag)
-        if schluessel in self.cache:
-            return dict(self.cache[schluessel])
+        gecacht = self.cache.get(schluessel)
+        if gecacht is not None:
+            # Ein geschaetzter Wert darf nicht ewig stehenbleiben, nur weil er
+            # einmal im Cache gelandet ist: Sobald ein ORS_API_KEY vorliegt,
+            # wird er einmalig durch die echte Fahrzeit ersetzt. Andernfalls
+            # haette das Setzen des Keys keinerlei Wirkung auf den Bestand.
+            if not (gecacht.get("geschaetzt") and self.key):
+                return dict(gecacht)
         ergebnis = self._ermittle(eintrag)
         if schluessel.strip("|"):
             self.cache[schluessel] = ergebnis

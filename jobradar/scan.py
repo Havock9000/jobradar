@@ -559,8 +559,20 @@ def scanne(cfg: dict[str, Any], zustand: dict[str, Any],
     roh, doppelt = zusammenfuehren(roh, schwelle)
     log(f"» {doppelt} Duplikate zusammengeführt, {len(roh)} verbleiben")
 
-    # Volltexte nur für wirklich neue Anzeigen holen – spart Requests.
-    neu = [e for e in roh if e["id"] not in bekannt and "_volltext" not in e]
+    # Volltexte fuer neue Anzeigen holen – und einmalig fuer bekannte, denen
+    # der Text noch fehlt. Ohne diesen Nachzug haetten alle Eintraege aus der
+    # Zeit vor dem Umbau dauerhaft "ohne Beschreibung" gestanden: sie gelten
+    # als bekannt, wurden also nie nachgeladen, und ohne Text gibt es keinen
+    # Score. Das faellt genau einmal an.
+    def braucht_text(e):
+        if "_volltext" in e:
+            return False
+        alt_eintrag = bekannt.get(e["id"])
+        if alt_eintrag is None:
+            return True
+        return not (alt_eintrag.get("_text") or "").strip()
+
+    neu = [e for e in roh if braucht_text(e)]
     log(f"» Volltext für {len(neu)} neue Anzeigen")
     for eintrag in neu:
         eintrag["_volltext"] = ba.details(eintrag["refnr"]) if eintrag["refnr"] else ""

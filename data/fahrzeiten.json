@@ -34,8 +34,23 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
+  "56072|koblenz am rhein": {
+    "minuten": 55,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "53111|bonn": {
+    "minuten": 52,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
   "53113|bonn": {
     "minuten": 50,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "53919|weilerswist": {
+    "minuten": 73,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -44,13 +59,13 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "57072|siegen": {
-    "minuten": 33,
+  "50667|köln": {
+    "minuten": 69,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "50667|köln": {
-    "minuten": 69,
+  "57072|siegen": {
+    "minuten": 33,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -59,18 +74,13 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "51688|wipperfürth": {
-    "minuten": 55,
-    "geschaetzt": true,
-    "quelle": "Luftlinie"
-  },
   "65599|dornburg, westerwald": {
     "minuten": 47,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "|siegburg": {
-    "minuten": 40,
+  "51688|wipperfürth": {
+    "minuten": 55,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -79,13 +89,13 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "56424|staudt": {
-    "minuten": 44,
+  "|siegburg": {
+    "minuten": 40,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "50679|köln": {
-    "minuten": 67,
+  "56424|staudt": {
+    "minuten": 44,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -94,8 +104,8 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "51149|köln": {
-    "minuten": 62,
+  "50679|köln": {
+    "minuten": 67,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -109,8 +119,8 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "56073|koblenz am rhein": {
-    "minuten": 58,
+  "51149|köln": {
+    "minuten": 62,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -119,8 +129,8 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "51109|köln": {
-    "minuten": 60,
+  "56073|koblenz am rhein": {
+    "minuten": 58,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -129,13 +139,8 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "53111|bonn": {
-    "minuten": 52,
-    "geschaetzt": true,
-    "quelle": "Luftlinie"
-  },
-  "53840|troisdorf": {
-    "minuten": 48,
+  "51109|köln": {
+    "minuten": 60,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -144,18 +149,23 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "56130|bad ems": {
-    "minuten": 58,
-    "geschaetzt": true,
-    "quelle": "Luftlinie"
-  },
   "53177|bonn": {
     "minuten": 49,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
+  "56130|bad ems": {
+    "minuten": 58,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
   "53842|troisdorf": {
     "minuten": 48,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "57271|hilchenbach, siegerland": {
+    "minuten": 47,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -169,8 +179,8 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "57271|hilchenbach, siegerland": {
-    "minuten": 47,
+  "|bonn": {
+    "minuten": 50,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -179,23 +189,18 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "|bonn": {
-    "minuten": 50,
-    "geschaetzt": true,
-    "quelle": "Luftlinie"
-  },
   "51147|köln": {
     "minuten": 54,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "58507|lüdenscheid": {
-    "minuten": 64,
+  "53844|troisdorf": {
+    "minuten": 50,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "53844|troisdorf": {
-    "minuten": 50,
+  "58507|lüdenscheid": {
+    "minuten": 64,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -209,11 +214,6 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "51373|leverkusen": {
-    "minuten": 72,
-    "geschaetzt": true,
-    "quelle": "Luftlinie"
-  },
   "53125|bonn": {
     "minuten": 57,
     "geschaetzt": true,
@@ -224,13 +224,18 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "50999|köln": {
-    "minuten": 62,
+  "51373|leverkusen": {
+    "minuten": 72,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
   "56727|mayen": {
     "minuten": 73,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "50999|köln": {
+    "minuten": 62,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -321,11 +326,6 @@
   },
   "57482|wenden, südsauerland": {
     "minuten": 34,
-    "geschaetzt": true,
-    "quelle": "Luftlinie"
-  },
-  "56307|dernbach bei dierdorf": {
-    "minuten": 30,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -439,23 +439,18 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "53173|bonn": {
-    "minuten": 47,
-    "geschaetzt": true,
-    "quelle": "Luftlinie"
-  },
   "51105|köln": {
     "minuten": 64,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "51063|köln": {
-    "minuten": 67,
+  "57334|bad laasphe": {
+    "minuten": 68,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "57334|bad laasphe": {
-    "minuten": 68,
+  "53173|bonn": {
+    "minuten": 47,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -484,6 +479,11 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
+  "51063|köln": {
+    "minuten": 67,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
   "57632|schürdt": {
     "minuten": 18,
     "geschaetzt": true,
@@ -491,6 +491,11 @@
   },
   "57368|lennestadt": {
     "minuten": 64,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "56307|dernbach bei dierdorf": {
+    "minuten": 30,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -504,13 +509,13 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "35759|driedorf": {
-    "minuten": 49,
+  "57627|hachenburg": {
+    "minuten": 19,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "57627|hachenburg": {
-    "minuten": 19,
+  "35759|driedorf": {
+    "minuten": 49,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -534,13 +539,13 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "35781|weilburg": {
-    "minuten": 67,
+  "42499|hückeswagen": {
+    "minuten": 63,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "42499|hückeswagen": {
-    "minuten": 63,
+  "35781|weilburg": {
+    "minuten": 67,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -554,8 +559,8 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "50389|wesseling, rheinland": {
-    "minuten": 62,
+  "53560|vettelschoß": {
+    "minuten": 37,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -564,13 +569,13 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "53560|vettelschoß": {
-    "minuten": 37,
+  "56242|selters (westerwald)": {
+    "minuten": 33,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "56242|selters (westerwald)": {
-    "minuten": 33,
+  "50389|wesseling, rheinland": {
+    "minuten": 62,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -669,11 +674,6 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "65549|limburg an der lahn": {
-    "minuten": 62,
-    "geschaetzt": true,
-    "quelle": "Luftlinie"
-  },
   "|limburg an der lahn": {
     "minuten": 62,
     "geschaetzt": true,
@@ -684,13 +684,13 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "53572|unkel": {
-    "minuten": 47,
+  "53840|troisdorf": {
+    "minuten": 48,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "56422|wirges": {
-    "minuten": 42,
+  "53572|unkel": {
+    "minuten": 47,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -704,8 +704,23 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
+  "35753|greifenstein, hessen": {
+    "minuten": 54,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "58540|meinerzhagen": {
+    "minuten": 49,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
   "57076|siegen": {
     "minuten": 37,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "|dillenburg": {
+    "minuten": 55,
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
@@ -734,10 +749,30 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
-  "58540|meinerzhagen": {
-    "minuten": 48,
+  "34117|34117 kassel": {
+    "minuten": 120,
     "geschaetzt": true,
-    "quelle": "Luftlinie"
+    "quelle": "PLZ-Raster"
+  },
+  "10785|10785 berlin": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "04886|04886 köllitsch": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "39104|39104 magdeburg": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "28199|28199 bremen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
   },
   "06846|06846 dessau-roßlau": {
     "minuten": 120,
@@ -760,11 +795,6 @@
     "quelle": "PLZ-Raster"
   },
   "10178|10178 berlin": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "39104|39104 magdeburg": {
     "minuten": 120,
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
@@ -1029,6 +1059,11 @@
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
   },
+  "79539|79539 lörrach": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
   "76726|76726 germersheim": {
     "minuten": 120,
     "geschaetzt": true,
@@ -1065,11 +1100,6 @@
     "quelle": "PLZ-Raster"
   },
   "25451|25451 quickborn": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "10785|10785 berlin": {
     "minuten": 120,
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
@@ -1124,32 +1154,82 @@
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
   },
-  "40225|40225 düsseldorf": {
+  "80539|80539 münchen": {
     "minuten": 120,
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
   },
-  "90439|90439 nürnberg": {
+  "52428|52428 jülich": {
     "minuten": 120,
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
   },
-  "15344|15344 strausberg": {
+  "10961|10961 berlin": {
     "minuten": 120,
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
   },
-  "44227|44227 dortmund": {
+  "07907|07907 schleiz": {
     "minuten": 120,
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
   },
-  "58095|58095 hagen": {
+  "10117|10117 berlin": {
     "minuten": 120,
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
   },
-  "10559|10559 berlin": {
+  "15834|15834 rangsdorf": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "99096|99096 erfurt": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "12205|12205 berlin-steglitz": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "24944|24944 flensburg": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "45133|45133 essen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "24114|24114 kiel": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "51373|51373 leverkusen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "60320|60320 frankfurt am main": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "40476|40476 düsseldorf": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "41564|41564 kaarst": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "33104|33104 paderborn": {
     "minuten": 120,
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
@@ -1204,11 +1284,6 @@
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
   },
-  "12205|12205 berlin-steglitz": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
   "01097|01097 dresden": {
     "minuten": 120,
     "geschaetzt": true,
@@ -1224,17 +1299,12 @@
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
   },
-  "15834|15834 rangsdorf": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
   "04103|04103 leipzig": {
     "minuten": 120,
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
   },
-  "10117|10117 berlin": {
+  "12489|12489 berlin": {
     "minuten": 120,
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
@@ -1420,200 +1490,6 @@
     "quelle": "PLZ-Raster"
   },
   "79211|79211 denzlingen": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "21493|21493 elmenhorst": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "22880|22880 wedel": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "53117|53117 bonn": {
-    "minuten": 35,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "04109|04109 leipzig": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "29410|29410 salzwedel": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "30163|30163 hannover": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "14712|14712 rathenow": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "76829|76829 landau in der pfalz": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "65173|65173 wiesbaden": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "65197|65197 wiesbaden": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "10963|10963 berlin": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "55124|55124 mainz": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "12489|12489 berlin": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "39116|39116 magdeburg": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "99096|99096 erfurt": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "60594|60594 frankfurt am main": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "06749|06749 bitterfeld-wolfen": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "56072|koblenz am rhein": {
-    "minuten": 55,
-    "geschaetzt": true,
-    "quelle": "Luftlinie"
-  },
-<<<<<<< HEAD
-=======
-  "53919|weilerswist": {
-    "minuten": 73,
-    "geschaetzt": true,
-    "quelle": "Luftlinie"
-  },
->>>>>>> 120700c (Altbestand nach jedem Lauf entfernen, Archetyp beim Wiederfinden mitziehen, Gruppen nach Bestwert sortieren)
-  "35753|greifenstein, hessen": {
-    "minuten": 54,
-    "geschaetzt": true,
-    "quelle": "Luftlinie"
-  },
-  "|dillenburg": {
-    "minuten": 55,
-    "geschaetzt": true,
-    "quelle": "Luftlinie"
-  },
-<<<<<<< HEAD
-=======
-  "34117|34117 kassel": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "04886|04886 köllitsch": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
->>>>>>> 120700c (Altbestand nach jedem Lauf entfernen, Archetyp beim Wiederfinden mitziehen, Gruppen nach Bestwert sortieren)
-  "28199|28199 bremen": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "79539|79539 lörrach": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-<<<<<<< HEAD
-=======
-  "80539|80539 münchen": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "52428|52428 jülich": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "10961|10961 berlin": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "07907|07907 schleiz": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
->>>>>>> 120700c (Altbestand nach jedem Lauf entfernen, Archetyp beim Wiederfinden mitziehen, Gruppen nach Bestwert sortieren)
-  "24944|24944 flensburg": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "45133|45133 essen": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "24114|24114 kiel": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "51373|51373 leverkusen": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "60320|60320 frankfurt am main": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "40476|40476 düsseldorf": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "41564|41564 kaarst": {
-    "minuten": 120,
-    "geschaetzt": true,
-    "quelle": "PLZ-Raster"
-  },
-  "33104|33104 paderborn": {
     "minuten": 120,
     "geschaetzt": true,
     "quelle": "PLZ-Raster"

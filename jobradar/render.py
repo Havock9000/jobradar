@@ -196,6 +196,21 @@ JS = """
     return (v === '' || v === undefined) ? null : Number(v);
   }
 
+  // Einheitlicher Rangwert: KLEINER ist immer besser. Beim Score wird deshalb
+  // negiert, bei Fahrzeit nicht, beim Datum das Alter genommen.
+  function bestwert(el){
+    if (sortierung === 'fahrzeit'){
+      var f = zahl(el, 'fahrzeit');
+      return f === null ? 99999 : f;
+    }
+    if (sortierung === 'datum'){
+      var d = el.dataset.datum || '';
+      return d ? -Number(d.replace(/-/g, '')) : 99999;
+    }
+    var s = zahl(el, 'score');
+    return s === null ? 99999 : -s;
+  }
+
   function anwenden(){
     document.querySelectorAll('.stelle').forEach(function(el){
       var zeig = true;
@@ -234,7 +249,26 @@ JS = """
       g.hidden = sichtbare.length === 0;
       var z = g.querySelector('.zaehler');
       if (z) z.textContent = sichtbare.length + ' sichtbar';
+      // Bestwert der Gruppe merken, um gleich auch die Gruppen zu ordnen.
+      g.dataset.best = sichtbare.length ? bestwert(sichtbare[0]) : '';
     });
+
+    // Kategorien bleiben, aber die mit dem besten Treffer steht oben. Ohne das
+    // sortiert jede Gruppe nur fuer sich, und die naechstgelegene Stelle des
+    // ganzen Boards versteckt sich in Abschnitt fuenf.
+    var behaelter = document.getElementById('gruppen');
+    if (behaelter){
+      var gruppen = Array.prototype.slice.call(
+        behaelter.querySelectorAll('.gruppe'));
+      gruppen.sort(function(a, b){
+        var av = a.dataset.best, bv = b.dataset.best;
+        if (av === '' && bv === '') return 0;
+        if (av === '') return 1;
+        if (bv === '') return -1;
+        return Number(av) - Number(bv);
+      });
+      gruppen.forEach(function(g){ behaelter.appendChild(g); });
+    }
 
     var alle = document.querySelectorAll('.stelle:not([hidden])').length;
     var leer = document.getElementById('leer');
@@ -464,19 +498,29 @@ def baue_dashboard(cfg: dict[str, Any], zustand: dict[str, Any], ziel: Path) -> 
     stellen.sort(key=lambda s: s.get("veroeffentlicht") or "0000-00-00", reverse=True)
     stellen.sort(key=sortierschluessel)
 
-    gruppen_html = []
+    # Kategorien bleiben, aber die Gruppe mit dem besten Treffer steht oben.
+    # `rang` aus der Config entscheidet nur noch bei Gleichstand. Sonst steht
+    # die staerkste Stelle des Boards womoeglich in Abschnitt fuenf.
+    vorsortiert = []
     for a in archetypen:
         eintraege = [s for s in stellen if s.get("archetyp") == a["id"]]
         if not eintraege:
             continue
+        sichtbare = [s for s in eintraege if not s.get("gefiltert")]
+        scores = [(s.get("passung") or {}).get("score") for s in sichtbare]
+        scores = [x for x in scores if x is not None]
+        bestwert = -max(scores) if scores else 99999
         zeilen = "".join(_zeile(s) for s in eintraege)
         notiz = f'<p class="notiz">{esc(a.get("notiz"))}</p>' if a.get("notiz") else ""
-        sichtbar = sum(1 for s in eintraege if not s.get("gefiltert"))
-        gruppen_html.append(f"""<section class="gruppe" data-archetyp="{esc(a['id'])}">
-  <h2>{esc(a['label'])} <span class="zaehler">{sichtbar} sichtbar</span></h2>
+        block = f"""<section class="gruppe" data-archetyp="{esc(a['id'])}">
+  <h2>{esc(a['label'])} <span class="zaehler">{len(sichtbare)} sichtbar</span></h2>
   {notiz}
   {zeilen}
-</section>""")
+</section>"""
+        vorsortiert.append((bestwert, a.get("rang", 99), block))
+
+    vorsortiert.sort(key=lambda x: (x[0], x[1]))
+    gruppen_html = [block for _, _, block in vorsortiert]
 
     # Eintraege aus dem Bestand, deren Archetyp es nicht mehr gibt (nach einer
     # Umbenennung in config.yaml), duerfen nicht stillschweigend verschwinden.
@@ -556,7 +600,7 @@ def baue_dashboard(cfg: dict[str, Any], zustand: dict[str, Any], ziel: Path) -> 
 <div class="filter">{''.join(filter_buttons)}</div>
 <div class="filter">Sortierung: {''.join(sort_buttons)}</div>
 
-{''.join(gruppen_html) if gruppen_html else ''}
+<div id="gruppen">{''.join(gruppen_html) if gruppen_html else ''}</div>
 <p class="leer" id="leer">Keine Anzeigen passen zu den gewählten Filtern.</p>
 
 <footer>

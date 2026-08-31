@@ -593,10 +593,16 @@ def scanne(cfg: dict[str, Any], zustand: dict[str, Any],
             # Korrektur an Mustern oder Gewichten den Bestand nie.
             alt = bekannt[eid]
             volltext = volltext or alt.get("_text", "")
+            # `archetyp` und `treffer_begriff` MUESSEN mit uebernommen werden.
+            # Ohne sie behaelt eine wiedergefundene Stelle die Zuordnung aus
+            # dem Lauf, in dem sie zuerst auftauchte — nach einer Umbenennung
+            # der Archetypen haengen sie dann dauerhaft in der Auffanggruppe,
+            # obwohl sie gerade gefunden wurden.
             alt.update({k: v for k, v in eintrag.items()
                         if k in ("titel", "arbeitgeber", "ort", "plz",
                                  "entfernung_km", "url", "veroeffentlicht",
-                                 "frist", "auch_gefunden_bei")
+                                 "frist", "auch_gefunden_bei",
+                                 "archetyp", "treffer_begriff")
                         and v not in (None, "", [])})
             alt["zuletzt_gesehen"] = lauf_zeit
             alt["neu"] = False
@@ -625,17 +631,25 @@ def scanne(cfg: dict[str, Any], zustand: dict[str, Any],
 
     fahrzeit.sichern()
 
-    # Verschwundene Anzeigen behalten, bis sie verfallen.
-    verfall = int(cfg["lauf"].get("verfall_tage", 60))
+    # Verschwundene Anzeigen: `verfall_tage: 0` wirft sie sofort weg.
+    # Ausdrueckliche Entscheidung — eine zurueckgezogene Anzeige nuetzt beim
+    # Bewerben nichts und verstopft nur die Liste. Der Schutz dagegen, dass
+    # ein Quellenausfall den ganzen Bestand loescht, ist QuellenAusfall
+    # weiter oben: der bricht ab, BEVOR hier etwas passiert.
+    verfall = int(cfg["lauf"].get("verfall_tage", 0))
+    verworfen = 0
     for eid, alt in bekannt.items():
         if eid in stellen:
             continue
         alter = age_days(parse_date(alt.get("zuletzt_gesehen")))
-        if alter is not None and alter > verfall:
+        if verfall <= 0 or (alter is not None and alter > verfall):
+            verworfen += 1
             continue
         alt["neu"] = False
         alt["entfernt"] = True
         stellen[eid] = alt
+    if verworfen:
+        log(f"» {verworfen} nicht mehr gelistete Anzeigen entfernt")
 
     sichtbar = sum(1 for s in stellen.values()
                    if not s.get("gefiltert") and not s.get("entfernt"))

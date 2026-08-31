@@ -1514,6 +1514,14 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
+<<<<<<< HEAD
+=======
+  "53919|weilerswist": {
+    "minuten": 73,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+>>>>>>> 120700c (Altbestand nach jedem Lauf entfernen, Archetyp beim Wiederfinden mitziehen, Gruppen nach Bestwert sortieren)
   "35753|greifenstein, hessen": {
     "minuten": 54,
     "geschaetzt": true,
@@ -1524,6 +1532,19 @@
     "geschaetzt": true,
     "quelle": "Luftlinie"
   },
+<<<<<<< HEAD
+=======
+  "34117|34117 kassel": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "04886|04886 köllitsch": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+>>>>>>> 120700c (Altbestand nach jedem Lauf entfernen, Archetyp beim Wiederfinden mitziehen, Gruppen nach Bestwert sortieren)
   "28199|28199 bremen": {
     "minuten": 120,
     "geschaetzt": true,
@@ -1534,6 +1555,29 @@
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
   },
+<<<<<<< HEAD
+=======
+  "80539|80539 münchen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "52428|52428 jülich": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "10961|10961 berlin": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "07907|07907 schleiz": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+>>>>>>> 120700c (Altbestand nach jedem Lauf entfernen, Archetyp beim Wiederfinden mitziehen, Gruppen nach Bestwert sortieren)
   "24944|24944 flensburg": {
     "minuten": 120,
     "geschaetzt": true,

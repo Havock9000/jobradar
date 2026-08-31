@@ -49,7 +49,10 @@ lauf:
   veroeffentlicht_seit_tagen: 30
   treffer_pro_begriff: 100
   pause_sekunden: 0.6
-  verfall_tage: 60
+  # 0 = nicht mehr gefundene Anzeigen sofort entfernen, statt sie
+  # als "nicht mehr gelistet" mitzuschleppen. Gegen versehentliches
+  # Leeren des Bestands schuetzt QuellenAusfall, nicht dieser Wert.
+  verfall_tage: 0
 
 # ---------------------------------------------------------------------------
 # Harte Filter. NUR diese drei entfernen Stellen aus der Standardansicht.

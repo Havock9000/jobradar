@@ -391,6 +391,20 @@ for pflicht in ['data-sort="score"', 'data-sort="fahrzeit"', 'data-sort="datum"'
 pruef('data-gefiltert="studium"' in doc,
       "ausgefilterte Stellen bleiben im Dokument, nur ausgeblendet")
 
+# Gruppen muessen nach ihrem besten Treffer geordnet sein, nicht nach `rang`.
+# Sonst sortiert jede Kategorie nur fuer sich und die staerkste Stelle des
+# Boards versteckt sich in Abschnitt fuenf.
+import re as _re  # noqa: E402
+folge = _re.findall(r'section class="gruppe" data-archetyp="([^"]+)"', doc)
+pruef(folge and folge[0] == "angrenzend",
+      f"Gruppe mit dem hoechsten Score steht oben (Reihenfolge: {folge})")
+pruef('id="gruppen"' in doc,
+      "Gruppen liegen in einem Behaelter, damit JS sie umsortieren kann")
+pruef("function bestwert" in doc,
+      "Sortierung wirkt auch auf Gruppenebene")
+pruef("nicht mehr gelistet" not in doc,
+      "kein Altbestand im Dokument (verfall_tage: 0)")
+
 for spur in (ROOT / "data" / "jobs.json", ROOT / "site" / "index.html"):
     pruef(not spur.exists() or spur.stat().st_mtime < start_zeit,
           f"echter Bestand unberuehrt: {spur.name}")

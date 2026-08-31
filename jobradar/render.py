@@ -86,7 +86,6 @@ h1{
   padding:15px 0;border-top:1px solid var(--linie)
 }
 .stelle:last-child{border-bottom:1px solid var(--linie)}
-.stelle.entfernt{opacity:.42}
 
 /* Signaturelement: drei Statusfelder, links, immer gleich positioniert */
 .ampel{display:flex;flex-wrap:wrap;gap:4px;padding-top:4px;align-items:center}
@@ -187,8 +186,13 @@ footer{
 
 JS = """
 (function(){
+  // nurPassend startet auf true: Bei Score <= 0 kommt keine einzige der sechs
+  // Aufgabengruppen im Anzeigentext vor — das ist Rauschen aus den
+  // Suchbegriffen, nicht ein knapper Treffer. Nichts wird geloescht, ein Klick
+  // holt alles zurueck, und der Zaehler unten nennt jederzeit die Zahl.
   var filter = {archetyp:'alle', nurNeu:false, ohneEhrenamt:false,
-                ohneAbgelaufen:true, zeigeGefiltert:false, nurMitText:false};
+                ohneAbgelaufen:true, zeigeGefiltert:false, nurMitText:false,
+                nurPassend:true};
   var sortierung = 'score';
 
   function zahl(el, name){
@@ -222,8 +226,24 @@ JS = """
       // Ausgefilterte sind vorhanden, nur ausgeblendet — damit pruefbar
       // bleibt, ob ein Filtermuster zu breit greift.
       if (!filter.zeigeGefiltert && el.dataset.gefiltert !== '') zeig = false;
+      if (filter.nurPassend){
+        var s = zahl(el, 'score');
+        if (s === null || s < 1) zeig = false;
+      }
       el.hidden = !zeig;
     });
+
+    var ohneBezug = [].filter.call(
+      document.querySelectorAll('.stelle'), function(el){
+        if (el.dataset.gefiltert !== '') return false;
+        var s = zahl(el, 'score');
+        return s === null || s < 1;
+      }).length;
+    var hinweis = document.getElementById('ohnebezug');
+    if (hinweis) hinweis.textContent = (filter.nurPassend && ohneBezug)
+      ? ohneBezug + ' Anzeigen ohne erkennbaren Aufgabenbezug ausgeblendet '
+        + '(Score 0 oder darunter)'
+      : '';
 
     document.querySelectorAll('.gruppe').forEach(function(g){
       var sichtbare = Array.prototype.slice.call(
@@ -470,7 +490,8 @@ def _zeile(stelle: dict[str, Any]) -> str:
                  'Status und Score sind hier nicht belastbar">ohne Beschreibung</span>'
                  if not hat_text else "")
 
-    klassen = "stelle" + (" gefiltert" if grund else "")
+    klassen = ("stelle" + (" gefiltert" if grund else "")
+               + (" abgelaufen" if abgelaufen else ""))
     return f"""<article class="{klassen}" data-archetyp="{esc(stelle.get('archetyp'))}"
   data-neu="{'1' if stelle.get('neu') else '0'}" data-studium="{esc(stufe)}"
   data-ehrenamt="{ehrenamt}" data-abgelaufen="{'1' if abgelaufen else '0'}"
@@ -561,6 +582,7 @@ def baue_dashboard(cfg: dict[str, Any], zustand: dict[str, Any], ziel: Path) -> 
         '<button data-filter="ohneEhrenamt" aria-pressed="false">Ehrenamtslogik ausblenden</button>',
         '<button data-filter="ohneAbgelaufen" aria-pressed="true">Abgelaufene ausblenden</button>',
         '<button data-filter="nurMitText" aria-pressed="false">Nur mit Beschreibung</button>',
+        '<button data-filter="nurPassend" aria-pressed="true">Nur mit Aufgabenbezug</button>',
         '<button data-filter="zeigeGefiltert" aria-pressed="false">Ausgefilterte zeigen</button>',
     ]
     sort_buttons = [
@@ -602,6 +624,7 @@ def baue_dashboard(cfg: dict[str, Any], zustand: dict[str, Any], ziel: Path) -> 
 
 <div id="gruppen">{''.join(gruppen_html) if gruppen_html else ''}</div>
 <p class="leer" id="leer">Keine Anzeigen passen zu den gewählten Filtern.</p>
+<p class="datum" id="ohnebezug"></p>
 
 <footer>
 Bewertet wird der <b>Anzeigentext</b>, nicht die Berufsbezeichnung. Dieselbe Tätigkeit heißt je nach Arbeitgeber „Referent*in Öffentlichkeitsarbeit“, „Sachbearbeitung Kommunikation“ oder „Marketingassistenz“ — ein Titelfilter entfernt darum zwangsläufig Passendes. Der Score summiert getroffene Aufgabengruppen und zieht Reibungsmuster ab.<br>

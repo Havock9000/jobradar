@@ -193,9 +193,19 @@ pruef(regel.pruefe("onsite", 60, None)["erlaubt"] is False,
       "onsite bei 60 min faellt raus (Schwelle 45)")
 pruef(regel.pruefe("hybrid", 60, None)["erlaubt"] is True,
       "dieselbe Stelle als hybrid bleibt drin (Schwelle 75)")
-unklar = regel.pruefe("unklar", 70, None)
-pruef(unklar["erlaubt"] is True,
-      "unklar bei 70 min bleibt drin (gegen Hybrid-Schwelle geprueft)")
+# `unklar` hat eine EIGENE Schwelle (60 min), strenger als hybrid und
+# grosszuegiger als onsite. Begruendung steht in config.yaml: 225 von 268
+# sichtbaren Stellen nennen gar kein Arbeitsmodell, die Hybrid-Schwelle war
+# dafuer zu weich. Wichtig bleibt, dass `unklar` NICHT hart gefiltert wird.
+pruef(regel.pruefe("unklar", 55, None)["erlaubt"] is True,
+      "unklar bei 55 min bleibt drin — kein harter Ausschluss")
+pruef(regel.pruefe("unklar", 70, None)["erlaubt"] is False,
+      "unklar bei 70 min faellt raus (eigene Schwelle 60, nicht hybrid 75)")
+pruef(regel.pruefe("hybrid", 70, None)["erlaubt"] is True,
+      "belegtes Hybrid bei 70 min bleibt — Beleg schlaegt Vermutung")
+pruef(regel.pruefe("unklar", 50, None)["erlaubt"] is True
+      and regel.pruefe("onsite", 50, None)["erlaubt"] is False,
+      "unklar ist grosszuegiger als onsite, sonst traefe es Verwaltungen")
 budget = regel.pruefe("hybrid", 70, 4)
 pruef(budget["erlaubt"] is False and budget["grund"] == "wochenbudget",
       f"4 Praesenztage a 70 min sprengen das Wochenbudget: {budget['hinweis']}")

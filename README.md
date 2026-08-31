@@ -42,8 +42,14 @@ Ausgabe ist der vorgesehene Weg — und Google-Suchergebnisse.
 
 Das Modul `jobradar/seiten.py` bewegt sich bewusst innerhalb dieser Grenze:
 nur öffentliche Seiten ohne Login, robots.txt vor jedem Abruf geprüft,
-sprechender User-Agent, eine Anfrage pro Seite und Lauf, gespeichert werden nur
-Titel und Link.
+sprechender User-Agent, eine Anfrage pro Seite und Lauf.
+
+**Hinweis zum Zustand:** Seit dem Umbau auf Textscoring liegt der Anzeigentext
+jeder Stelle als `_text` in `data/jobs.json` — sonst könnte eine Änderung an
+Gewichten oder Mustern den Bestand nicht neu bewerten, ohne alles erneut
+abzurufen. Bei einem öffentlichen Repository sind damit auch die Anzeigentexte
+öffentlich. Wer das nicht will, stellt das Repository auf privat; der Workflow
+läuft dort genauso.
 
 ## Einrichtung
 
@@ -151,7 +157,7 @@ Ehrenamtslogik −3, Vertrieb −2, Titelmuster −2). Gewichte stehen unter
 Nur drei Dinge entfernen eine Stelle aus der Standardansicht:
 
 1. **Erreichbarkeit** — Fahrzeit gegen die Schwelle des Arbeitsmodells
-   (onsite 45 min, hybrid 75 min, remote unbegrenzt) plus Wochenbudget
+   (onsite 45 min, unklar 60 min, hybrid 75 min, remote unbegrenzt) plus Wochenbudget
    (Präsenztage × Fahrzeit × 2 ≤ 450 min).
 2. **Umfang** unter 20 Wochenstunden, wenn eine Stundenzahl im Text steht.
 3. **Zwingendes Studium.** „Studium oder vergleichbare Qualifikation" bleibt.

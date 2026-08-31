@@ -253,6 +253,19 @@ erreichbarkeit:
   onsite:
     max_fahrzeit_min: 45
   unklar:
+    # EIGENE Schwelle statt "behandeln_als: hybrid". Gemessen am 31.08.2026:
+    # 225 von 268 sichtbaren Stellen nennen gar kein Arbeitsmodell — "unklar"
+    # ist hier die Regel, nicht die Ausnahme. Mit der Hybrid-Schwelle (75 min)
+    # standen davon 123 ueber 50 und 87 ueber 60 Minuten in der Liste, obwohl
+    # unbekannt ist, ob man dort ueberhaupt mobil arbeiten darf.
+    #
+    # 60 min ist der Kompromiss: strenger als hybrid, weil die Erlaubnis nicht
+    # belegt ist; grosszuegiger als onsite (45), weil viele dieser Anzeigen in
+    # Wahrheit hybrid sind und ein harter Ausschluss genau die Verwaltungen
+    # und Forschungseinrichtungen trifft, auf die es ankommt.
+    #
+    # `behandeln_als` wirkt weiterhin, falls max_fahrzeit_min fehlt.
+    max_fahrzeit_min: 60
     behandeln_als: hybrid
 
   # OpenRouteService liefert reine PKW-Fahrzeit. Ohne ORS_API_KEY greift die

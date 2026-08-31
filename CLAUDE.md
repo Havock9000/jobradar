@@ -70,7 +70,7 @@ sichtbarem Beleg. `ausschluss_titel_hart: false` dokumentiert das.
 Nur diese drei entfernen etwas aus der Standardansicht:
 
 1. **Erreichbarkeit.** Fahrzeit gegen die Schwelle des Arbeitsmodells
-   (onsite 45 min, hybrid 75 min, remote unbegrenzt), plus Wochenbudget
+   (onsite 45 min, unklar 60 min, hybrid 75 min, remote unbegrenzt), plus Wochenbudget
    (Präsenztage × Fahrzeit × 2 ≤ 450 min).
 2. **Umfang** unter 20 Wochenstunden — aber nur, wenn eine Stundenzahl im
    Text steht. Fehlende Angabe schließt nicht aus.
@@ -84,11 +84,16 @@ sie angezeigt.
 
 ## Erreichbarkeit im Detail
 
-`unklar` wird **nicht** gefiltert, sondern gegen die Hybrid-Schwelle geprüft
-und markiert. Forschungseinrichtungen und Verwaltungen nennen das Modell
-selten; ein harter Ausschluss killt genau die Stellen, auf die es ankommt.
-Im ersten Lauf standen 234 von 278 sichtbaren Stellen auf `unklar` — das ist
-die Regel, nicht die Ausnahme.
+`unklar` wird **nicht** hart gefiltert, hat aber seit dem 31.08.2026 eine
+**eigene Schwelle von 60 min** statt der Hybrid-Schwelle. Grund: 225 von 268
+sichtbaren Stellen nennen gar kein Arbeitsmodell — `unklar` ist die Regel, nicht
+die Ausnahme. Mit 75 min standen davon 123 über 50 und 87 über 60 Minuten in der
+Liste, obwohl völlig unbelegt ist, ob dort mobil gearbeitet werden darf.
+
+Die Staffelung lautet damit: onsite 45 — unklar 60 — hybrid 75 — remote
+unbegrenzt. Belegtes Hybrid ist großzügiger als eine Vermutung, und `unklar`
+bleibt großzügiger als Präsenzpflicht, weil sonst genau die Verwaltungen und
+Forschungseinrichtungen wegfallen, auf die es ankommt.
 
 Abgrenzung, die leicht falsch läuft: **„Homeoffice möglich" und „anteilig
 mobil" sind hybrid, nicht remote.** Nur eine ausdrückliche Anteilsangabe ab

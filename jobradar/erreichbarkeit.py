@@ -215,15 +215,23 @@ class Regelwerk:
             "hybrid": (e.get("hybrid") or {}).get("max_fahrzeit_min"),
             "onsite": (e.get("onsite") or {}).get("max_fahrzeit_min"),
         }
-        self.unklar_als = (e.get("unklar") or {}).get("behandeln_als") or "hybrid"
+        unklar = e.get("unklar") or {}
+        # Eine eigene Schwelle fuer `unklar` schlaegt das Ausweichen auf ein
+        # anderes Modell. Ohne sie waere "unbekannt" so grosszuegig behandelt
+        # wie "hybrid nachgewiesen" — und "unbekannt" ist hier der Normalfall.
+        self.schwellen["unklar"] = unklar.get("max_fahrzeit_min")
+        self.unklar_als = unklar.get("behandeln_als") or "hybrid"
 
     def pruefe(self, modell: str, minuten: int | None,
                praesenztage: int | None) -> dict[str, Any]:
         # `unklar` wird NICHT gefiltert, sondern gegen die Hybrid-Schwelle
         # geprueft. Forschungseinrichtungen und Verwaltungen nennen das Modell
         # selten; ein harter Ausschluss killt genau die interessanten Stellen.
-        effektiv = self.unklar_als if modell == "unklar" else modell
-        schwelle = self.schwellen.get(effektiv)
+        if modell == "unklar" and self.schwellen.get("unklar") is not None:
+            effektiv, schwelle = "unklar", self.schwellen["unklar"]
+        else:
+            effektiv = self.unklar_als if modell == "unklar" else modell
+            schwelle = self.schwellen.get(effektiv)
 
         if minuten is None:
             return {"erlaubt": True, "grund": None,

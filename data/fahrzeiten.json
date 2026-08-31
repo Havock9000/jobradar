@@ -1508,5 +1508,70 @@
     "minuten": 120,
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
+  },
+  "56072|koblenz am rhein": {
+    "minuten": 55,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "35753|greifenstein, hessen": {
+    "minuten": 54,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "|dillenburg": {
+    "minuten": 55,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "28199|28199 bremen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "79539|79539 lörrach": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "24944|24944 flensburg": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "45133|45133 essen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "24114|24114 kiel": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "51373|51373 leverkusen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "60320|60320 frankfurt am main": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "40476|40476 düsseldorf": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "41564|41564 kaarst": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "33104|33104 paderborn": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
   }
 }

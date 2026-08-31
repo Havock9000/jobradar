@@ -415,6 +415,17 @@ pruef("function bestwert" in doc,
 pruef("nicht mehr gelistet" not in doc,
       "kein Altbestand im Dokument (verfall_tage: 0)")
 
+# Ausgefilterte Zeilen muessen schon AUSGELIEFERT versteckt sein. Sonst rendert
+# der Browser erst alle Zeilen und das Skript raeumt danach auf — sichtbar als
+# Aufblitzen einer langen Liste, die zusammenklappt.
+import re as _re2  # noqa: E402
+artikel = _re2.findall(r'<article class="([^"]*)"( hidden)?', doc)
+gefilterte = [(k, h) for k, h in artikel if "gefiltert" in k]
+pruef(gefilterte and all(h for _, h in gefilterte),
+      f"ausgefilterte Zeilen tragen `hidden` im Markup ({len(gefilterte)} geprueft)")
+pruef("line-through" not in doc,
+      "kein Durchstreichen — die Grundmarke benennt den Grund")
+
 for spur in (ROOT / "data" / "jobs.json", ROOT / "site" / "index.html"):
     pruef(not spur.exists() or spur.stat().st_mtime < start_zeit,
           f"echter Bestand unberuehrt: {spur.name}")

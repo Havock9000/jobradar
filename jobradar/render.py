@@ -174,8 +174,7 @@ footer{
   padding:1px 5px;border-radius:2px;margin-right:5px;border:1px solid currentColor
 }
 .geschaetzt{color:var(--tinte-weich)}
-.gefiltert{opacity:.55}
-.gefiltert .titel a{text-decoration:line-through}
+.gefiltert{opacity:.6}
 .grundmarke{
   font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,"DejaVu Sans Mono",monospace;
   font-size:10px;text-transform:uppercase;letter-spacing:.06em;
@@ -340,6 +339,25 @@ def _tage_bis(iso_datum: str | None) -> int | None:
     return (ziel - datetime.now(timezone.utc)).days
 
 
+
+def standard_versteckt(stelle: dict[str, Any]) -> bool:
+    """Wird diese Stelle im Auslieferungszustand ausgeblendet?
+
+    Muss mit dem Startzustand von `filter` im JS uebereinstimmen:
+    ohneAbgelaufen an, zeigeGefiltert aus, nurPassend an. Wird an drei Stellen
+    gebraucht — Zeilenrendering, Gruppenzaehler und Gruppensortierung — und
+    steht deshalb hier zentral.
+    """
+    if stelle.get("gefiltert"):
+        return True
+    if _tage_bis(stelle.get("frist")) is not None and _tage_bis(stelle.get("frist")) < 0:
+        return True
+    passung = stelle.get("passung") or {}
+    if passung.get("status") != "bewertet":
+        return True
+    return (passung.get("score") or 0) < 1
+
+
 def _ampel(screening: dict[str, Any]) -> tuple[str, str, str]:
     """Drei Statusfelder: Studium / Ehrenamtslogik / Befristung."""
     stufe = (screening.get("studium") or {}).get("stufe", "offen")
@@ -492,7 +510,9 @@ def _zeile(stelle: dict[str, Any]) -> str:
 
     klassen = ("stelle" + (" gefiltert" if grund else "")
                + (" abgelaufen" if abgelaufen else ""))
-    return f"""<article class="{klassen}" data-archetyp="{esc(stelle.get('archetyp'))}"
+
+    versteckt = standard_versteckt(stelle)
+    return f"""<article class="{klassen}"{' hidden' if versteckt else ''} data-archetyp="{esc(stelle.get('archetyp'))}"
   data-neu="{'1' if stelle.get('neu') else '0'}" data-studium="{esc(stufe)}"
   data-ehrenamt="{ehrenamt}" data-abgelaufen="{'1' if abgelaufen else '0'}"
   data-gefiltert="{esc(grund or '')}" data-text="{'1' if hat_text else '0'}"
@@ -527,7 +547,7 @@ def baue_dashboard(cfg: dict[str, Any], zustand: dict[str, Any], ziel: Path) -> 
         eintraege = [s for s in stellen if s.get("archetyp") == a["id"]]
         if not eintraege:
             continue
-        sichtbare = [s for s in eintraege if not s.get("gefiltert")]
+        sichtbare = [s for s in eintraege if not standard_versteckt(s)]
         scores = [(s.get("passung") or {}).get("score") for s in sichtbare]
         scores = [x for x in scores if x is not None]
         bestwert = -max(scores) if scores else 99999
@@ -549,7 +569,7 @@ def baue_dashboard(cfg: dict[str, Any], zustand: dict[str, Any], ziel: Path) -> 
     reste = [s for s in stellen if s.get("archetyp") not in bekannte_ids]
     if reste:
         zeilen = "".join(_zeile(s) for s in reste)
-        sichtbar = sum(1 for s in reste if not s.get("gefiltert"))
+        sichtbar = sum(1 for s in reste if not standard_versteckt(s))
         gruppen_html.append(f"""<section class="gruppe" data-archetyp="_rest">
   <h2>Ohne aktuellen Archetyp <span class="zaehler">{sichtbar} sichtbar</span></h2>
   <p class="notiz">Diese Anzeigen stammen aus einem Lauf mit anderer

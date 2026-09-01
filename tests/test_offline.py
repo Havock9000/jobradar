@@ -299,6 +299,43 @@ fern = durchlauf("Referent", "Wir erwarten durchgehende Praesenz.",
                  ort="Beeskow", plz="15848", entfernung_km=None)
 pruef(fern["gefiltert"] == "fahrzeit", "zu weit entfernt faellt raus")
 
+# Beschaeftigungsarten, die nichts bringen.
+for titel, was in [("Werkstudent*in Videoediting (m/w/d)", "Werkstudent"),
+                   ("Social Media Creator (m/w/d) auf Minijob-Basis", "Minijob"),
+                   ("Praktikant (m/w/d) Presse- und Medienarbeit", "Praktikum")]:
+    e = durchlauf(titel, "Sie betreuen Social Media und drehen Videos.")
+    pruef(e["gefiltert"] == "beschaeftigung", f"{was} faellt raus")
+
+pruef(durchlauf("Volontariat Kommunikation (m/w/d)",
+                "Sie verfassen Pressemitteilungen und Beitraege.")["gefiltert"] is None,
+      "Volontariat bleibt — regulaerer Einstiegsweg in Redaktion und PR")
+
+# Die strukturierte BA-Angabe schlaegt den Titel.
+pruef(durchlauf("Referent Kommunikation (m/w/d)",
+                "Pressearbeit und Newsletter.",
+                geringfuegig=True)["gefiltert"] == "beschaeftigung",
+      "istGeringfuegigeBeschaeftigung greift auch ohne Wort im Titel")
+
+# Fremder Beruf: der echte Fall vom 01.09.2026.
+friseur = passung.bewerte(
+    "Friseurin (m/w/d)",
+    "Social Media Know-how: Wir bieten dir Schulungen. Selbstsicherer Umgang "
+    "mit Instagram, TikTok und Co. zur Praesentation unserer Arbeit.")
+pruef(friseur["score"] < 1,
+      f"Friseurin scort trotz Social-Media-Text unter der Schwelle "
+      f"({friseur['score']})")
+pruef(any(r["gruppe"] == "fremdberuf" for r in friseur["reibung"]),
+      "und traegt den Grund als Reibungsmarker")
+pruef(passung.bewerte("Referent Öffentlichkeitsarbeit (m/w/d)",
+                      werbetext)["score"] >= 3,
+      "eine echte Kommunikationsstelle bleibt davon unberuehrt")
+
+# Juristische Anzeigen nennen das Examen, nicht "abgeschlossenes Studium".
+jur = screener.run("Vorausgesetzt werden das Erste und Zweite juristische "
+                   "Staatsexamen sowie Berufserfahrung.")
+pruef(jur["studium"]["stufe"] == "hart",
+      "Staatsexamen zaehlt als zwingendes Studium")
+
 # Der Zieltest noch einmal durch die ganze Pipeline.
 ziel_pipeline = durchlauf("Sachbearbeitung Wirtschaftsförderung", zieltext)
 pruef(ziel_pipeline["gefiltert"] is None,
@@ -338,6 +375,51 @@ finally:
     _scan.requests.Session = _echte_session
 pruef(json.dumps(bestand, sort_keys=True) == vorher,
       "Bestand unveraendert geblieben")
+
+# --- 7b. Stumme Quelle loescht ihre Anzeigen NICHT ------------------------
+# LinkedIn liefert bei einer IP-Sperre keinen Fehler, sondern still null
+# Treffer. Ohne diese Unterscheidung loeschte ein Lauf auf einem gesperrten
+# Runner den gesamten LinkedIn-Bestand des vorherigen Laufs.
+print("Stumme Quelle:")
+import jobradar.scan as _s  # noqa: E402
+
+bestand2 = {"stellen": {
+    "js:alt": {"id": "js:alt", "titel": "LinkedIn-Stelle", "quelle": "linkedin",
+               "archetyp": "marketing", "url": "https://li/1",
+               "zuletzt_gesehen": _s.today().strftime("%Y-%m-%dT%H:%M:%SZ"),
+               "_text": "Pressearbeit und Newsletter."},
+    "ba:weg": {"id": "ba:weg", "titel": "Zurueckgezogene Stelle",
+               "quelle": "Bundesagentur für Arbeit", "archetyp": "marketing",
+               "url": "https://ba/1",
+               "zuletzt_gesehen": _s.today().strftime("%Y-%m-%dT%H:%M:%SZ"),
+               "_text": "Pressearbeit."},
+}, "laeufe": []}
+
+_echt_sammle = _s._sammle
+def _stille_runde(cfg_, session_, ba_, ausschluss_, arbeitsmodell_):
+    # Die BA antwortet und meldet EINE andere Stelle; linkedin schweigt.
+    eintrag = {"id": "ba:neu", "titel": "Referent Kommunikation",
+               "quelle": "Bundesagentur für Arbeit", "archetyp": "marketing",
+               "url": "https://ba/2", "ort": "Siegen", "plz": "57072",
+               "entfernung_km": 26, "refnr": None,
+               "_volltext": "Pressearbeit, Newsletter, Redaktion.",
+               "_volltext_echt": True}
+    return [eintrag], type("S", (), {"uebersprungen": []})(), ba_,            {"Bundesagentur für Arbeit"}
+
+_s._sammle = _stille_runde
+try:
+    neu_zustand = _s.scanne({**cfg, "seiten_quellen": [], "rss_quellen": [],
+                             "remote": {}, "jobspy": {"aktiv": False}}, bestand2)
+finally:
+    _s._sammle = _echt_sammle
+
+stellen_neu = neu_zustand["stellen"]
+pruef("js:alt" in stellen_neu,
+      "Anzeige einer stummen Quelle bleibt erhalten")
+pruef("ba:weg" not in stellen_neu,
+      "Anzeige einer ANTWORTENDEN Quelle wird entfernt, wenn sie fehlt")
+pruef(neu_zustand["laeufe"][-1]["gehalten_stumme_quelle"] == 1,
+      "der Lauf protokolliert, wie viele Anzeigen deshalb blieben")
 
 # --- 8. Normalisierung der BA-Antwort (echtes v6-Schema) ------------------
 print("Normalisierung:")

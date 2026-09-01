@@ -322,6 +322,9 @@ class BundesagenturQuelle:
             # darum als eigene Felder aufgehoben (siehe Screener.run).
             "vertragsdauer": roh.get("vertragsdauer"),
             "quereinstieg": roh.get("quereinstiegGeeignet"),
+            # Strukturierte Minijob-Angabe der BA — verlaesslicher als jede
+            # Regex auf dem Titel.
+            "geringfuegig": roh.get("istGeringfuegigeBeschaeftigung"),
         }
 
 
@@ -446,9 +449,12 @@ def _sammle(cfg: dict[str, Any], session: requests.Session,
     roh: list[dict[str, Any]] = []
     gesehen: set[str] = set()
 
+    aktive_quellen: set[str] = set()
+
     def nimm(eintrag: dict[str, Any] | None) -> None:
         if not eintrag or eintrag["id"] in gesehen:
             return
+        aktive_quellen.add(str(eintrag.get("quelle") or ""))
         if hart and ausschluss.greift(eintrag["titel"]):
             return
         if not hart:
@@ -533,7 +539,10 @@ def _sammle(cfg: dict[str, Any], session: requests.Session,
     for hinweis in seiten.uebersprungen:
         log(f"  ! übersprungen — {hinweis}")
 
-    return roh, seiten, ba
+    log("» Ausbeute je Quelle: " + ", ".join(
+        f"{q}={sum(1 for e in roh if e.get('quelle') == q)}"
+        for q in sorted(aktive_quellen) if q))
+    return roh, seiten, ba, aktive_quellen
 
 
 def scanne(cfg: dict[str, Any], zustand: dict[str, Any],
@@ -556,7 +565,8 @@ def scanne(cfg: dict[str, Any], zustand: dict[str, Any],
     fahrzeit = Fahrzeit(cfg, ROOT, session)
     ba = BundesagenturQuelle(cfg, session)
 
-    roh, seiten, ba = _sammle(cfg, session, ba, ausschluss, arbeitsmodell)
+    roh, seiten, ba, aktive_quellen = _sammle(cfg, session, ba, ausschluss,
+                                              arbeitsmodell)
     log(f"» {len(roh)} Anzeigen eingesammelt")
 
     # --- Dedupe VOR dem Screening: teure Schritte nur einmal je Stelle -----
@@ -608,7 +618,7 @@ def scanne(cfg: dict[str, Any], zustand: dict[str, Any],
                                  "entfernung_km", "url", "veroeffentlicht",
                                  "frist", "auch_gefunden_bei",
                                  "archetyp", "treffer_begriff",
-                                 "breite", "laenge")
+                                 "breite", "laenge", "geringfuegig")
                         and v not in (None, "", [])})
             alt["zuletzt_gesehen"] = lauf_zeit
             alt["neu"] = False
@@ -637,17 +647,42 @@ def scanne(cfg: dict[str, Any], zustand: dict[str, Any],
 
     fahrzeit.sichern()
 
-    # Verschwundene Anzeigen: `verfall_tage: 0` wirft sie sofort weg.
-    # Ausdrueckliche Entscheidung — eine zurueckgezogene Anzeige nuetzt beim
-    # Bewerben nichts und verstopft nur die Liste. Der Schutz dagegen, dass
-    # ein Quellenausfall den ganzen Bestand loescht, ist QuellenAusfall
-    # weiter oben: der bricht ab, BEVOR hier etwas passiert.
+    # Verschwundene Anzeigen. Zwei Faelle, die streng zu trennen sind:
+    #
+    #   a) Die Quelle hat geantwortet, die Anzeige stand nicht mehr drin.
+    #      Dann ist sie zurueckgezogen und fliegt sofort raus (verfall_tage: 0).
+    #
+    #   b) Die Quelle hat in diesem Lauf ueberhaupt nichts geliefert. Dann
+    #      laesst sich NICHTS ueber ihre Anzeigen sagen, und sie bleiben.
+    #
+    # Fall b ist kein Randfall: LinkedIn liefert bei einer IP-Sperre keinen
+    # Fehler, sondern still null Treffer. Ohne diese Unterscheidung wuerde ein
+    # Lauf auf einem gesperrten Runner alle LinkedIn-Stellen des vorherigen
+    # Laufs loeschen — die Quelle waere wertlos. QuellenAusfall greift hier
+    # nicht: der prueft nur, ob ALLE BA- oder ALLE RSS-Abfragen mit einem
+    # Fehler abbrechen.
+    #
+    # Damit eine dauerhaft entfernte Quelle den Bestand nicht ewig belastet,
+    # verfallen stumme Eintraege nach `verfall_stumme_quelle_tage`.
     verfall = int(cfg["lauf"].get("verfall_tage", 0))
+    verfall_stumm = int(cfg["lauf"].get("verfall_stumme_quelle_tage", 14))
     verworfen = 0
+    gehalten = 0
     for eid, alt in bekannt.items():
         if eid in stellen:
             continue
         alter = age_days(parse_date(alt.get("zuletzt_gesehen")))
+        quelle = str(alt.get("quelle") or "")
+        stumm = quelle not in aktive_quellen
+
+        if stumm and (alter is None or alter <= verfall_stumm):
+            # Quelle hat geschwiegen — die Anzeige bleibt unangetastet, damit
+            # sie beim naechsten erfolgreichen Lauf normal weitergefuehrt wird.
+            alt["neu"] = False
+            stellen[eid] = alt
+            gehalten += 1
+            continue
+
         if verfall <= 0 or (alter is not None and alter > verfall):
             verworfen += 1
             continue
@@ -656,6 +691,11 @@ def scanne(cfg: dict[str, Any], zustand: dict[str, Any],
         stellen[eid] = alt
     if verworfen:
         log(f"» {verworfen} nicht mehr gelistete Anzeigen entfernt")
+    if gehalten:
+        stumme = sorted({str(a.get("quelle") or "") for a in bekannt.values()
+                         if str(a.get("quelle") or "") not in aktive_quellen})
+        log(f"» {gehalten} Anzeigen behalten, weil ihre Quelle in diesem Lauf "
+            f"nichts geliefert hat: {', '.join(stumme)}")
 
     sichtbar = sum(1 for s in stellen.values()
                    if not s.get("gefiltert") and not s.get("entfernt"))
@@ -675,6 +715,8 @@ def scanne(cfg: dict[str, Any], zustand: dict[str, Any],
         "titelmuster_getroffen": ausschluss.gezaehlt,
         "gefiltert": dict(zaehler),
         "fahrzeit_api_aufrufe": fahrzeit.api_aufrufe,
+        "aktive_quellen": sorted(q for q in aktive_quellen if q),
+        "gehalten_stumme_quelle": gehalten,
         "uebersprungen": seiten.uebersprungen,
     })
 

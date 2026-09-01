@@ -17,11 +17,27 @@ Titel-Ausschlussfilter wirkt nur noch als Abwertung im Score.
 
 from __future__ import annotations
 
+import re
 from typing import Any
 
 from jobradar.merkmale import Entgelt, wochenstunden
 
-FILTERGRUENDE = ("fahrzeit", "wochenbudget", "umfang", "studium")
+FILTERGRUENDE = ("fahrzeit", "wochenbudget", "umfang", "studium",
+                 "beschaeftigung")
+
+
+def _falsche_beschaeftigung(eintrag: dict[str, Any],
+                            harte: dict[str, Any]) -> bool:
+    """Werkstudent, Minijob, Praktikum — am Titel und an der BA-Strukturangabe.
+
+    Das strukturierte Feld `istGeringfuegigeBeschaeftigung` schlaegt jede
+    Regex: es steht bei der Bundesagentur direkt in der Anzeige und raet nicht.
+    """
+    if eintrag.get("geringfuegig") is True:
+        return True
+    muster = harte.get("ausgeschlossene_beschaeftigung") or []
+    titel = eintrag.get("titel") or ""
+    return any(re.search(m, titel, re.IGNORECASE) for m in muster)
 
 
 def _leerer_zaehler() -> dict[str, int]:
@@ -63,6 +79,10 @@ def bewerte_eintrag(eintrag: dict[str, Any], volltext: str, *,
     elif stunden is not None and stunden < float(
             harte.get("mindest_wochenstunden", 0)):
         grund = "umfang"
+    elif _falsche_beschaeftigung(eintrag, harte):
+        # Werkstudent setzt eine Immatrikulation voraus, Minijob und Praktikum
+        # tragen kein Einkommen. Alle drei ausdruecklich unerwuenscht.
+        grund = "beschaeftigung"
     elif (harte.get("studium_zwingend_ausschliessen")
           and eintrag["screening"]["studium"]["stufe"] == "hart"):
         # Nur "hart" — Status "weich" (Studium ODER vergleichbare

@@ -50,6 +50,13 @@ class Passung:
         self.reibung = _kompiliere(reibung)
         self.ausschluss_titel = [re.compile(m, re.IGNORECASE)
                                  for m in cfg.get("ausschluss_titel") or []]
+        # Fremde Berufe: greift gegen den TITEL. Ein Friseursalon, der
+        # "Instagram" in der Anzeige nennt, trifft sonst die Aufgabengruppen
+        # `social` und `bewegtbild` und steht mit +5 im Dashboard.
+        fremd = p.get("fremdberuf") or {}
+        self.fremdberuf_gewicht = int(fremd.get("gewicht", 0))
+        self.fremdberuf = [re.compile(m, re.IGNORECASE)
+                           for m in fremd.get("muster") or []]
 
     @staticmethod
     def _beleg(text: str, treffer: re.Match) -> str:
@@ -85,6 +92,16 @@ class Passung:
                     reibung.append({"gruppe": name, "gewicht": gewicht,
                                     "beleg": self._beleg(text, m)})
                     break
+
+        for pat in self.fremdberuf:
+            m = pat.search(titel or "")
+            if m:
+                score += self.fremdberuf_gewicht
+                reibung.append({"gruppe": "fremdberuf",
+                                "gewicht": self.fremdberuf_gewicht,
+                                "beleg": "Berufsbezeichnung im Titel: "
+                                         + m.group(0)})
+                break
 
         # Der alte Titelfilter lebt nur noch als Abwertung weiter.
         for pat in self.ausschluss_titel:

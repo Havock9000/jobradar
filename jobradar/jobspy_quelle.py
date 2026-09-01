@@ -38,6 +38,14 @@ class JobSpyQuelle:
         js = cfg.get("jobspy") or {}
         self.aktiv = bool(js.get("aktiv"))
         self.sites = list(js.get("sites") or ["indeed"])
+        # Jede Seite bekommt ihre eigene Ortsangabe — siehe Messung in
+        # config.yaml. Eine gemeinsame Angabe liefert bei einer der beiden
+        # Seiten zuverlaessig Unsinn.
+        self.ort_je_seite = dict(js.get("ort_je_seite") or {})
+        self.distanz_je_seite = {
+            k: int(math.ceil(float(v) / KM_JE_MEILE))
+            for k, v in (js.get("distanz_km_je_seite") or {}).items()}
+        self.ortsnamen = dict(js.get("ortsnamen") or {})
         self.results_wanted = int(js.get("results_wanted", 50))
         self.hours_old = int(js.get("hours_old", 168))
         self.linkedin_beschreibung = bool(js.get("linkedin_beschreibung_laden"))
@@ -66,33 +74,37 @@ class JobSpyQuelle:
             self.aktiv = False
             return []
 
-        self.versuche += 1
-        try:
-            df = scrape_jobs(
-                site_name=self.sites,
-                search_term=begriff,
-                location=self.ort,
-                distance=self.distance,
-                country_indeed="Germany",
-                results_wanted=self.results_wanted,
-                hours_old=self.hours_old,
-                description_format="markdown",
-                linkedin_fetch_description=self.linkedin_beschreibung,
-                proxies=_proxies(),
-            )
-        except Exception as exc:
-            # Ein 429 von LinkedIn darf den Gesamtlauf nicht beenden.
-            self.fehler += 1
-            self.log(f"  ! JobSpy '{begriff}' fehlgeschlagen: "
-                     f"{type(exc).__name__}: {exc}")
-            return []
-
-        if df is None or len(df) == 0:
-            return []
-        return [
-            {k: (None if _ist_leer(v) else v) for k, v in zeile.items()}
-            for zeile in df.to_dict("records")
-        ]
+        zeilen: list[dict[str, Any]] = []
+        # Seite fuer Seite, weil jede eine andere Ortsangabe braucht. Ein
+        # Fehlschlag bei LinkedIn darf Indeed nicht mitnehmen.
+        for seite in self.sites:
+            self.versuche += 1
+            try:
+                df = scrape_jobs(
+                    site_name=[seite],
+                    search_term=begriff,
+                    location=self.ort_je_seite.get(seite, self.ort),
+                    distance=self.distanz_je_seite.get(seite, self.distance),
+                    country_indeed="Germany",
+                    results_wanted=self.results_wanted,
+                    hours_old=self.hours_old,
+                    description_format="markdown",
+                    linkedin_fetch_description=self.linkedin_beschreibung,
+                    proxies=_proxies(),
+                )
+            except Exception as exc:
+                # Ein 429 von LinkedIn darf den Gesamtlauf nicht beenden.
+                self.fehler += 1
+                self.log(f"  ! JobSpy/{seite} '{begriff}' fehlgeschlagen: "
+                         f"{type(exc).__name__}: {exc}")
+                continue
+            if df is None or len(df) == 0:
+                continue
+            for zeile in df.to_dict("records"):
+                sauber = {k: (None if _ist_leer(v) else v) for k, v in zeile.items()}
+                sauber["_ortsnamen"] = self.ortsnamen
+                zeilen.append(sauber)
+        return zeilen
 
     @staticmethod
     def normalisiere(roh: dict[str, Any], archetyp: str,
@@ -102,6 +114,9 @@ class JobSpyQuelle:
             return None
         beschreibung = (roh.get("description") or "").strip()
         ort = _stadt(roh)
+        # LinkedIn nennt Staedte auf Englisch; der Fahrzeit-Cache kennt die
+        # deutschen Namen.
+        ort = (roh.get("_ortsnamen") or {}).get(ort, ort)
         return {
             # Der Board-Name, nicht "jobspy" — im Dashboard soll stehen, wo es
             # tatsächlich herkommt.

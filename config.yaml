@@ -57,6 +57,12 @@ lauf:
   # als "nicht mehr gelistet" mitzuschleppen. Gegen versehentliches
   # Leeren des Bestands schuetzt QuellenAusfall, nicht dieser Wert.
   verfall_tage: 0
+  # Sonderfall: Eine Quelle hat in diesem Lauf GAR NICHTS geliefert. Dann ist
+  # nicht entscheidbar, ob ihre Anzeigen noch stehen — sie bleiben so lange.
+  # Betrifft vor allem LinkedIn: bei einer IP-Sperre kommt kein Fehler,
+  # sondern still null Treffer. Ohne diese Frist löschte ein Lauf auf einem
+  # gesperrten Runner den gesamten LinkedIn-Bestand des Vorlaufs.
+  verfall_stumme_quelle_tage: 14
 
 # ---------------------------------------------------------------------------
 # Harte Filter. NUR diese drei entfernen Stellen aus der Standardansicht.
@@ -66,6 +72,21 @@ lauf:
 harte_filter:
   # Fehlende Stundenangabe schließt NICHT aus.
   mindest_wochenstunden: 20
+
+  # Beschäftigungsarten, die für dich nicht in Frage kommen. VIERTES hartes
+  # Kriterium, ergänzt am 01.09.2026 auf ausdrücklichen Wunsch:
+  #   Werkstudent  – setzt eine Immatrikulation voraus, die du nicht hast
+  #   Minijob      – kein tragfähiges Einkommen
+  #   Praktikum    – dito; von mir ergänzt, weil dieselbe Kategorie.
+  #                  Wenn du Praktika sehen willst, diese Zeile streichen.
+  # Volontariat steht bewusst NICHT hier: das ist in Redaktion und PR ein
+  # regulärer, bezahlter Einstiegsweg.
+  # Geprüft wird der TITEL; bei BA-Anzeigen zusätzlich das strukturierte Feld
+  # `istGeringfuegigeBeschaeftigung`, das zuverlässiger ist als jede Regex.
+  ausgeschlossene_beschaeftigung:
+    - 'Werkstudent'
+    - 'Minijob|Minijobber|geringf(ü|ue)gig'
+    - 'Praktikum|Praktikant'
   # Nur Status "hart" (Studium ohne genannte Alternative). "weich" bleibt
   # sichtbar — das ist der Fall, in dem Berufserfahrung greift.
   studium_zwingend_ausschliessen: true
@@ -236,6 +257,35 @@ passung:
     titel_abwertung:
       gewicht: -2   # greift, wenn ein Muster aus ausschluss_titel im Titel steht
 
+  # Fremde Berufe. Greift gegen den TITEL, nicht gegen den Text — und mit
+  # schwerem Gewicht, damit ein Zufallstreffer im Anzeigentext nicht reicht.
+  #
+  # Der Anlass, gemessen am 01.09.2026: "Friseurin (m/w/d)" stand mit +5 im
+  # Dashboard, weil der Salon "Social Media Know-how" und "Instagram, TikTok"
+  # nennt. Die Aufgabengruppen `social` und `bewegtbild` griffen damit völlig
+  # korrekt — es fehlte nur das Signal, dass der Beruf ein anderer ist. Das
+  # steht im Titel, nicht im Fließtext.
+  #
+  # -6 ist so gewählt, dass ein solcher Treffer unter die Sichtbarkeitsschwelle
+  # fällt, ohne dass die Stelle gelöscht wird: über "Ausgefilterte zeigen"
+  # bleibt sie prüfbar.
+  fremdberuf:
+    gewicht: -6
+    muster:
+      - 'Fris(e|ö)ur'
+      - 'Koch|Köchin|Küchenhilfe|Bäcker|Metzger|Fleischer'
+      - 'Pflegefachkraft|Altenpfleger|Krankenpfleger|Pflegehelfer'
+      - 'Erzieher|Kinderpfleger|Heilerziehung'
+      - 'Elektroniker|Mechatroniker|Schlosser|Installateur|Monteur'
+      - 'Forstwirt|Landwirt|Gärtner|Revierförster'
+      - 'Lagerist|Kommissionierer|Staplerfahrer|Berufskraftfahrer'
+      - 'Reinigungskraft|Hauswirtschaft|Küchenkraft'
+      - 'Physiotherapeut|Ergotherapeut|Logopäd|Tierarzt'
+      - 'Steuerfachangestellte|Bilanzbuchhalter|Lohnbuchhalter'
+      - 'Volljurist|Jurist|Rechtsanwalt|Notar'
+      - 'Bauleiter|Bauingenieur|Architekt|Statiker'
+      - 'Softwareentwickler|SAP[- ]|Systemadministrator|DevOps'
+
 # ---------------------------------------------------------------------------
 # Erreichbarkeit: Fahrzeit statt Luftlinie, plus Wochenbudget.
 #
@@ -354,13 +404,55 @@ jobspy:
   # auf GitHub Actions bliebe der Teil ohne Wohn-Proxy leer und würde nur
   # Laufzeit kosten. Wer es lokal testen will, trägt es hier ein und setzt
   # JOBSPY_PROXIES.
-  sites: [indeed]
-  # Bewusst knapp: Indeed liefert keine PLZ, die Fahrzeit lässt sich für
-  # unbekannte Orte nicht bestimmen. Solche Treffer sind nicht filterbar und
-  # sollen die Liste nicht dominieren.
+  sites: [indeed, linkedin]
+
+  # Jede Seite braucht eine ANDERE Ortsangabe. Gemessen am 01.09.2026:
+  #   Indeed   mit "57577"          -> Bonn, Köln, Koblenz, Herborn  (richtig)
+  #   Indeed   mit "Hamm (Sieg)"    -> Gerolstein, Wittlich          (falsches Hamm)
+  #   LinkedIn mit "57577"          -> Portland, Anchorage, McKinney (USA!)
+  #   LinkedIn mit "Deutschland"    -> ebenfalls USA
+  #   LinkedIn mit "Köln, Germany"  -> 10 von 10 in Deutschland      (richtig)
+  # LinkedIn kennt keine Postleitzahlen und braucht eine benannte Großstadt.
+  #
+  # Der Ankerpunkt entscheidet auch über die Streuung. Gemessen am 01.09.2026
+  # mit dem Suchbegriff "Öffentlichkeitsarbeit", je 20 Treffer:
+  #   Köln  + 25 mi -> Cologne 10, Düsseldorf 5, Bonn 3   (Rheinschiene)
+  #   Bonn  + 40 mi -> Cologne 8, Düsseldorf 5, Wuppertal (Ruhrgebiet)
+  #   Siegen+ 40 mi -> Bonn 3, Meschede, Marburg, Wetzlar (zu weit gestreut)
+  #   Siegen+ 25 mi -> Siegen 8, Bad Berleburg 2, Olpe,
+  #                    Schmallenberg, Gummersbach, Dillenburg  <- richtig
+  # Köln als Anker lag selbst schon 70 km entfernt; das zog 90 Anzeigen aus
+  # Düsseldorf, Essen und Wuppertal herein, für die es nicht einmal eine
+  # Fahrzeit gab. Siegen liegt 26 km entfernt und deckt den Suchraum ab.
+  ort_je_seite:
+    indeed: "57577"
+    linkedin: "Siegen, Germany"
+
+  # Radius je Seite in km. Indeed filtert brauchbar und darf weiter greifen;
+  # LinkedIn streut stark, deshalb enger.
+  distanz_km_je_seite:
+    indeed: 60
+    linkedin: 40
+
+  # Bewusst knapp: Beide liefern keine PLZ. Die Fahrzeit kommt über den
+  # Ortsnamen aus dem Cache — was dort fehlt, bleibt unbestimmbar.
   results_wanted: 20
   hours_old: 336
-  linkedin_beschreibung_laden: false   # kostet massiv Durchsatz
+  # LinkedIn liefert OHNE dieses Flag gar keinen Anzeigentext (0 Zeichen
+  # gemessen), damit gäbe es weder Score noch Arbeitsmodell. Kostet einen
+  # Abruf je Anzeige, ist hier aber die Bedingung dafür, dass die Quelle
+  # überhaupt etwas beiträgt.
+  linkedin_beschreibung_laden: true
+
+  # LinkedIn nennt Städte auf Englisch. Ohne diese Zuordnung findet der
+  # Fahrzeit-Cache "Cologne" nicht und die Stelle bleibt ohne Entfernung.
+  ortsnamen:
+    Cologne: Köln
+    Munich: München
+    Nuremberg: Nürnberg
+    Hanover: Hannover
+    Brunswick: Braunschweig
+    Frankfurt: Frankfurt am Main
 
 # ---------------------------------------------------------------------------
 # Zweiter, bundesweiter Suchlauf für Remote-Stellen.
@@ -462,6 +554,15 @@ screening:
       - "Diplom-?\\s?(Ingenieur|Biologe|Geograph)"
       - "Master\\b"
       - "Bachelor\\b"
+      # Ergaenzt 01.09.2026: Juristische und medizinische Anzeigen nennen nie
+      # "abgeschlossenes Studium", sondern das Examen. Ohne diese Muster
+      # standen sie auf "kein Studium gefordert".
+      # 'Staatsexamen' allein genuegt: Es gibt es nur nach einem Studium.
+      # Ein enger gefasstes Muster scheiterte an 'Erste und Zweite
+      # juristische Staatsexamen' — Flexion und Wortstellung variieren.
+      - 'Staatsexamen'
+      - 'Volljurist|Assessorexamen|Referendariat'
+      - 'Diplom-?\s?Jurist|Magister\b|Promotion\b'
     weich:
       - "oder\\s+(eine\\s+)?vergleichbare"
       - "bzw\\.\\s+eine\\s+abgeschlossene\\s+Berufsausbildung"

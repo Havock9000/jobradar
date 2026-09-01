@@ -348,10 +348,18 @@ dedupe:
 # das Einschalten ist eine bewusste Entscheidung des Betreibers.
 # ---------------------------------------------------------------------------
 jobspy:
-  aktiv: false
+  # EINGESCHALTET am 01.09.2026 auf ausdrücklichen Wunsch.
+  aktiv: true
+  # LinkedIn steht bewusst NICHT in der Liste: Es blockt Rechenzentrums-IPs,
+  # auf GitHub Actions bliebe der Teil ohne Wohn-Proxy leer und würde nur
+  # Laufzeit kosten. Wer es lokal testen will, trägt es hier ein und setzt
+  # JOBSPY_PROXIES.
   sites: [indeed]
-  results_wanted: 50
-  hours_old: 168
+  # Bewusst knapp: Indeed liefert keine PLZ, die Fahrzeit lässt sich für
+  # unbekannte Orte nicht bestimmen. Solche Treffer sind nicht filterbar und
+  # sollen die Liste nicht dominieren.
+  results_wanted: 20
+  hours_old: 336
   linkedin_beschreibung_laden: false   # kostet massiv Durchsatz
 
 # ---------------------------------------------------------------------------

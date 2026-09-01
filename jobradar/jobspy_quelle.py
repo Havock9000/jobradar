@@ -42,7 +42,11 @@ class JobSpyQuelle:
         self.hours_old = int(js.get("hours_old", 168))
         self.linkedin_beschreibung = bool(js.get("linkedin_beschreibung_laden"))
         standort = cfg.get("standort") or {}
-        self.ort = standort.get("ort") or standort.get("wo") or ""
+        # PLZ vor Ortsname: Gemessen am 01.09.2026 geocodiert Indeed
+        # "Hamm (Sieg)" auf ein anderes Hamm und liefert Treffer aus
+        # Gerolstein, Wittlich und Birkenfeld — Eifel statt Westerwald.
+        # Mit "57577" kommen Bonn, Köln, Koblenz, Herborn, also die Region.
+        self.ort = standort.get("wo") or standort.get("ort") or ""
         km = float(standort.get("umkreis_km", 60))
         # Aufrunden: lieber etwas zu weit suchen, die Fahrzeitprüfung zieht
         # die eigentliche Grenze.
@@ -97,8 +101,7 @@ class JobSpyQuelle:
         if not url:
             return None
         beschreibung = (roh.get("description") or "").strip()
-        ort = " ".join(str(roh.get(k) or "").strip()
-                       for k in ("city", "state")).strip()
+        ort = _stadt(roh)
         return {
             # Der Board-Name, nicht "jobspy" — im Dashboard soll stehen, wo es
             # tatsächlich herkommt.
@@ -107,7 +110,7 @@ class JobSpyQuelle:
             "quelle": str(roh.get("site") or "jobspy"),
             "titel": (roh.get("title") or "").strip(),
             "arbeitgeber": (roh.get("company") or "").strip(),
-            "ort": ort or (roh.get("location") or ""),
+            "ort": ort,
             "plz": "",
             "entfernung_km": None,
             "veroeffentlicht": _datum(roh.get("date_posted")),
@@ -124,6 +127,21 @@ class JobSpyQuelle:
             # `unbekannt` geführt und bekommt keinen Score.
             "_volltext_echt": bool(beschreibung),
         }
+
+
+def _stadt(roh: dict[str, Any]) -> str:
+    """Nur der Stadtname, ohne Bundesland und Land.
+
+    JobSpy liefert (Stand 1.1.82) keine `city`-Spalte, sondern `location` als
+    "Leverkusen, NW, DE". Der Fahrzeit-Cache ist nach reinen Ortsnamen
+    aufgebaut — mit dem vollen String findet er nichts, und jede Anzeige
+    bliebe ohne bestimmbare Fahrzeit.
+    """
+    stadt = roh.get("city")
+    if stadt and stadt == stadt:            # NaN-Pruefung ohne pandas
+        return str(stadt).strip()
+    ort = str(roh.get("location") or "").strip()
+    return ort.split(",")[0].strip() if ort else ""
 
 
 def _ist_leer(wert: Any) -> bool:

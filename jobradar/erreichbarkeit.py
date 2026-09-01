@@ -201,6 +201,16 @@ class Fahrzeit:
             return {"minuten": int(wert), "geschaetzt": True,
                     "quelle": "PLZ-Raster"}
 
+        # Quellen ohne PLZ (JobSpy nennt nur "Bonn, NW, DE") koennen ueber den
+        # Ortsnamen an einen bereits bekannten Wert anknuepfen. Die Bundesagentur
+        # liefert PLZ und Ort, damit steht fuer die meisten Staedte der Region
+        # schon eine Zeit im Cache.
+        if ort:
+            for schluessel, wert in self.cache.items():
+                if schluessel.split("|", 1)[-1] == ort.strip().lower():
+                    return {"minuten": wert.get("minuten"), "geschaetzt": True,
+                            "quelle": "Ortsname aus Cache"}
+
         return {"minuten": None, "geschaetzt": True, "quelle": "unbekannt"}
 
 

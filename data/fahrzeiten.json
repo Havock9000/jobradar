@@ -2338,5 +2338,115 @@
     "minuten": null,
     "geschaetzt": true,
     "quelle": "unbekannt"
+  },
+  "50674|köln": {
+    "minuten": 70,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "16515|16515 oranienburg": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "10179|10179 berlin": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "16225|16225 eberswalde": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "14195|14195 berlin (dahlem)": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "53129|53129 bonn": {
+    "minuten": 35,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "53757|53757 sankt augustin": {
+    "minuten": 35,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "10119|10119 berlin": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "95030|95030 hof": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "99423|99423 weimar": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "|niederkassel": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
+  },
+  "|ehringshausen": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
+  },
+  "|montabaur": {
+    "minuten": 48,
+    "geschaetzt": true,
+    "quelle": "Ortsname aus Cache"
+  },
+  "|niedereisenhausen": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
+  },
+  "|rosbach": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
+  },
+  "|lennestadt": {
+    "minuten": 64,
+    "geschaetzt": true,
+    "quelle": "Ortsname aus Cache"
+  },
+  "|haiger": {
+    "minuten": 48,
+    "geschaetzt": true,
+    "quelle": "Ortsname aus Cache"
+  },
+  "|bad laasphe": {
+    "minuten": 68,
+    "geschaetzt": true,
+    "quelle": "Ortsname aus Cache"
+  },
+  "|altenkirchen": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
+  },
+  "|westerburg": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
+  },
+  "|freudenberg": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
+  },
+  "|hilchenbach": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
   }
 }

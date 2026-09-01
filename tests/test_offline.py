@@ -394,9 +394,10 @@ for i, (titel, text, arch) in enumerate([
 ziel_datei = baue_dashboard(cfg, zustand, tmp / "index.html")
 doc = ziel_datei.read_text(encoding="utf-8")
 for pflicht in ['data-sort="score"', 'data-sort="fahrzeit"', 'data-sort="datum"',
-                'data-filter="zeigeGefiltert"', 'data-filter="nurMitText"',
-                'class="score', "ohne Beschreibung", "Ausgefilterte zeigen",
-                "Duplikate zusammengeführt"]:
+                'data-filter="zeigeGefiltert"', 'data-filter="nurPassend"',
+                'data-farbe="modell"', 'data-farbe="alter"', 'data-farbe="kategorie"',
+                'class="score', "Ausgefilterte zeigen", "<summary>Details</summary>",
+                'id="karte"', 'id="daten"', "Duplikate zusammengeführt"]:
     pruef(pflicht in doc, f"im Dashboard vorhanden: {pflicht}")
 pruef('data-gefiltert="studium"' in doc,
       "ausgefilterte Stellen bleiben im Dokument, nur ausgeblendet")
@@ -425,6 +426,30 @@ pruef(gefilterte and all(h for _, h in gefilterte),
       f"ausgefilterte Zeilen tragen `hidden` im Markup ({len(gefilterte)} geprueft)")
 pruef("line-through" not in doc,
       "kein Durchstreichen — die Grundmarke benennt den Grund")
+
+# Belegstellen gehoeren in den aufklappbaren Teil, nicht in die Uebersicht.
+kopf = doc.split("<details>")[0] if "<details>" in doc else doc
+pruef("Studium zwingend:" not in kopf,
+      "Belegstellen stehen unter Details, nicht in der Kopfzeile")
+pruef(doc.count("<details>") >= 3,
+      f"jede Zeile hat einen aufklappbaren Teil ({doc.count('<details>')})")
+
+# Ohne Beschreibung gibt es keinen Score — und der Platzhalter muss sichtbar
+# sein, damit "kein Urteil" nicht wie "Score 0" aussieht.
+pruef('class="score leer"' in doc,
+      "Stellen ohne Beschreibung zeigen einen Platzhalter statt einer Zahl")
+
+# Die Karte darf keine fremden Server anfragen (Grenze 7).
+# Nur ladende Ressourcen pruefen — Anzeigenlinks (<a href>) sind Ziele zum
+# Anklicken, keine Aufrufe beim Oeffnen der Seite.
+import re as _re3  # noqa: E402
+laden = _re3.findall(
+    r'<(?:script|link|img|iframe|source|video|audio)[^>]*?'
+    r'(?:src|href)=["\'](https?://[^"\']+)', doc, _re3.I)
+laden += _re3.findall(r'@import\s+url\(["\']?(https?://[^"\')]+)', doc, _re3.I)
+pruef(not laden, f"Dashboard laedt nichts von fremden Servern ({laden[:3]})")
+pruef("openstreetmap" not in doc.lower() and "tile" not in doc.lower(),
+      "keine Kartenkacheln von fremden Servern")
 
 for spur in (ROOT / "data" / "jobs.json", ROOT / "site" / "index.html"):
     pruef(not spur.exists() or spur.stat().st_mtime < start_zeit,

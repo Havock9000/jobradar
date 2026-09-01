@@ -292,7 +292,8 @@ class BundesagenturQuelle:
         refnr = roh.get("referenznummer")
         if not refnr:
             return None
-        adresse = (roh.get("stellenlokationen") or [{}])[0].get("adresse") or {}
+        lokation = (roh.get("stellenlokationen") or [{}])[0]
+        adresse = lokation.get("adresse") or {}
         zeitraum = roh.get("veroeffentlichungszeitraum") or {}
         eintritt = roh.get("eintrittszeitraum") or {}
         return {
@@ -306,6 +307,10 @@ class BundesagenturQuelle:
             "plz": adresse.get("plz") or "",
             # entfernung steht in v6 auf oberster Ebene, nicht mehr im Ort.
             "entfernung_km": roh.get("entfernung"),
+            # Koordinaten liefert die BA gleich mit — damit braucht die Karte
+            # keinen Geocoding-Dienst und die Seite keine Fremdaufrufe.
+            "breite": lokation.get("breite"),
+            "laenge": lokation.get("laenge"),
             "veroeffentlicht": parse_date(roh.get("datumErsteVeroeffentlichung")
                                           or zeitraum.get("von")),
             "frist": None,
@@ -602,7 +607,8 @@ def scanne(cfg: dict[str, Any], zustand: dict[str, Any],
                         if k in ("titel", "arbeitgeber", "ort", "plz",
                                  "entfernung_km", "url", "veroeffentlicht",
                                  "frist", "auch_gefunden_bei",
-                                 "archetyp", "treffer_begriff")
+                                 "archetyp", "treffer_begriff",
+                                 "breite", "laenge")
                         and v not in (None, "", [])})
             alt["zuletzt_gesehen"] = lauf_zeit
             alt["neu"] = False

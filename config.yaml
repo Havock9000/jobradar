@@ -17,6 +17,10 @@ standort:
   # Ankerpunkt. `wo` geht als Ortsangabe an die BA-API, `ort` an das Geocoding.
   wo: "57577"
   ort: "Hamm (Sieg)"
+  # Mittelpunkt der Karte. Nur fuer die Darstellung — gerechnet wird mit der
+  # Fahrzeit, nicht mit diesen Koordinaten.
+  breite: 50.7536
+  laenge: 7.7369
   # Suchradius der BA-Abfrage. Bewusst großzügig: Die eigentliche Grenze zieht
   # die Fahrzeitprüfung (siehe `erreichbarkeit`), nicht dieser Wert.
   umkreis_km: 60

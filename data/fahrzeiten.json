@@ -3413,5 +3413,15 @@
     "minuten": null,
     "geschaetzt": true,
     "quelle": "unbekannt"
+  },
+  "32657|32657 lemgo": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "|reichshof": {
+    "minuten": 28,
+    "geschaetzt": true,
+    "quelle": "Ortsname aus Cache"
   }
 }

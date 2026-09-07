@@ -3423,5 +3423,25 @@
     "minuten": 28,
     "geschaetzt": true,
     "quelle": "Ortsname aus Cache"
+  },
+  "42899|remscheid": {
+    "minuten": 74,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "51379|51379 leverkusen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "40764|40764 langenfeld (rhld.)": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "|hövels": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
   }
 }

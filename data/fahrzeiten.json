@@ -4503,5 +4503,50 @@
     "minuten": 63,
     "geschaetzt": true,
     "quelle": "Ortsname aus Cache"
+  },
+  "56335|neuhäusel, westerwald": {
+    "minuten": 53,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "24105|24105 kiel": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "40231|40231 düsseldorf": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "45138|45138 essen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "38667|38667 bad harzburg": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "|hamm": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
+  },
+  "|unnau": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
+  },
+  "|kirchhundem": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
+  },
+  "|windeck": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
   }
 }

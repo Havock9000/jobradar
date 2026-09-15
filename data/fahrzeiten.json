@@ -4548,5 +4548,135 @@
     "minuten": null,
     "geschaetzt": true,
     "quelle": "unbekannt"
+  },
+  "50996|köln": {
+    "minuten": 63,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "56235|ransbach-baumbach": {
+    "minuten": 42,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "56112|lahnstein": {
+    "minuten": 64,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "66117|66117 saarbrücken": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "04916|04916 schönewalde": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "17237|17237 carpin": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "39638|39638 gardelegen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "31134|31134 hildesheim": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "56727|56727 mayen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "70437|70437 stuttgart": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "80937|80937 münchen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "77652|77652 offenburg": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "98527|98527 suhl": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "15526|15526 bad saarow": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "10623|10623 10623 berlin": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "39307|39307 genthin": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "17036|17036 neubrandenburg": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "40822|40822 mettmann": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "91054|91054 erlangen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "74072|74072 heilbronn": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "69434|69434 hirschhorn (neckar)": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "49076|49076 osnabrück": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "54294|54294 trier": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "44287|44287 dortmund": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "32760|32760 detmold": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "12345|12345 duisburg": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
   }
 }

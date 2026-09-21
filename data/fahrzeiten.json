@@ -5278,5 +5278,30 @@
     "minuten": null,
     "geschaetzt": true,
     "quelle": "unbekannt"
+  },
+  "50354|hürth, rheinland": {
+    "minuten": 73,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "64668|64668 rimbach": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "18119|18119 rostock": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "24306|24306 plön": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "|bad hönningen": {
+    "minuten": 47,
+    "geschaetzt": true,
+    "quelle": "Ortsname aus Cache"
   }
 }

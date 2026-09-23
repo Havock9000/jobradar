@@ -5413,5 +5413,105 @@
     "minuten": null,
     "geschaetzt": true,
     "quelle": "unbekannt"
+  },
+  "51399|burscheid, rheinland": {
+    "minuten": 67,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "78073|78073 bad dürrheim": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "96047|96047 bamberg": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "65606|65606 villmar": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "91052|91052 erlangen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "42853|42853 remscheid": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "85579|85579 neubiberg": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "84051|84051 essenbach": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "03226|03226 vetschau/spreewald": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "24943|24943 flensburg": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "75172|75172 pforzheim": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "04442|04442 zwenkau": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "81677|81677 münchen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "56759|56759 kaisersesch": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "56410|56410 montabaur": {
+    "minuten": 35,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "67319|67319 wattenheim": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "34346|34346 hannoversch münden": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "32051|32051 herford bzw. bünde": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "|holzhausen": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
+  },
+  "|bannberscheid": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
   }
 }

@@ -5903,5 +5903,10 @@
     "minuten": null,
     "geschaetzt": true,
     "quelle": "unbekannt"
+  },
+  "53119|53119 bonn": {
+    "minuten": 35,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
   }
 }

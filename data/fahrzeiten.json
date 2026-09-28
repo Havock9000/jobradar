@@ -5908,5 +5908,25 @@
     "minuten": 35,
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
+  },
+  "15868|15868 lieberose": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "93333|93333 bad gögging": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "70734|70734 fellbach": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "|rennerod": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
   }
 }

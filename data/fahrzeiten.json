@@ -6753,5 +6753,75 @@
     "minuten": 120,
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
+  },
+  "56412|niederelbert": {
+    "minuten": 50,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "58762|altena, westfalen": {
+    "minuten": 70,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "49356|49356 diepholz": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "66484|66484 zweibrücken": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "25980|25980 sylt": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "55411|55411 bingen am rhein": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "88400|88400 biberach an der riß": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "14548|14548 schwielowsee": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "01326|01326 dresden": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "30163|30163 hannover": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "10437|10437 berlin": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "66123|66123 saarbrücken": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "14163|14163 berlin": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "65479|65479 raunheim": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
   }
 }

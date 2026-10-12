@@ -6928,5 +6928,25 @@
     "minuten": null,
     "geschaetzt": true,
     "quelle": "unbekannt"
+  },
+  "51145|köln": {
+    "minuten": 57,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "56412|stahlhofen, westerwald": {
+    "minuten": 53,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "04435|04435 schkeuditz": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "|drolshagen": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
   }
 }

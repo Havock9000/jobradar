@@ -7008,5 +7008,85 @@
     "minuten": null,
     "geschaetzt": true,
     "quelle": "unbekannt"
+  },
+  "20099|20099 hamburg": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "99998|99998 mühlhausen/thüringen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "06295|06295 eisleben": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "49074|49074 osnabrück": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "49082|49082 osnabrück": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "50374|50374 erftstadt": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "66917|66917 wallhalben": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "97084|97084 würzburg": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "53797|53797 lohmar": {
+    "minuten": 35,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "06114|06114 halle (saale)": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "29223|29223 celle": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "39261|39261 zerbst/anhalt": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "48159|48159 münster": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "|lahnstein": {
+    "minuten": 64,
+    "geschaetzt": true,
+    "quelle": "Ortsname aus Cache"
+  },
+  "|rheinbreitbach": {
+    "minuten": 45,
+    "geschaetzt": true,
+    "quelle": "Ortsname aus Cache"
+  },
+  "|erftstadt": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
   }
 }

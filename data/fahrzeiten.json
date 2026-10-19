@@ -7353,5 +7353,15 @@
     "minuten": null,
     "geschaetzt": true,
     "quelle": "unbekannt"
+  },
+  "56588|waldbreitbach": {
+    "minuten": 38,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "52349|52349 düren": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
   }
 }

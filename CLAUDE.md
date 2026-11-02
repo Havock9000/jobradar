@@ -11,7 +11,10 @@ veröffentlicht das Ergebnis als statische Seite über GitHub Pages.
 Der Nutzer ist Mediengestalter Bild und Ton mit Berufserfahrung in
 Videoproduktion und Performance Marketing, wohnt bei 57577 im Westerwald und
 sucht Stellen in Öffentlichkeitsarbeit, Medienproduktion, kommunaler Verwaltung
-und Medienbildung. Er ist technisch versiert — erkläre nicht, was Python ist,
+und Medienbildung. Seit 02.11.2026 zusätzlich KI-gestützte Content- und
+Videoproduktion (Cluster `ki_produktion`): belegt sind Konzeption, Vorgabe und
+Abnahme agentenbasierter Produktions-Workflows, **nicht** Programmierung —
+Stellen, die Entwicklung verlangen, bleiben über `fremdberuf` abgewertet. Er ist technisch versiert — erkläre nicht, was Python ist,
 aber begründe Designentscheidungen.
 
 ## Architektur

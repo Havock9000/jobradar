@@ -164,9 +164,27 @@ archetypen:
       - Newsletter Redaktion
       - Redaktion Website
 
+  - id: ki_produktion
+    label: "KI-Content & Creative Production"
+    rang: 3
+    notiz: >-
+      Ergänzt 02.11.2026 aus der Tätigkeitsbilanz (Juni–Nov.): belegt sind
+      KI-gestützte Videoproduktion, Lokalisierung in 5 Sprachen und der Aufbau
+      einer agentenbasierten Produktionspipeline — Konzeption, Vorgabe und
+      Abnahme, kein eigener Code. Ertrag der Begriffe bei der BA ist
+      ungemessen; nach zwei Läufen prüfen und Nullbegriffe streichen.
+    begriffe:
+      - Creative Producer
+      - Content Producer
+      - Creative Operations
+      - KI Content
+      - Generative KI
+      - KI Video
+      - AI Content
+
   - id: video
     label: "Bewegtbild & Medienproduktion"
-    rang: 3
+    rang: 4
     notiz: "Das gelernte Handwerk: Mediengestalter Bild und Ton (IHK)."
     begriffe:
       - Mediengestalter Bild und Ton
@@ -175,10 +193,12 @@ archetypen:
       - Kamera Schnitt
       - Bewegtbild
       - Medienproduktion
+      - Video Editor
+      - Videoproducer
 
   - id: wissenschaftskommunikation
     label: "Wissenschaftskommunikation"
-    rang: 4
+    rang: 5
     notiz: "Produkt statt Überzeugungsarbeit. Häufigste Ausnahme vom Studiumszwang."
     begriffe:
       - Wissenschaftskommunikation
@@ -189,7 +209,7 @@ archetypen:
 
   - id: marketing
     label: "Marketing & Kampagnen"
-    rang: 5
+    rang: 6
     notiz: "Zweite Berufserfahrung. Belegstärke laut Suchprofil: stark."
     begriffe:
       - Marketingreferent
@@ -199,7 +219,7 @@ archetypen:
 
   - id: angrenzend
     label: "Angrenzend – Titel täuscht, Aufgabe passt"
-    rang: 6
+    rang: 7
     notiz: >-
       Hier stehen Stellen, deren Titel nichts mit Kommunikation zu tun hat.
       Ob eine davon taugt, entscheidet der Score am Aufgabentext. Ein hoher
@@ -240,6 +260,13 @@ passung:
     rechte:
       gewicht: 2
       muster: [Bildrechte, Nutzungsrechte, Lizenz, Urheberrecht]
+    ki_produktion:
+      # Ergänzt 02.11.2026. Gewicht 2, nicht 3: "KI" steht inzwischen auch in
+      # Anzeigen, in denen es nur Floskel ist. Reine IT-Stellen fängt
+      # `fremdberuf` über den Titel ab. "KI" und "AI" nur als ganzes Wort —
+      # als Klartext träfe "KI" sonst "Kinder" und "Kirche".
+      gewicht: 2
+      muster: ['\bKI\b', "künstliche Intelligenz", 'generative[nrs]?\s+(KI|AI)', '\bAI\b', '\bPrompts?\b', '\b(Midjourney|Runway|Higgsfield|ElevenLabs|Sora)\b']
     grafik:
       gewicht: 1
       muster: [Grafik, Layout, Gestaltung, InDesign]

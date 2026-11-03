@@ -8108,5 +8108,85 @@
     "minuten": null,
     "geschaetzt": true,
     "quelle": "unbekannt"
+  },
+  "88212|88212 ravensburg": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "15926|15926 luckau": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "95445|95445 bayreuth": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "02943|02943 weißwasser/o.l.": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "15755|15755 teupitz": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "56295|56295 lonnig": {
+    "minuten": 35,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "17252|17252 mirow": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "72458|72458 albstadt": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "65843|65843 sulzbach (taunus)": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "18109|18109 rostock": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "68161|68161 mannheim": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "18311|18311 ribnitz-damgarten": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "60435|60435 frankfurt am main": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "42369|42369 wuppertal": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "|rheinbach": {
+    "minuten": 68,
+    "geschaetzt": true,
+    "quelle": "Ortsname aus Cache"
+  },
+  "|angelburg": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
   }
 }

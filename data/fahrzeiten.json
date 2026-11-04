@@ -8188,5 +8188,15 @@
     "minuten": null,
     "geschaetzt": true,
     "quelle": "unbekannt"
+  },
+  "56154|boppard, rhein": {
+    "minuten": 74,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "90408|90408 nürnberg": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
   }
 }

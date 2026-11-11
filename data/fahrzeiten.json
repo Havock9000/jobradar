@@ -8478,5 +8478,35 @@
     "minuten": 62,
     "geschaetzt": true,
     "quelle": "Ortsname aus Cache"
+  },
+  "30938|30938 burgwedel-großburgwedel": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "80638|80638 münchen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "37688|37688 beverungen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "10407|10407 berlin": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "04741|04741 roßwein": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "14772|14772 brandenburg an der havel": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
   }
 }

@@ -8718,5 +8718,10 @@
     "minuten": 120,
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
+  },
+  "30980|30980 barsinghausen/burgwedel/garbsen/neustadt/ronnenberg und springe": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
   }
 }

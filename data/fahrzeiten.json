@@ -9038,5 +9038,25 @@
     "minuten": 44,
     "geschaetzt": true,
     "quelle": "Ortsname aus Cache"
+  },
+  "07743|jena": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "96231|96231 bad staffelstein - schwabthal": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "44629|44629 herne": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "|kettig": {
+    "minuten": null,
+    "geschaetzt": true,
+    "quelle": "unbekannt"
   }
 }

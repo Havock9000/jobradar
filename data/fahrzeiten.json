@@ -9113,5 +9113,60 @@
     "minuten": 120,
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
+  },
+  "51061|köln": {
+    "minuten": 69,
+    "geschaetzt": true,
+    "quelle": "Luftlinie"
+  },
+  "76571|gaggenau": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "76887|76887 bad bergzabern": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "83278|83278 traunstein": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "81925|81925 münchen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "10969|10969 köln": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "10117|10117 bonn": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "76530|76530 baden-baden": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "78464|78464 konstanz": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "71332|71332 waiblingen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "04828|04828 bennewitz": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
   }
 }

@@ -9168,5 +9168,40 @@
     "minuten": 120,
     "geschaetzt": true,
     "quelle": "PLZ-Raster"
+  },
+  "14974|14974 ludwigsfelde ot genshagen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "26571|26571 juist": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "26188|26188 edewecht": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "72525|72525 münsingen": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "57462|57462 olpe": {
+    "minuten": 35,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "22415|22415 hamburg": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
+  },
+  "44791|44791 bochum": {
+    "minuten": 120,
+    "geschaetzt": true,
+    "quelle": "PLZ-Raster"
   }
 }
